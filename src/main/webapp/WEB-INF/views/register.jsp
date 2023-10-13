@@ -8,7 +8,7 @@
 <title>Đăng ký</title>
 </head>
 <body>
-<c:url var="urlRegister" value="/dang-ky?action=register"/>
+<c:url var="urlRegister" value="/api/user"/>
 
 <section class="vh-100 bg-image"
   style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
@@ -27,12 +27,12 @@
               <form id ="form-register">
 
                 <div class="form-outline mb-4">
-                  <input type="text"  class="form-control form-control-lg" name="name" placeholder="User name"/>
+                  <input type="text"  class="form-control form-control-lg" name="userName" placeholder="User name"/>
                   <label class="form-label" for="form3Example1cg"></label>
                 </div>
                 
                  <div class="form-outline mb-4">
-                  <input type="text"  class="form-control form-control-lg" name="fullname" placeholder=" Your Full Name"/>
+                  <input type="text"  class="form-control form-control-lg" name="fullName" placeholder=" Your Full Name"/>
                   <label class="form-label" for=""></label>
                 </div>
                 
@@ -47,7 +47,7 @@
                 </div>
 
 	 			<div class="form-outline mb-4">
-                  <input type="text"  class="form-control form-control-lg" name="phonenumber" placeholder="Your phone number"/>
+                  <input type="text"  class="form-control form-control-lg" name="phoneNumber" placeholder="Your phone number"/>
                   <label class="form-label" for=""></label>
                 </div>
 
@@ -103,15 +103,19 @@
 				type:'POST',
 				contentType:'application/json',
 				data:JSON.stringify(data),
-				dataType: 'json',
 				success: function(result){
-					$('#errorSystem').removeClass().addClass("alert alert-"+result.alert+"");
-					$('#errorSystem').text(result.message);
+					$('#errorSystem').removeClass().addClass("alert alert-success");
+					$('#errorSystem').text("Đăng ký thành công");
 					$('#errorSystem').show();
 				},
-				error: function(error){
+				error: function(xhr,status,error){
+					var textbody = xhr.responseText; //lấy nội dung phản hồi từ body
 					$('#errorSystem').removeClass().addClass("alert alert-danger");
-					$('#errorSystem').text("Có lỗi hệ thống xảy ra")
+					if(textbody.trim()===""){
+						$('#errorSystem').text("Lỗi hệ thống");
+					}else{
+						$('#errorSystem').text(textbody);
+					}
 					$('#errorSystem').show();
 				}
 			});

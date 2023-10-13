@@ -7,6 +7,7 @@ import com.leminhtien.dto.UserDTO;
 public interface IUserService {
 	
 	List<UserDTO> findAll();
-	UserDTO findByName();
+	UserDTO findByName(String userName);
+	UserDTO save(UserDTO userDTO);
 
 }

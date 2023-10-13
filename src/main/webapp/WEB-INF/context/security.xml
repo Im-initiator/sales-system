@@ -7,11 +7,12 @@
             http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
             http://www.springframework.org/schema/security
             http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+	
 	<http auto-config="false" use-expressions="true" disable-url-rewriting="true">
-  <!--      
+        
        <intercept-url pattern="/home" access="permitAll"/>
        <intercept-url pattern="/admin" access="hasAnyRole('ADMIN')"/>
-	 -->
+	      
 		<access-denied-handler error-page="/access-denied" /> 
 		<form-login login-page="/login"
 			username-parameter="j_username" 
@@ -21,14 +22,20 @@
 			authentication-failure-url="/login?incorrectAccount" />
 		<session-management invalid-session-url="/login?sessiontimeout" />
 		<logout delete-cookies="JSESSIONID" />
+		
+	 <custom-filter before="FORM_LOGIN_FILTER" ref="JwtAuthenticationFilter"/>
 	</http>
+	
 	<authentication-manager>
 		<authentication-provider user-service-ref="CustomUserdetailsService">
 			<password-encoder ref="bcryptEncoder"/>
 		</authentication-provider>
 	</authentication-manager>
 	
+	 
 	<beans:bean id="bcryptEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 	<beans:bean id="CustomUserdetailsService"  class="com.leminhtien.service.impl.CustomUserdetailsService"/>
 	<beans:bean id="customSuccessHandler" class="com.leminhtien.security.CustomSuccessHandler"/>
-</beans:beans>
+	 <beans:bean id="JwtAuthenticationFilter" class="com.leminhtien.security.JwtAuthenticationFilter"/> 
+
+</beans:beans> 

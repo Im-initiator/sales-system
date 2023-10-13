@@ -21,7 +21,7 @@
 
               http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<context:component-scan base-package="com.leminhtien.controller" />
+	<context:component-scan base-package="com.leminhtien.controller,com.leminhtien.api" />
 	<mvc:annotation-driven />
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -29,5 +29,5 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 	
-	<mvc:resources location="/template/" mapping="/template/**"></mvc:resources>
+	<mvc:resources location="/template/" mapping="/template/**"></mvc:resources> 
 </beans>

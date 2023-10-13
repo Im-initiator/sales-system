@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.leminhtien.utils.SecurityUtils" %>
 <%@ include file="/common/taglib.jsp" %>
 <!DOCTYPE html>
 <html>
@@ -69,19 +70,19 @@
                 </div>
                 <div class="col-lg-3">
                     <div class="header__right">
-                      <c:if test="${empty USERMODEL}">
+                    <sec:authorize access="isAnonymous()">
 			        	   <div class="header__right__auth">
 	                            <a href="<c:url value='/login'/>">Login</a>
 	                            <a href="<c:url value='/register'/>">Register</a>
                       	   </div>
         
-				        </c:if>
-				        <c:if test="${not empty USERMODEL}">
+				    </sec:authorize>
+				    <sec:authorize access="isAuthenticated()">
 				        	<div class="header__right__auth">
-	                            <a href="#">${USERMODEL.fullname}</a>
+	                            <a href="#">Wellcome <%= SecurityUtils.getPrincipal().getFullName() %></a>
 	                            <a href="<c:url value='/thoat?action=logout'/>">Thoát</a>
                       	    </div>
-				        </c:if>
+				    </sec:authorize>
                         <ul class="header__right__widget">
                             <li><span class="icon_search search-switch"></span></li>
                             <li><a href="#"><span class="icon_heart_alt"></span>

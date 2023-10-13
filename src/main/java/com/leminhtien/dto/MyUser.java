@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.User;
 public class MyUser extends User{
 
 	private String fullName;
+	private Long id;
 
 	private static final long serialVersionUID = 1L;
 
@@ -24,6 +25,14 @@ public class MyUser extends User{
 
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }
