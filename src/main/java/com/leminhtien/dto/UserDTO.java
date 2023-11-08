@@ -1,11 +1,11 @@
 package com.leminhtien.dto;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class UserDTO {
 	
-	 
+	private Long id; 
+	
 	private String userName;
 	 
 	private String password;
@@ -18,7 +18,11 @@ public class UserDTO {
 	 
 	private String email;
 	
-	private List<UserDTO> list = new ArrayList<UserDTO>();
+	private Integer status;
+	
+	private List<UserDTO> list ;
+	
+	private List<String> roles ;
 	
 	public String getUserName() {
 		return userName;
@@ -84,7 +88,24 @@ public class UserDTO {
 		this.list = list;
 	}
 
-	private Integer status;
+	public List<String> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<String> roles) {
+		this.roles = roles;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	
+	
 	
 
 }

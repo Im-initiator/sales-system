@@ -19,9 +19,9 @@
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/product'/>">Danh sách sản phẩm</a></li>
-                <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/user'/>">Danh sách tài khoản</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Danh sách loại sản phẩm</a></li>
+                <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/product?page=1'/>">Danh sách sản phẩm</a></li>
+                <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/user?page=1'/>">Danh sách tài khoản</a></li>
+                <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/category?page=1'/>">Danh sách loại sản phẩm</a></li>
               </ul>
             </div>
           </li>

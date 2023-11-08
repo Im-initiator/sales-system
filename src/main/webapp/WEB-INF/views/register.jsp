@@ -69,8 +69,7 @@
                 </div>
 
                 <div class="d-flex justify-content-center">
-                  <button type="button" id="register"
-                    class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>
+                  <button type="button" id="register" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>
                 </div>
 
                 <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="<c:url value='/dang-nhap?action=login'/>"
@@ -107,16 +106,30 @@
 					$('#errorSystem').removeClass().addClass("alert alert-success");
 					$('#errorSystem').text("Đăng ký thành công");
 					$('#errorSystem').show();
+					element.show();
+					 setTimeout(function() {
+					    	element.hide(); // Ẩn thông báo sau 3 giây
+					    	element.removeClass("alert alert-success");
+					 }, 2000);	   
+
+					
 				},
 				error: function(xhr,status,error){
 					var textbody = xhr.responseText; //lấy nội dung phản hồi từ body
 					$('#errorSystem').removeClass().addClass("alert alert-danger");
 					if(textbody.trim()===""){
 						$('#errorSystem').text("Lỗi hệ thống");
+						
 					}else{
 						$('#errorSystem').text(textbody);
 					}
+
 					$('#errorSystem').show();
+					 setTimeout(function() {
+					    	element.hide(); // Ẩn thông báo sau 3 giây
+					    	element.removeClass("alert alert-danger");
+					 }, 2000);	 
+					
 				}
 			});
 		}

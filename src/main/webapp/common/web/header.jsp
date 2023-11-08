@@ -80,7 +80,7 @@
 				    <sec:authorize access="isAuthenticated()">
 				        	<div class="header__right__auth">
 	                            <a href="#">Wellcome <%= SecurityUtils.getPrincipal().getFullName() %></a>
-	                            <a href="<c:url value='/thoat?action=logout'/>">Thoát</a>
+	                            <a href="<c:url value='/logout'/>">Thoát</a>
                       	    </div>
 				    </sec:authorize>
                         <ul class="header__right__widget">
