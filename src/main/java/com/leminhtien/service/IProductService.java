@@ -11,6 +11,6 @@ public interface IProductService {
 	List<ProductDTO> findAll(Pageable pageable);
 	ProductDTO findById(Long id);
 	ProductDTO save(ProductDTO productDTO);
-	boolean delete(Long ids[]);
+	boolean delete(Long[] ids);
 	long count();
 }

@@ -3,8 +3,9 @@ package com.leminhtien.dto;
 import java.util.List;
 
 import com.leminhtien.entity.CategoryEntity;
+import org.springframework.web.multipart.MultipartFile;
 
-public class ProductDTO {
+public class ProductDTO extends BaseDTO{
 
 	private Long id;
 	
@@ -27,6 +28,11 @@ public class ProductDTO {
 	private List<String> sizes;
 	
 	private CategoryEntity category;
+
+	private MultipartFile fileImage;
+
+	public ProductDTO() {
+	}
 
 	public Long getId() {
 		return id;
@@ -115,8 +121,15 @@ public class ProductDTO {
 	public void setCategoryCode(String categoryCode) {
 		this.categoryCode = categoryCode;
 	}
-	
-	
-	
-	
+
+	public void setFileImage(MultipartFile fileImage) {
+		this.fileImage = fileImage;
+	}
+
+	public MultipartFile getFileImage() {
+		return fileImage;
+	}
+
+
+
 }
