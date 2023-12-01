@@ -9,6 +9,7 @@
 </head>
 <body>
 <c:url var="urlCategory" value="/api/admin/category"/>
+<c:url var="urlList" value="/admin/category"/>
 
 <div class="container">
 		<div class="row">    
@@ -71,7 +72,8 @@
 		   						</tbody>     						   
 					  		</table>        
 	         	 	  </div> 
-	         	 	  <input id="page" type="hidden" value="" name="page"/>    	         	 	
+	         	 	  <input id="page" type="hidden" value="" name="page"/>
+					<input id="name_search" type="hidden" value="" name="name"/>
 	         	</form>  
 				         <div class="row mt-3" id="paging">
 							<div class="col-sm-12 ">
@@ -86,11 +88,11 @@
 		
 	</div>
 	<!-- Modal edit  -->
-		<div class="modal fade" id="ModelEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal fade" id="ModelEdit" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
 			  <div class="modal-dialog">
 			    <div class="modal-content">
 			      <div class="modal-header">
-			        <h5 class="modal-title" id="exampleModalLabel">Add new Category</h5>
+			        <h5 class="modal-title" id="exampleModalLabel2">Add new Category</h5>
 			        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			      </div>
 			      <div class="modal-body">
@@ -133,7 +135,8 @@
 		    
 		    $("[data-toggle=tooltip]").tooltip();
 	});
-	
+	var urlParams = new URLSearchParams(window.location.search);
+	var paramValue = urlParams.get('name');
 	var currentPage = ${page};
 	var totalItem = ${totalItem};
 	var limit = ${limit}
@@ -144,7 +147,12 @@
             totalPages: totalpage,
             visiblePages: 10,
             onPageClick: function (event, page) {
-            	if(page!=currentPage){
+            	if(page!==currentPage){
+					if(paramValue!==null){
+						$('#name_search').val(paramValue);
+					}else{
+						$('#name_search').prop('disabled', true);
+					}
             		$('#page').val(page);
                 	$('#formSubmit').submit();
             	}
@@ -323,6 +331,57 @@
      		    console.log(this);
     	  });
      });
+
+	var divSearch = $('#content-search');
+	$('#search-product').keyup(function(){
+		var count = 0;
+		divSearch.hide();
+		divSearch.empty();
+//		var data ={"name":$('#search-product').val()}
+		var value = $('#search-product').val();
+		var data = "name="+value;
+		if(value !== ''){
+			$.ajax({
+				url:'${urlCategory}',
+				type:'GET',
+				data:data,
+				//			contentType:'application/json',
+				dataType:'json',
+				success: function (result) {
+					divSearch.show();
+
+					// Lặp qua mảng JSON chứa các tên sản phẩm
+					$.each(result, function(index, productName) {
+						// Tạo thẻ a và thêm nội dung vào thẻ a
+						var productLink = $("<a>").html(productName.name);
+
+						// Bổ sung class "x" vào thẻ a
+						productLink.addClass("text-dark text-decoration-none d-block m-3");
+
+						//thêm thuộc tính href
+						productLink.attr("href", "${urlList}"+"?name="+value+"&page=1");
+
+						// Thêm thẻ a vào thẻ div
+						divSearch.append(productLink);
+						count ++;
+						if (count >= 5) {
+							return false; // Dừng vòng lặp khi count đạt giá trị 5
+						}
+					});
+
+				},
+				error: function (xhr,status,error) {
+					console.log('không gửi được');
+					console.log(xhr.responseText);
+				}
+			})
+		}else{
+			divSearch.hide();
+			divSearch.empty();
+		}
+		console.log(data);
+
+	})
 		  
 
 	</script>

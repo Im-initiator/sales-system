@@ -15,11 +15,11 @@
   <link rel="stylesheet" href="<c:url value='/template/admin/vendors/css/vendor.bundle.base.css'/>">
   <link href="<c:url value='/template/web/bootstrap/css/bootstrap.min.css'/>" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-  <link rel="stylesheet" href="<c:url value='/template/admin/style.css'/>">
   <script src="<c:url value='/template/web/bootstrap/js/bootstrap.min.js'/>"></script>
   <script src="<c:url value='/template/famework/jquery.js'/>"></script>
   <script src="<c:url value='/template/admin/style.js'/>"></script>
   <script src="<c:url value='/template/ckeditor/ckeditor.js'/>"></script>
+  <link rel="stylesheet" href="<c:url value='/template/admin/style.css'/>">
   
   
   <!-- endinject -->

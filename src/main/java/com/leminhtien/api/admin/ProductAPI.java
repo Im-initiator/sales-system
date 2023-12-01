@@ -1,14 +1,14 @@
 package com.leminhtien.api.admin;
 
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.leminhtien.dto.ProductDTO;
 import com.leminhtien.service.IProductService;
@@ -18,6 +18,18 @@ public class ProductAPI {
 
 	@Autowired
 	private IProductService productService;
+
+	@GetMapping(value = "/api/admin/product")
+	@ResponseBody
+	public List<ProductDTO> find(@RequestParam("name") String name, @RequestParam(value = "page",required = false) Integer page){
+		Pageable pageable = null;
+		if(page == null){
+			 pageable = new PageRequest(0,3);
+		}else{
+			 pageable = new PageRequest(page-1,3);
+		}
+        return productService.searchByName(name,pageable);
+	}
 
 	@PostMapping(value = "/api/admin/product")
 	public ResponseEntity<?> saveProduct(@RequestBody ProductDTO product) {

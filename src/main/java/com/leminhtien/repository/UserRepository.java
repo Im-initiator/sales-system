@@ -14,4 +14,8 @@ public interface UserRepository extends JpaRepository<UserEntity,Long>{
 	List<UserEntity> findAllByOrderByFullName(Pageable pageable);
 	UserEntity findOneByUserName(String userName);
 	void deleteByUserName(String name);
+
+	long countByUserNameOrFullNameContaining(String userName, String fullName);
+	List<UserEntity> findAllByUserNameOrFullNameContaining(String name,String fullName, Pageable pageable);
+	List<UserEntity> findAllByUserNameOrFullNameContaining(String name,String fullName);
 }

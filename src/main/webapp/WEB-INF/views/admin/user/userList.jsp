@@ -10,6 +10,7 @@
 <body>
 <c:url var="urlRegister" value="/api/user"/>
 <c:url var="urlUser" value="/api/admin/user"/>
+<c:url var="urlList" value="/admin/user"/>
 
 <div class="container">
 		<div class="row">    
@@ -108,9 +109,10 @@
 		   						</tbody>     						   
 					  		</table>        
 	         	 	  </div> 
-	         	 	  <input id="page" type="hidden" value="" name="page"/>    
-	         	 	
-	         	</form>  
+	         	 	  <input id="page" type="hidden" value="" name="page"/>
+					  <input id="name_search" type="hidden" value="" name="name"/>
+
+				</form>
 				         <div class="row mt-3" id="paging">
 							<div class="col-sm-12 ">
 								<nav aria-label="Page navigation">
@@ -142,7 +144,8 @@
 		    
 		    $("[data-toggle=tooltip]").tooltip();
 	});
-
+	var urlParams = new URLSearchParams(window.location.search);
+	var paramValue = urlParams.get('name');
 	var currentPage = ${page};
 	var totalItem = ${totalItem};
 	var limit = ${limit}
@@ -153,7 +156,12 @@
             totalPages: totalpage,
             visiblePages: 10,
             onPageClick: function (event, page) {
-            	if(page!=currentPage){
+            	if(page!==currentPage){
+					if(paramValue!==null){
+						$('#name_search').val(paramValue);
+					}else{
+						$('#name_search').prop('disabled', true);
+					}
             		$('#page').val(page);
                 	$('#formSubmit').submit();
             	}
@@ -266,8 +274,57 @@
 					}
 			 	 });
 		  });
-    
-	
+
+	var divSearch = $('#content-search');
+	$('#search-product').keyup(function(){
+		var count = 0;
+		divSearch.hide();
+		divSearch.empty();
+//		var data ={"name":$('#search-product').val()}
+		var value = $('#search-product').val();
+		var data = "name="+value;
+		if(value !== ''){
+			$.ajax({
+				url:'${urlUser}',
+				type:'GET',
+				data:data,
+				//			contentType:'application/json',
+				dataType:'json',
+				success: function (result) {
+					divSearch.show();
+
+					// Lặp qua mảng JSON chứa các tên sản phẩm
+					$.each(result, function(index, user) {
+						// Tạo thẻ a và thêm nội dung vào thẻ a
+						var userLink = $("<a>").html(user.userName);
+
+						// Bổ sung class "x" vào thẻ a
+						userLink.addClass("text-dark text-decoration-none d-block m-3");
+
+						//thêm thuộc tính href
+						userLink.attr("href", "${urlList}"+"?name="+value+"&page=1");
+
+						// Thêm thẻ a vào thẻ div
+						divSearch.append(userLink);
+						count ++;
+						if (count >= 5) {
+							return false; // Dừng vòng lặp khi count đạt giá trị 5
+						}
+					});
+
+				},
+				error: function (xhr,status,error) {
+					console.log('không gửi được');
+					console.log(xhr.responseText);
+				}
+			})
+		}else{
+			divSearch.hide();
+			divSearch.empty();
+		}
+		console.log(data);
+
+	})
 
 
 	</script>

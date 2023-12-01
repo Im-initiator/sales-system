@@ -1,14 +1,11 @@
 package com.leminhtien.api.admin;
 
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.leminhtien.dto.UserDTO;
 import com.leminhtien.service.IUserService;
@@ -19,7 +16,12 @@ public class UserAPI {
 	@Autowired
 	IUserService userService;
 	
-	
+	@GetMapping(value ="/api/admin/user")
+	@ResponseBody
+	public List<UserDTO> find(@RequestParam("name") String name){
+		return userService.findAllByUserNameOrFullNameContaining(name);
+	}
+
 	@PostMapping("/api/user")
 	public ResponseEntity<?> saveUser(@RequestBody UserDTO userDTO) {	
 		//ResponseEntity<?> đại diện cho phải hồi HTTP

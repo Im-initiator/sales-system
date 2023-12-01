@@ -1,5 +1,6 @@
 package com.leminhtien.security;
 
+import java.io.Console;
 import java.io.IOException;
 import java.util.List;
 
@@ -41,6 +42,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 					if (checkRole(roles, "ADMIN")) {
 						String jwt = getJwtFromRequest(request);
 						if (jwt != null && tokenProvider.validateToken(jwt)) {
+							System.out.println("aaaa");
 							filterChain.doFilter(request, response);
 						} else {
 							throw new Exception();

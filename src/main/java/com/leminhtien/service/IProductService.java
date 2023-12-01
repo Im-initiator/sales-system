@@ -13,4 +13,7 @@ public interface IProductService {
 	ProductDTO save(ProductDTO productDTO);
 	boolean delete(Long[] ids);
 	long count();
+
+	long countByName(String name);
+	List<ProductDTO> searchByName(String name,Pageable pageable);
 }

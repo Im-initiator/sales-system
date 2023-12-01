@@ -3,10 +3,14 @@ package com.leminhtien.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
+import javax.transaction.TransactionalException;
 
+import org.hibernate.QueryException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -147,6 +151,39 @@ public class UserServiceImpl implements IUserService{
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	@Override
+	public long countByUserNameORFullNameContaining(String name) {
+		return userRepository.countByUserNameOrFullNameContaining(name,name);
+	}
+
+	@Override
+	public List<UserDTO> findAllByUserNameOrFullNameContaining(String name) {
+		try {
+			List<UserEntity>  list =  userRepository.findAllByUserNameOrFullNameContaining(name,name);
+			List<UserDTO> result = new ArrayList<>();
+			for(UserEntity item : list){
+				result.add(mapper.map(item,UserDTO.class));
+			}
+			return result;
+		}catch (TransactionalException | EntityNotFoundException | DataAccessException | QueryException e){
+			return null;
+		}
+	}
+
+	@Override
+	public List<UserDTO> findAllByUserNameOrFullNameContaining(String name, Pageable pageable) {
+		try {
+			List<UserEntity>  list =  userRepository.findAllByUserNameOrFullNameContaining(name,name,pageable);
+			List<UserDTO> result = new ArrayList<>();
+			for(UserEntity item : list){
+				result.add(mapper.map(item,UserDTO.class));
+			}
+			return result;
+		}catch (TransactionalException | EntityNotFoundException | DataAccessException | QueryException e){
+			return null;
+		}
 	}
 
 	@Override

@@ -18,4 +18,8 @@ public interface IUserService {
 	boolean deleteUser(Long[] ids);
 	boolean deleteUser(String[] names);
 
+	long countByUserNameORFullNameContaining(String name);
+	List<UserDTO> findAllByUserNameOrFullNameContaining(String name);
+	List<UserDTO> findAllByUserNameOrFullNameContaining(String name,Pageable pageable);
+
 }

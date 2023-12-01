@@ -5,10 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,7 @@ import com.leminhtien.dto.CategoryDTO;
 import com.leminhtien.entity.CategoryEntity;
 import com.leminhtien.repository.CategoryRepository;
 import com.leminhtien.service.ICategoryService;
+import org.springframework.transaction.TransactionSystemException;
 
 @Service
 public class CategoryService implements ICategoryService{
@@ -103,6 +106,38 @@ public class CategoryService implements ICategoryService{
 		return categoryRepository.count();
 	}
 
-	
+	@Override
+	public long countByNameContaining(String name) {
+		return categoryRepository.countByNameContaining(name);
+	}
+
+	@Override
+	public List<CategoryDTO> findByNameContaining(String name, Pageable pageable) {
+		try{
+			List<CategoryEntity> list = categoryRepository.findByNameContaining(name,pageable);
+			List<CategoryDTO> result = new ArrayList<>();
+			for (CategoryEntity item : list){
+				result.add(mapper.map(item,CategoryDTO.class));
+			}
+			return result;
+		}catch (TransactionSystemException | DataAccessException | EntityNotFoundException e){
+			return null;
+		}
+	}
+
+	@Override
+	public List<CategoryDTO> findByNameContaining(String name) {
+		try{
+			List<CategoryEntity> list = categoryRepository.findByNameContaining(name);
+			List<CategoryDTO> result = new ArrayList<>();
+			for (CategoryEntity item : list){
+				result.add(mapper.map(item,CategoryDTO.class));
+			}
+			return result;
+		}catch (TransactionSystemException | DataAccessException | EntityNotFoundException e){
+			return null;
+		}
+	}
+
 
 }

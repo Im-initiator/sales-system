@@ -1,5 +1,6 @@
 package com.leminhtien.controller.admin;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -27,16 +28,24 @@ public class UserController {
 	private IRoleService roleService;
 	
 	@RequestMapping(value="/admin/user", method = RequestMethod.GET)
-	public ModelAndView getUser(@RequestParam("page") int page) {
+	public ModelAndView getUser(@RequestParam("page") int page, @RequestParam(value = "name",required = false)String name) {
 		ModelAndView mav = new ModelAndView("/admin/user/userList");
 		int limit = 3;//limit
+		long count = 0;
 		Pageable pageable = new PageRequest(page-1, limit);
-		List<UserDTO> users = userService.findAllByOrderByFullName(pageable);
 		UserDTO userDTO = new UserDTO();
-		userDTO.setList(users);
 		List<RoleDTO> role = roleService.findAll();
+		List<UserDTO> users = new ArrayList<>();
+		if(name!= null){
+			users = userService.findAllByUserNameOrFullNameContaining(name,pageable);
+			count = userService.countByUserNameORFullNameContaining(name);
+		}else {
+			users = userService.findAllByOrderByFullName(pageable);
+			count = userService.count();
+		}
+		userDTO.setList(users);
 		mav.addObject("page", page);
-		mav.addObject("totalItem", userService.count());
+		mav.addObject("totalItem",count);
 		mav.addObject("model",userDTO);
 		mav.addObject("limit",limit);
 		mav.addObject("Role",role);

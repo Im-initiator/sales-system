@@ -10,4 +10,9 @@ import com.leminhtien.entity.CategoryEntity;
 public interface CategoryRepository extends JpaRepository<CategoryEntity, Long>{
 	CategoryEntity findOneByCode(String code);
 	List<CategoryEntity> findAllByOrderByName(Pageable pageable);
+
+	List<CategoryEntity> findByNameContaining(String name, Pageable pageable);
+	List<CategoryEntity> findByNameContaining(String name);
+
+	long countByNameContaining(String name);
 }

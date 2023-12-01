@@ -1,22 +1,29 @@
 package com.leminhtien.api.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.leminhtien.dto.CategoryDTO;
 import com.leminhtien.service.ICategoryService;
+
+import java.util.List;
 
 @RestController
 public class CategoryAPI {
 	
 	@Autowired
 	private ICategoryService categoryService;
-	
+
+
+	@GetMapping(value = "/api/admin/category")
+	@ResponseBody
+	public List<CategoryDTO> findByName(@RequestParam("name")String name){
+		return categoryService.findByNameContaining(name);
+	}
+
 	@PostMapping(value = "/api/admin/category")
 	public ResponseEntity<?> save(@RequestBody CategoryDTO category) {
 		CategoryDTO categoryResponse = categoryService.save(category);
@@ -46,5 +53,7 @@ public class CategoryAPI {
 			return ResponseEntity.badRequest().body("Error: Xóa không thành công");
 		}
 	}
+
+
 
 }

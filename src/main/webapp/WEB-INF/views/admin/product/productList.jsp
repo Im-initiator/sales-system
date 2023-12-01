@@ -6,10 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 </head>
 <body>
 <c:url var="urlProduct" value="/api/admin/product"/>
-
+<c:url var="urlList" value="/admin/product"/>
 <div class="container">
 		<div class="row">    
 			<div class="col-md-12">
@@ -21,7 +22,7 @@
 			
 				<form action="<c:url value='/admin/product'/>" id="formSubmit" method="GET"> 
 					<div class="table-responsive">    							       
-							<table id="mytable" class="table table-bordred table-striped">         							
+							<table id="mytable" class="table table-bordred table-striped">
 								<thead>    								             
 							         <th><input type="checkbox" id="checkall"/><button type="button" class="btn text-danger" id="delete-product"> <i class="bi bi-trash fs-4"></i></button></th>
 							         <th>Name</th>
@@ -36,21 +37,30 @@
 									<c:forEach items="${model}" var ="product"> 
 									    <tr>
 									    	<td><input type="checkbox" value="${product.id}"/></td>
-										    <td>${product.name}</td>   
-										    <td>${product.prize}</td>
+											<td>${product.name}</td>
+											<td>${product.prize}</td>
 										    <td>${product.shortDescription}</td>										   
 										    <td>${product.quantity}</td>   
 										    <td>${product.img}</td>
-										    <td>${product.content}</td>
+
+										    <td>
+												<div class="td-container">
+													<div class="td-content">
+													${product.content}
+													</div>
+												</div>
+											</td>
+
 										    <td><a href="<c:url value='/admin/edit/product?id=${product.id}'/>" title="Chỉnh sửa"><i class="bi bi-pencil-square bs-bx p-2"></i></a></td>									    										   							
 									    </tr>
 			    					</c:forEach> 
 		   						</tbody>     						   
 					  		</table>        
 	         	 	  </div> 
-	         	 	  <input id="page" type="hidden" value="" name="page"/>    
-	         	 	
-	         	</form>  
+	         	 	  <input id="page" type="hidden" value="" name="page"/>
+					<input id="name" type="hidden" value="" name="name"/>
+
+				</form>
 				         <div class="row mt-3" id="paging">
 							<div class="col-sm-12 ">
 								<nav aria-label="Page navigation">
@@ -84,7 +94,8 @@
 		    
 		    $("[data-toggle=tooltip]").tooltip();
 	});
-	
+	var urlParams = new URLSearchParams(window.location.search);
+	var paramValue = urlParams.get('name');
 	var currentPage = ${page};
 	var totalItem = ${totalItem};
 	var limit = ${limit}
@@ -97,6 +108,11 @@
             onPageClick: function (event, page) {
             	if(page!=currentPage){
             		$('#page').val(page);
+					if(paramValue!==null){
+						$('#name').val(paramValue);
+					}else{
+						$('#name').prop('disabled', true);
+					}
                 	$('#formSubmit').submit();
             	}
             }
@@ -160,7 +176,57 @@
 					}
 			 	 });
 		  });
-    
+
+	var divSearch = $('#content-search');
+	$('#search-product').keyup(function(){
+		var count = 0;
+		divSearch.hide();
+		divSearch.empty();
+//		var data ={"name":$('#search-product').val()}
+		var value = $('#search-product').val();
+		var data = "name="+value;
+		if(value !== ''){
+			$.ajax({
+				url:'${urlProduct}',
+				type:'GET',
+				data:data,
+	//			contentType:'application/json',
+				dataType:'json',
+				success: function (result) {
+					divSearch.show();
+
+					// Lặp qua mảng JSON chứa các tên sản phẩm
+					$.each(result, function(index, productName) {
+						// Tạo thẻ a và thêm nội dung vào thẻ a
+						var productLink = $("<a>").html(productName.name);
+
+						// Bổ sung class "x" vào thẻ a
+						productLink.addClass("text-dark text-decoration-none d-block m-3");
+
+						//thêm thuộc tính href
+						productLink.attr("href", "${urlList}"+"?name="+value+"&page=1");
+
+						// Thêm thẻ a vào thẻ div
+						divSearch.append(productLink);
+						count ++;
+						if (count >= 5) {
+							return false; // Dừng vòng lặp khi count đạt giá trị 5
+						}
+					});
+
+				},
+				error: function (xhr,status,error) {
+					console.log('không gửi được');
+					console.log(xhr.responseText);
+				}
+			})
+		}else{
+			divSearch.hide();
+			divSearch.empty();
+		}
+		console.log(data);
+
+	})
 	
 		  
 

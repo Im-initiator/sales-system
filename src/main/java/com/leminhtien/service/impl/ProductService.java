@@ -11,6 +11,8 @@ import javax.transaction.Transactional;
 
 import com.leminhtien.utils.FileUtils;
 import com.leminhtien.utils.SecurityUtils;
+import org.hibernate.annotations.Proxy;
+import org.hibernate.proxy.HibernateProxy;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -92,9 +94,7 @@ public class ProductService implements IProductService {
     @Override
     @Transactional
     public ProductDTO save(ProductDTO productDTO) {
-
         try {
-
             if (productDTO != null) {
                 CategoryEntity categoryEntity = categoryRepository.findOneByCode(productDTO.getCategoryCode());
                 if (productDTO.getId() != null) {
@@ -191,6 +191,22 @@ public class ProductService implements IProductService {
     @Override
     public long count() {
         return productRepository.count();
+    }
+
+    @Override
+    public long countByName(String name) {
+        return productRepository.countByNameContaining(name);
+    }
+
+    @Override
+    public List<ProductDTO> searchByName(String name, Pageable pageable) {
+        List<ProductEntity> list = productRepository.findAllByNameContaining(name,pageable);
+        List<ProductDTO> result = new ArrayList<>();
+        for(ProductEntity item : list){
+            result.add(mapper.map(item,ProductDTO.class));
+        }
+        return result;
+
     }
 
 

@@ -27,7 +27,7 @@ public class ProductDTO extends BaseDTO{
 	
 	private List<String> sizes;
 	
-	private CategoryEntity category;
+	private CategoryDTO category;
 
 	private MultipartFile fileImage;
 
@@ -106,11 +106,11 @@ public class ProductDTO extends BaseDTO{
 		this.sizes = sizes;
 	}
 
-	public CategoryEntity getCategory() {
+	public CategoryDTO getCategory() {
 		return category;
 	}
 
-	public void setCategory(CategoryEntity category) {
+	public void setCategory(CategoryDTO category) {
 		this.category = category;
 	}
 

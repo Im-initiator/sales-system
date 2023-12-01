@@ -1,6 +1,7 @@
 package com.leminhtien.controller.admin;
 
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -39,13 +40,21 @@ public class ProductController {
 
 	
 	@RequestMapping(value = "/admin/product", method = RequestMethod.GET)
-	public ModelAndView producttList(@RequestParam("page") int page) {
+	public ModelAndView producttList(@RequestParam("page") int page, @RequestParam(value = "name",required = false) String name) {
 		ModelAndView mav = new ModelAndView("/admin/product/productList");
 		int limit = 3;//có thể thay đổi
 		Pageable pageable = new PageRequest(page-1,limit);
-		List<ProductDTO> model = productService.findAll(pageable);
+		List<ProductDTO> model = new ArrayList<>();
+		long count =0;
+		if(name == null){
+			 model = productService.findAll(pageable);
+			 count = productService.count();
+		}else{
+			model = productService.searchByName(name,pageable);
+			count = productService.countByName(name);
+		}
 		mav.addObject("model",model);
-		mav.addObject("totalItem", productService.count());
+		mav.addObject("totalItem", count);
 		mav.addObject("limit", limit);
 		mav.addObject("page", page);
 		return mav;
@@ -53,8 +62,6 @@ public class ProductController {
 
 	@RequestMapping(value = "/admin/edit/product", method = RequestMethod.POST)
 	public ResponseEntity<?> save(@ModelAttribute("model") ProductDTO product){
-		System.out.println(product.getCategoryCode());
-		System.out.println(product.getCategoryCode().getClass());
 		ProductDTO productDTO = productService.save(product);
 		if (productDTO != null) {
 			return ResponseEntity.ok(productDTO);
@@ -69,7 +76,6 @@ public class ProductController {
 		ProductDTO product = new ProductDTO();
 		if(id != null) {
 			 product = productService.findById(id);
-			
 		}
 		mav.addObject("model", product);
 		Map<String, String> categories = categoryService.selectAll();

@@ -19,14 +19,21 @@ public class CategoryController {
 	
 	
 	@RequestMapping(value = "/admin/category",method = RequestMethod.GET)
-	public ModelAndView findAll(@RequestParam("page") int page) {
+	public ModelAndView findAll(@RequestParam("page") int page, @RequestParam(value = "name",required = false) String name) {
 		ModelAndView mav = new ModelAndView("/admin/category/listCategory");
 		int limit = 3;
 		Pageable pageable = new PageRequest(page-1, limit);
-		mav.addObject("model",categoryService.findAll(pageable));
-		mav.addObject("page",page);
-		mav.addObject("limit", limit);
-		mav.addObject("totalItem", categoryService.count());
+		if(name!= null){
+			mav.addObject("model",categoryService.findByNameContaining(name,pageable));
+			mav.addObject("page",page);
+			mav.addObject("limit", limit);
+			mav.addObject("totalItem", categoryService.countByNameContaining(name));
+		}else{
+			mav.addObject("model",categoryService.findAll(pageable));
+			mav.addObject("page",page);
+			mav.addObject("limit", limit);
+			mav.addObject("totalItem", categoryService.count());
+		}
 		return mav;
 	}
 

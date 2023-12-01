@@ -11,7 +11,7 @@
 	<http auto-config="false" use-expressions="true" disable-url-rewriting="true">
         
        <intercept-url pattern="/home" access="permitAll"/>
-       <intercept-url pattern="/admin" access="hasAnyRole('ADMIN')"/>
+       <intercept-url pattern="/admin/**" access="hasAnyRole('ADMIN')"/>
 	      
 		<access-denied-handler error-page="/access-denied" /> 
 		<form-login login-page="/login"
@@ -22,20 +22,18 @@
 			authentication-failure-url="/login?incorrectAccount" />
 		<session-management invalid-session-url="/login?sessiontimeout" />
 		<logout delete-cookies="JSESSIONID" />
-		
-	 <custom-filter before="FORM_LOGIN_FILTER" ref="JwtAuthenticationFilter"/>
+	 <custom-filter before="FORM_LOGIN_FILTER" ref="jwtAuthenticationFilter"/>
 	</http>
 	
 	<authentication-manager>
-		<authentication-provider user-service-ref="CustomUserdetailsService">
+		<authentication-provider user-service-ref="customUserdetailsService">
 			<password-encoder ref="bcryptEncoder"/>
 		</authentication-provider>
 	</authentication-manager>
-	
 	 
 	<beans:bean id="bcryptEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
-	<beans:bean id="CustomUserdetailsService"  class="com.leminhtien.service.impl.CustomUserdetailsService"/>
+	<beans:bean id="customUserdetailsService"  class="com.leminhtien.service.impl.CustomUserdetailsService"/>
 	<beans:bean id="customSuccessHandler" class="com.leminhtien.security.CustomSuccessHandler"/>
-	 <beans:bean id="JwtAuthenticationFilter" class="com.leminhtien.security.JwtAuthenticationFilter"/>
+	 <beans:bean id="jwtAuthenticationFilter" class="com.leminhtien.security.JwtAuthenticationFilter"/>
 
 </beans:beans> 
