@@ -13,7 +13,7 @@ import com.leminhtien.repository.SizeRepository;
 import com.leminhtien.service.ISizeService;
 
 @Service
-public class SizeService implements ISizeService{
+public class SizeServiceImpl implements ISizeService{
 
 	@Autowired
 	private SizeRepository sizeRepository;

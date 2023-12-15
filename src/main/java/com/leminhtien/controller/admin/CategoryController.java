@@ -21,7 +21,7 @@ public class CategoryController {
 	@RequestMapping(value = "/admin/category",method = RequestMethod.GET)
 	public ModelAndView findAll(@RequestParam("page") int page, @RequestParam(value = "name",required = false) String name) {
 		ModelAndView mav = new ModelAndView("/admin/category/listCategory");
-		int limit = 3;
+		int limit = 6;
 		Pageable pageable = new PageRequest(page-1, limit);
 		if(name!= null){
 			mav.addObject("model",categoryService.findByNameContaining(name,pageable));

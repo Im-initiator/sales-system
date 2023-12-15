@@ -37,16 +37,34 @@
 									<c:forEach items="${model}" var ="product"> 
 									    <tr>
 									    	<td><input type="checkbox" value="${product.id}"/></td>
-											<td>${product.name}</td>
+											<td>
+												<div class="td-container">
+													<div class="td-content">
+															${product.name}
+													</div>
+												</div>
+											</td>
 											<td>${product.prize}</td>
-										    <td>${product.shortDescription}</td>										   
-										    <td>${product.quantity}</td>   
-										    <td>${product.img}</td>
+										   	 <td>
+												 <div class="td-container">
+													 <div class="td-content">
+														 ${product.shortDescription}
+												 	</div>
+												 </div>
+											 </td>
+										    <td>${product.quantity}</td>
+											<td>
+												<div class="td-container">
+													<div class="td-content">
+															${product.img}
+													</div>
+												</div>
+											</td>
 
 										    <td>
 												<div class="td-container">
 													<div class="td-content">
-													${product.content}
+														${product.content}
 													</div>
 												</div>
 											</td>

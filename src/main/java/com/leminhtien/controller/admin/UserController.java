@@ -30,7 +30,7 @@ public class UserController {
 	@RequestMapping(value="/admin/user", method = RequestMethod.GET)
 	public ModelAndView getUser(@RequestParam("page") int page, @RequestParam(value = "name",required = false)String name) {
 		ModelAndView mav = new ModelAndView("/admin/user/userList");
-		int limit = 3;//limit
+		int limit = 10;//limit
 		long count = 0;
 		Pageable pageable = new PageRequest(page-1, limit);
 		UserDTO userDTO = new UserDTO();

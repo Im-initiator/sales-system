@@ -4,13 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.leminhtien.dto.CategoryDTO;
 import com.leminhtien.service.ICategoryService;
 
 import java.util.List;
-
+@PreAuthorize("hasAnyRole('ADMIN')")
 @RestController
 public class CategoryAPI {
 	
@@ -33,7 +34,7 @@ public class CategoryAPI {
 			return ResponseEntity.badRequest().body("Error: Lưu không thành công");
 		}
 	}
-	
+
 
 	@PutMapping(value = "/api/admin/category")
 	public ResponseEntity<?> update(@RequestBody CategoryDTO category) {
@@ -44,7 +45,7 @@ public class CategoryAPI {
 			return ResponseEntity.badRequest().body("Error: Cập nhật không thành công");
 		}
 	}
-	
+
 	@DeleteMapping(value = "/api/admin/category")
 	public ResponseEntity<?> delete(@RequestBody Long[] ids){
 		if(categoryService.delete(ids)) {

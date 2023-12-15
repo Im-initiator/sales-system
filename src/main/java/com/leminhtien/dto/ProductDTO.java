@@ -31,7 +31,17 @@ public class ProductDTO extends BaseDTO{
 
 	private MultipartFile fileImage;
 
+	private String genderCode;
+
 	public ProductDTO() {
+	}
+
+	public String getGenderCode() {
+		return genderCode;
+	}
+
+	public void setGenderCode(String genderCode) {
+		this.genderCode = genderCode;
 	}
 
 	public Long getId() {

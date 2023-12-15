@@ -52,7 +52,7 @@
 							    <input type="text" class="form-control" id="fullName" name="fullName">
 							  </div>	
 							  <div class="mb-3">
-							      <label for="exampleInputPassword1" class="form-label">Status </label>
+							      <label for="status1" class="form-label">Status </label>
 							      <input class="form-check-input" type="radio" name="status" id="status1" value="1" checked>
 								  <label class="form-check-label" for="status1">
 								    1

@@ -1,18 +1,15 @@
 package com.leminhtien.service.impl;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.transaction.Transactional;
 
+import com.leminhtien.entity.CategoryGenderEntity;
+import com.leminhtien.repository.CategoryGenderRepository;
 import com.leminhtien.utils.FileUtils;
-import com.leminhtien.utils.SecurityUtils;
-import org.hibernate.annotations.Proxy;
-import org.hibernate.proxy.HibernateProxy;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -30,7 +27,7 @@ import com.leminhtien.service.IProductService;
 import org.springframework.transaction.TransactionSystemException;
 
 @Service
-public class ProductService implements IProductService {
+public class ProductServiceImpl implements IProductService {
 
     @Autowired
     private ProductRepository productRepository;
@@ -46,6 +43,9 @@ public class ProductService implements IProductService {
 
     @Autowired
     private ServletContext servletContext;
+
+    @Autowired
+    private CategoryGenderRepository categoryGenderRepository;
 
     @Override
     public List<ProductDTO> findAll() {
@@ -77,6 +77,7 @@ public class ProductService implements IProductService {
         if (product != null) {
             ProductDTO productDTO = mapper.map(product, ProductDTO.class);
             productDTO.setCategoryCode(productDTO.getCategory().getCode());
+            productDTO.setGenderCode(product.getCategoryGender().getCode());
             List<String> sizes = new ArrayList<String>();
             List<SizeEntity> sizeProduct = product.getSizes();
             for (SizeEntity size : sizeProduct) {
@@ -97,6 +98,7 @@ public class ProductService implements IProductService {
         try {
             if (productDTO != null) {
                 CategoryEntity categoryEntity = categoryRepository.findOneByCode(productDTO.getCategoryCode());
+                CategoryGenderEntity categoryGenderEntity = categoryGenderRepository.findOneByCode(productDTO.getGenderCode());
                 if (productDTO.getId() != null) {
                     ProductDTO productOld = this.findById(productDTO.getId());
                     if (productDTO.getFileImage().getSize() != 0) {
@@ -116,10 +118,6 @@ public class ProductService implements IProductService {
                     }
                     productDTO.setPrize(productOld.getPrize());
                     productDTO.setSellNumber(productOld.getSellNumber());
-                    productDTO.setCreateBy(productOld.getCreateBy());
-                    productDTO.setCreateDate(productOld.getCreateDate());
-                    productDTO.setModifyDate(new Date());
-                    productDTO.setModifyBy(SecurityUtils.getPrincipal().getUsername());
                 } else {
                     productDTO.setSellNumber(0);
                     productDTO.setPrize(0f);
@@ -142,29 +140,26 @@ public class ProductService implements IProductService {
 
                     if (categoryEntity.getId() != null) {
                         productEntity.setCategory(categoryEntity);
+                    }else {
+                        throw new NullPointerException();
                     }
-                    if (productEntity.getSizes().size() != 0 && productEntity.getCategory() != null) {
-                        try {
-                            productEntity = productRepository.save(productEntity);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        if (productEntity != null) {
-                            ProductDTO rs =  mapper.map(productEntity, ProductDTO.class);
-                            return rs;
-                        }
+
+                    if(categoryGenderEntity.getId()!= null){
+                        productEntity.setCategoryGender(categoryGenderEntity);
+                    }else {
+                        throw new NullPointerException();
                     }
+                    productEntity = productRepository.save(productEntity);
+                    return mapper.map(productEntity, ProductDTO.class);
                 } catch (NullPointerException | DataAccessException | TransactionSystemException e) {
                     e.printStackTrace();
                     FileUtils.deleteFile(productDTO.getImg(), servletContext);
                 }
-
             }
-            return null;
-        } catch (IOException e) {
+        } catch (Exception e) {
             return null;
         }
-
+    return null;
 
     }
 

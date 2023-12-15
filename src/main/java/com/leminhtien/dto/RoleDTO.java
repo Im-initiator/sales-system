@@ -1,6 +1,6 @@
 package com.leminhtien.dto;
 
-public class RoleDTO {
+public class RoleDTO extends BaseDTO{
 	private String name;
 	private String code;
 	public String getName() {

@@ -100,6 +100,7 @@ public class UserServiceImpl implements IUserService{
 				}else {
 					roles.add(roleRespository.findOneByCode("USER"));
 				}
+
 				userEntity.setRoles(roles);
 				userEntity = userRepository.save(userEntity);	
 				return  mapper.map(userEntity,UserDTO.class);
@@ -189,6 +190,7 @@ public class UserServiceImpl implements IUserService{
 	@Override
 	public UserDTO update(UserDTO userDTO) {
 		try {
+			userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
 			UserEntity userEntity = mapper.map(userDTO, UserEntity.class);
 			List<RoleEntity>roles = new ArrayList<RoleEntity>();
 			for(String codeRole : userDTO.getRoles()) {

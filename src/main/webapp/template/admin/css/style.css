@@ -4,6 +4,7 @@ td {
 }
 
 .td-container {
+    width: 15em;
     position: relative; /* Thiết lập container là một phần tử tương đối */
     overflow: hidden; /* Ẩn nội dung vượt quá kích thước của container */
     text-overflow: ellipsis; /* Thay thế nội dung dài bằng dấu "..." */

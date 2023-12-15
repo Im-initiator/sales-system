@@ -1,1 +1,20 @@
-@charset "UTF-8";
+
+td {
+    white-space: nowrap; /* Ngăn các nội dung chồng chéo thành nhiều dòng */
+}
+
+.td-container {
+    position: relative; /* Thiết lập container là một phần tử tương đối */
+    overflow: hidden; /* Ẩn nội dung vượt quá kích thước của container */
+    text-overflow: ellipsis; /* Thay thế nội dung dài bằng dấu "..." */
+    height: 1.2em; /* Đặt chiều cao cố định cho container */
+}
+
+.td-content {
+    position: absolute; /* Thiết lập nội dung là một phần tử tuyệt đối */
+    top: 0; /* Đặt vị trí bắt đầu từ trên cùng */
+    left: 0; /* Đặt vị trí bắt đầu từ bên trái */
+    right: 0; /* Đặt vị trí kết thúc ở bên phải */
+    bottom: 0; /* Đặt vị trí kết thúc ở dưới cùng */
+    overflow: hidden; /* Ẩn nội dung vượt quá kích thước của container */
+}

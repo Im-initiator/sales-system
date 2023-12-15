@@ -65,8 +65,7 @@
 									    	<input type="hidden" class="category${loop.index}" value="${category.id}"/> 
 										    <td class="category${loop.index}">${category.name}</td>   									   
 										    <td class="category${loop.index}">${category.code}</td>
-										    <td><i class="bi bi-pencil-square bs-bx p-2 edit-category" data-bs-toggle="modal" data-bs-target="#ModelEdit"  id="${loop.index}"></i></td>						  																    										   										    								    										   							
-									   		   	 
+										    <td><i class="bi bi-pencil-square bs-bx p-2 edit-category" data-bs-toggle="modal" data-bs-target="#ModelEdit"  id="${loop.index}"></i></td>
 									    </tr>
 			    					</c:forEach> 
 		   						</tbody>     						   

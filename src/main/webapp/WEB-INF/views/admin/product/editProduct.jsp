@@ -47,6 +47,13 @@
 						      		<form:options items="${categories}" />						      
 						      </form:select>
 						  </div>
+
+							<div class="mb-3">
+								<form:select path="genderCode">
+									<option>----Select Gender---</option>
+									<form:options items="${genders}" />
+								</form:select>
+							</div>
 						  
 						  <div class="mb-3" id="p-size">
 						    <form:label class="form-label" path="sizes">Size</form:label>

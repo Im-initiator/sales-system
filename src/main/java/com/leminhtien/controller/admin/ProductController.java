@@ -7,10 +7,12 @@ import java.util.Map;
 
 import com.leminhtien.entity.CategoryEntity;
 import com.leminhtien.repository.CategoryRepository;
+import com.leminhtien.service.ICategoryGenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,12 +39,15 @@ public class ProductController {
 	@Autowired
 	private ISizeService sizeService;
 
+	@Autowired
+	private ICategoryGenderService categoryGenderService;
 
-	
+
+	//@PreAuthorize("hasAnyRole('MANAGER')")
 	@RequestMapping(value = "/admin/product", method = RequestMethod.GET)
 	public ModelAndView producttList(@RequestParam("page") int page, @RequestParam(value = "name",required = false) String name) {
 		ModelAndView mav = new ModelAndView("/admin/product/productList");
-		int limit = 3;//có thể thay đổi
+		int limit = 10;//có thể thay đổi
 		Pageable pageable = new PageRequest(page-1,limit);
 		List<ProductDTO> model = new ArrayList<>();
 		long count =0;
@@ -82,6 +87,7 @@ public class ProductController {
 		mav.addObject("categories", categories);
 		List<String> sizes = sizeService.findAll();
 		mav.addObject("sizes", sizes);
+		mav.addObject("genders",categoryGenderService.findAll());
 		return mav;
 	}
 	

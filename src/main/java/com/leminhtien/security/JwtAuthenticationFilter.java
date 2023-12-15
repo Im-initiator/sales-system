@@ -37,12 +37,55 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 				filterChain.doFilter(request, response);
 			} else {
 				path = path.substring(5);
+				List<String> roles = SecurityUtils.getAuthorities();
 				if (path.startsWith("admin")) {
-					List<String> roles = SecurityUtils.getAuthorities();
 					if (checkRole(roles, "ADMIN")) {
 						String jwt = getJwtFromRequest(request);
 						if (jwt != null && tokenProvider.validateToken(jwt)) {
-							System.out.println("aaaa");
+							filterChain.doFilter(request, response);
+						} else {
+							throw new Exception();
+						}
+					}else {
+						throw new Exception();
+					}
+				} else if(path.startsWith("saler")){
+					if (checkRole(roles, "SALER")) {
+						String jwt = getJwtFromRequest(request);
+						if (jwt != null && tokenProvider.validateToken(jwt)) {
+							filterChain.doFilter(request, response);
+						} else {
+							throw new Exception();
+						}
+					}else {
+						throw new Exception();
+					}
+				} else if(path.startsWith("shipper")){
+					if (checkRole(roles, "SHIPPER")) {
+						String jwt = getJwtFromRequest(request);
+						if (jwt != null && tokenProvider.validateToken(jwt)) {
+							filterChain.doFilter(request, response);
+						} else {
+							throw new Exception();
+						}
+					}else {
+						throw new Exception();
+					}
+				}else if(path.startsWith("manager")){
+					if (checkRole(roles, "MANAGER")) {
+						String jwt = getJwtFromRequest(request);
+						if (jwt != null && tokenProvider.validateToken(jwt)) {
+							filterChain.doFilter(request, response);
+						} else {
+							throw new Exception();
+						}
+					}else {
+						throw new Exception();
+					}
+				}else if(path.startsWith("censor")){
+					if (checkRole(roles, "CENSOR")) {
+						String jwt = getJwtFromRequest(request);
+						if (jwt != null && tokenProvider.validateToken(jwt)) {
 							filterChain.doFilter(request, response);
 						} else {
 							throw new Exception();
@@ -62,7 +105,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 				}
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			response.sendRedirect(request.getContextPath() + "/access-denied");
+			response.sendError(500,"Lỗi hệ thống!");
 		}
 
 	}

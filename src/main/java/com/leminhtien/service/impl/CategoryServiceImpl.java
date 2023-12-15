@@ -21,7 +21,7 @@ import com.leminhtien.service.ICategoryService;
 import org.springframework.transaction.TransactionSystemException;
 
 @Service
-public class CategoryService implements ICategoryService{
+public class CategoryServiceImpl implements ICategoryService{
 
 	@Autowired
 	private CategoryRepository categoryRepository;

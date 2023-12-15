@@ -40,8 +40,11 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler{
 	private String determineTargetUrl(Authentication authentication) {
 		String url = "";
 		List<String> roles = SecurityUtils.getAuthorities();
-
-		if(checkUrl(roles, "ADMIN")) {
+		if(checkUrl(roles, "ADMIN")
+				||checkUrl(roles, "SHIPPER")
+				||checkUrl(roles, "MANAGER")
+				||checkUrl(roles, "CENSOR")
+				||checkUrl(roles, "SALER")) {
 			url= "/admin/home";
 		}else if(checkUrl(roles, "USER")) {
 			url = "/home"; 

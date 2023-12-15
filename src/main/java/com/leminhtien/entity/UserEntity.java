@@ -3,14 +3,7 @@ package com.leminhtien.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "user")
@@ -28,13 +21,34 @@ public class UserEntity extends BaseEntity {
 	private String address;
 	@Column
 	private String email;
-
 	@Column
 	private Integer status;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "shop_id",referencedColumnName = "id")
+	private ShopEntity shop;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	List<RoleEntity> roles = new ArrayList<RoleEntity>();
+
+	@OneToMany(mappedBy = "user",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	private List<OrderEntity> orderEntity;
+
+	public ShopEntity getShop() {
+		return shop;
+	}
+
+	public void setShop(ShopEntity shop) {
+		this.shop = shop;
+	}
+
+	public List<OrderEntity> getOrderEntity() {
+		return orderEntity;
+	}
+
+	public void setOrderEntity(List<OrderEntity> orderEntity) {
+		this.orderEntity = orderEntity;
+	}
 
 	public String getUserName() {
 		return userName;

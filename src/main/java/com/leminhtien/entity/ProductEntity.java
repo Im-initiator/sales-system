@@ -1,15 +1,10 @@
 package com.leminhtien.entity;
 
+import com.mysql.cj.protocol.ColumnDefinition;
+
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="product")
@@ -22,6 +17,45 @@ public class ProductEntity extends BaseEntity{
 	private String shortDescription;
 	@Column
 	private Integer quantity;
+	@Column(columnDefinition = "TEXT")
+	private String content;
+	@Column(name="sell_number")
+	private Integer sellNumber;
+	@Column
+	private String img;
+	
+	@ManyToMany
+	@JoinTable(name="product_size",joinColumns = @JoinColumn(name="product_id"), inverseJoinColumns = @JoinColumn(name="size_id"))
+	private List<SizeEntity> sizes;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="category_id",referencedColumnName = "id")
+	private CategoryEntity category;
+
+	@ManyToOne
+	@JoinColumn(name = "category_gender",referencedColumnName = "id")
+	private CategoryGenderEntity categoryGender;
+
+	@ManyToOne
+	@JoinColumn(name = "shop_id",referencedColumnName = "id")
+	private ShopEntity shop;
+
+	public void setShop(ShopEntity shop) {
+		this.shop = shop;
+	}
+
+	public ShopEntity getShop() {
+		return shop;
+	}
+
+	public CategoryGenderEntity getCategoryGender() {
+		return categoryGender;
+	}
+
+	public void setCategoryGender(CategoryGenderEntity categoryGender) {
+		this.categoryGender = categoryGender;
+	}
+
 	public List<SizeEntity> getSizes() {
 		return sizes;
 	}
@@ -34,22 +68,6 @@ public class ProductEntity extends BaseEntity{
 	public void setCategory(CategoryEntity category) {
 		this.category = category;
 	}
-	@Column
-	private String content;
-	@Column(name="sell_number")
-	private Integer sellNumber;
-	@Column
-	private String img;
-	
-	@ManyToMany
-	@JoinTable(name="product_size",joinColumns = @JoinColumn(name="product_id"), inverseJoinColumns = @JoinColumn(name="size_id"))
-	private List<SizeEntity> sizes;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="category_id")
-	private CategoryEntity category;
-	
-	
 	public String getName() {
 		return name;
 	}

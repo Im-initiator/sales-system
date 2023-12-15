@@ -60,7 +60,7 @@ public class JPAConfig {
 		//Tạo database từ javaClass(khi database chưa có gì)- nếu database ổn định thì comment dòng code này xử dụng code bên dưới
 //		 properties.setProperty("hibernate.hbm2ddl.auto", "create");
 //		 properties.setProperty("hibernate.hbm2ddl.auto", "update");
-		 properties.setProperty("hibernate.hbm2ddl.auto", "none");//khi database ổn định thì không tự động tạo nữa.
+		 properties.setProperty("hibernate.hbm2ddl.auto", "update");//khi database ổn định thì không tự động tạo nữa.
 //		 properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");//chỉ định loại csdl sử dụng
 		 properties.setProperty("hibernate.enable_lazy_load_no_trans","true");//bật tính năng load giá trị từ bảng phụ thuộc khi được gọi( tác dụng để fetch=FetchType.LAZY <=> fetch=FetchType.EAGE
 		return properties;

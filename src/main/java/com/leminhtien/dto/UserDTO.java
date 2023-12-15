@@ -3,9 +3,7 @@ package com.leminhtien.dto;
 import java.util.List;
 
 public class UserDTO {
-	
-	private Long id; 
-	
+	private Long id;
 	private String userName;
 	 
 	private String password;
