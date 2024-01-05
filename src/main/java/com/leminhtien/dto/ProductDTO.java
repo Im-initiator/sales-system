@@ -6,9 +6,6 @@ import com.leminhtien.entity.CategoryEntity;
 import org.springframework.web.multipart.MultipartFile;
 
 public class ProductDTO extends BaseDTO{
-
-	private Long id;
-	
 	private String name;
 	
 	private Float prize;
@@ -29,9 +26,20 @@ public class ProductDTO extends BaseDTO{
 	
 	private CategoryDTO category;
 
+
 	private MultipartFile fileImage;
 
 	private String genderCode;
+
+	private Long shopId;
+
+	public Long getShopId() {
+		return shopId;
+	}
+
+	public void setShopId(Long shopId) {
+		this.shopId = shopId;
+	}
 
 	public ProductDTO() {
 	}
@@ -42,14 +50,6 @@ public class ProductDTO extends BaseDTO{
 
 	public void setGenderCode(String genderCode) {
 		this.genderCode = genderCode;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getName() {

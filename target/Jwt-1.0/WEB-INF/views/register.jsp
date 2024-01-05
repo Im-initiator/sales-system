@@ -25,7 +25,6 @@
 					</div>
 					
               <form id ="form-register">
-
                 <div class="form-outline mb-4">
                   <input type="text"  class="form-control form-control-lg" name="userName" placeholder="User name"/>
                   <label class="form-label" for="form3Example1cg"></label>

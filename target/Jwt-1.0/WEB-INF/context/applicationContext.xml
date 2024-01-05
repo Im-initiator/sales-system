@@ -16,6 +16,7 @@
 	<!-- Activates scanning of @Repository and @Service and @Component -->
 	<context:component-scan
 		base-package="com.leminhtien" />
+	<!--<sec:method-security/>-->
 
 </beans>
 

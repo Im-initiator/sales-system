@@ -2,14 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ page import="com.leminhtien.utils.SecurityUtils" %>
 <%@ include file="/common/taglib.jsp" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-
 	  <!-- Page Preloder -->
     <div id="preloder">
         <div class="loader"></div>
@@ -54,7 +46,7 @@
                             <li class="active"><a href="./index.html">Home</a></li>
                             <li><a href="#">Women’s</a></li>
                             <li><a href="#">Men’s</a></li>
-                            <li><a href="./shop.html">Shop</a></li>
+                            <li><a href="<c:url value='/web/shop'/>">Shop</a></li>
                             <li><a href="#">Pages</a>
                                 <ul class="dropdown">
                                     <li><a href="./product-details.html">Product Details</a></li>
@@ -75,7 +67,6 @@
 	                            <a href="<c:url value='/login'/>">Login</a>
 	                            <a href="<c:url value='/register'/>">Register</a>
                       	   </div>
-        
 				    </sec:authorize>
 				    <sec:authorize access="isAuthenticated()">
 				        	<div class="header__right__auth">
@@ -100,6 +91,3 @@
             </div>
         </div>
     </header>
-
-</body>
-</html>

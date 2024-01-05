@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import com.leminhtien.dto.UserDTO;
 import com.leminhtien.service.IUserService;
-@PreAuthorize("hasAnyRole('ADMIN')")
 @RestController
 public class UserAPI {
 	

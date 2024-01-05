@@ -188,6 +188,15 @@ public class UserServiceImpl implements IUserService{
 	}
 
 	@Override
+	public UserDTO findCurrentUser() {
+		Long id = SecurityUtils.getPrincipal().getId();
+		UserEntity user = userRepository.getOne(id);
+		UserDTO rs = mapper.map(user,UserDTO.class);
+		rs.setShopId(user.getShop().getId());
+		return rs;
+	}
+
+	@Override
 	public UserDTO update(UserDTO userDTO) {
 		try {
 			userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));

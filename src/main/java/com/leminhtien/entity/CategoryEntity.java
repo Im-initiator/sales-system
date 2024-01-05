@@ -2,11 +2,7 @@ package com.leminhtien.entity;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="category")
@@ -19,6 +15,10 @@ public class CategoryEntity extends BaseEntity{
 	
 	@OneToMany(mappedBy = "category",cascade = CascadeType.ALL)
 	private List<ProductEntity> products;
+
+	@ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@JoinTable(name = "category_shop",joinColumns = @JoinColumn(name = "category_id"),inverseJoinColumns = @JoinColumn(name = "shop_id"))
+	private List<ShopEntity> shops;
 
 	public String getName() {
 		return name;
@@ -36,4 +36,19 @@ public class CategoryEntity extends BaseEntity{
 		this.code = code;
 	}
 
+	public List<ProductEntity> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<ProductEntity> products) {
+		this.products = products;
+	}
+
+	public List<ShopEntity> getShops() {
+		return shops;
+	}
+
+	public void setShops(List<ShopEntity> shops) {
+		this.shops = shops;
+	}
 }

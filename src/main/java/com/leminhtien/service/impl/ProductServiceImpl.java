@@ -7,22 +7,18 @@ import java.util.List;
 import javax.servlet.ServletContext;
 import javax.transaction.Transactional;
 
-import com.leminhtien.entity.CategoryGenderEntity;
-import com.leminhtien.repository.CategoryGenderRepository;
+import com.leminhtien.entity.*;
+import com.leminhtien.repository.*;
 import com.leminhtien.utils.FileUtils;
+import com.leminhtien.utils.SecurityUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import com.leminhtien.dto.ProductDTO;
-import com.leminhtien.entity.CategoryEntity;
-import com.leminhtien.entity.ProductEntity;
-import com.leminhtien.entity.SizeEntity;
-import com.leminhtien.repository.CategoryRepository;
-import com.leminhtien.repository.ProductRepository;
-import com.leminhtien.repository.SizeRepository;
 import com.leminhtien.service.IProductService;
 import org.springframework.transaction.TransactionSystemException;
 
@@ -47,6 +43,9 @@ public class ProductServiceImpl implements IProductService {
     @Autowired
     private CategoryGenderRepository categoryGenderRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Override
     public List<ProductDTO> findAll() {
         List<ProductEntity> list = productRepository.findAll();
@@ -69,6 +68,25 @@ public class ProductServiceImpl implements IProductService {
             }
         }
         return result;
+    }
+
+    @Override
+    public List<ProductDTO> findAllByShopId(Pageable pageable) {
+        try {
+            Long userId = SecurityUtils.getPrincipal().getId();
+            Long shopId = userRepository.findOne(userId).getShop().getId();
+            List<ProductEntity> list = productRepository.findAllByShopId(pageable,shopId);
+            List<ProductDTO> result = new ArrayList<ProductDTO>();
+            for (ProductEntity product : list) {
+                if (product != null) {
+                    result.add(mapper.map(product, ProductDTO.class));
+                }
+            }
+            return result;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
@@ -129,6 +147,8 @@ public class ProductServiceImpl implements IProductService {
                 }
                 try {
                     ProductEntity productEntity = mapper.map(productDTO, ProductEntity.class);
+                    ShopEntity shop = userRepository.findOne(SecurityUtils.getPrincipal().getId()).getShop();
+                    productEntity.setShop(shop);
                     List<SizeEntity> sizes = new ArrayList<SizeEntity>();
                     for (String size : productDTO.getSizes()) {
                         SizeEntity sizeEntity = sizeRepository.findOneByName(size);
@@ -183,9 +203,16 @@ public class ProductServiceImpl implements IProductService {
         return flag;
     }
 
+    @PreAuthorize("hasAnyRole('SALER')")
     @Override
-    public long count() {
-        return productRepository.count();
+    public long count(boolean isTotal) {
+        if (isTotal){
+            return productRepository.count();
+        }else {
+            Long shopId = userRepository.findOne(SecurityUtils.getPrincipal().getId()).getShop().getId();
+            return productRepository.countByShopId(shopId);
+        }
+
     }
 
     @Override

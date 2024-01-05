@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title><dec:title default="Trang chủ" /></title>
+    <link rel="stylesheet" href="<c:url value='/template/admin/css/style.css'/>">
   <link rel="stylesheet" href="<c:url value='/template/admin/vendors/feather/feather.css'/>">
   <link rel="stylesheet" href="<c:url value='/template/admin/vendors/mdi/css/materialdesignicons.min.css'/>">
   <link rel="stylesheet" href="<c:url value='/template/admin/vendors/ti-icons/css/themify-icons.css'/>">
@@ -15,13 +16,9 @@
   <link rel="stylesheet" href="<c:url value='/template/admin/vendors/css/vendor.bundle.base.css'/>">
   <link href="<c:url value='/template/web/bootstrap/css/bootstrap.min.css'/>" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-  <link rel="stylesheet" href="<c:url value='/template/admin/style.css'/>">
   <script src="<c:url value='/template/web/bootstrap/js/bootstrap.min.js'/>"></script>
   <script src="<c:url value='/template/famework/jquery.js'/>"></script>
-  <script src="<c:url value='/template/admin/style.js'/>"></script>
   <script src="<c:url value='/template/ckeditor/ckeditor.js'/>"></script>
-  
-  
   <!-- endinject -->
   <!-- Plugin css for this page -->
   <link rel="stylesheet" href="<c:url value='/template/admin/js/select.dataTables.min.css'/>">

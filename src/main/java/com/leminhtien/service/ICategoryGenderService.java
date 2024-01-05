@@ -19,4 +19,5 @@ public interface ICategoryGenderService {
     public long count(String name);
 
     public List<CategoryGenderDTO> findAllByNameContaining(String name,Pageable pageable);
+    public List<CategoryGenderDTO> findAllByNameContaining(String name);
 }

@@ -13,26 +13,26 @@ import org.springframework.web.bind.annotation.*;
 
 import com.leminhtien.dto.ProductDTO;
 import com.leminhtien.service.IProductService;
-@PreAuthorize("hasAnyRole('ADMIN')")
+//@PreAuthorize("hasAnyRole('ADMIN')")
 @RestController
 public class ProductAPI {
 
 	@Autowired
 	private IProductService productService;
 
-	@GetMapping(value = "/api/admin/product")
+	@GetMapping(value = "/api/saler/product")
 	@ResponseBody
 	public List<ProductDTO> find(@RequestParam("name") String name, @RequestParam(value = "page",required = false) Integer page){
 		Pageable pageable = null;
 		if(page == null){
-			 pageable = new PageRequest(0,3);
+			 pageable = new PageRequest(0,10);
 		}else{
-			 pageable = new PageRequest(page-1,3);
+			 pageable = new PageRequest(page-1,10);
 		}
         return productService.searchByName(name,pageable);
 	}
 
-	@PostMapping(value = "/api/admin/product")
+	@PostMapping(value = "/api/saler/product")
 	public ResponseEntity<?> saveProduct(@RequestBody ProductDTO product) {
 		product.setSellNumber(0);
 		product.setPrize(0f);
@@ -44,7 +44,7 @@ public class ProductAPI {
 		}
 	}
 
-	@PutMapping(value = "/api/admin/product")
+	@PutMapping(value = "/api/saler/product")
 	public ResponseEntity<?> update(@RequestBody ProductDTO product) {
 		try {
 			ProductDTO productDTO = productService.save(product);
@@ -60,7 +60,7 @@ public class ProductAPI {
 		}
 	}
 
-	@DeleteMapping(value = "/api/admin/product")
+	@DeleteMapping(value = "/api/saler/product")
 	public ResponseEntity<?> delete(@RequestBody Long[] ids) {
 		try {
 			boolean flag = productService.delete(ids);

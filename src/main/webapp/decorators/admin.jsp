@@ -19,10 +19,6 @@
   <script src="<c:url value='/template/web/bootstrap/js/bootstrap.min.js'/>"></script>
   <script src="<c:url value='/template/famework/jquery.js'/>"></script>
   <script src="<c:url value='/template/ckeditor/ckeditor.js'/>"></script>
-
-
-  
-  
   <!-- endinject -->
   <!-- Plugin css for this page -->
   <link rel="stylesheet" href="<c:url value='/template/admin/js/select.dataTables.min.css'/>">

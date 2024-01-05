@@ -15,7 +15,7 @@
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-
+    <link rel="stylesheet" href="D:/spring famework/build/sales/src/main/webapp/template/web/css/bootstrap.min.css" type="text/css">
     <!-- Css Styles -->
     <link rel="stylesheet" href="<c:url value='/template/web/css/bootstrap.min.css'/>" type="text/css">
     <link rel="stylesheet" href="<c:url value='/template/web/css/font-awesome.min.css'/>" type="text/css">

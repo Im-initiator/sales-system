@@ -1,21 +1,10 @@
 package com.leminhtien.dto;
 
-public class CategoryDTO {
-	
-	private Long id;
-	
+public class CategoryDTO extends BaseDTO{
+
 	private String name;
 	
 	private String code;
-
-	
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getName() {
 		return name;

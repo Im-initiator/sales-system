@@ -11,7 +11,7 @@ import com.leminhtien.dto.CategoryDTO;
 import com.leminhtien.service.ICategoryService;
 
 import java.util.List;
-@PreAuthorize("hasAnyRole('ADMIN')")
+//@PreAuthorize("hasAnyRole('SALE')")
 @RestController
 public class CategoryAPI {
 	
@@ -19,13 +19,13 @@ public class CategoryAPI {
 	private ICategoryService categoryService;
 
 
-	@GetMapping(value = "/api/admin/category")
+	@GetMapping(value = "/api/manager/category")
 	@ResponseBody
 	public List<CategoryDTO> findByName(@RequestParam("name")String name){
 		return categoryService.findByNameContaining(name);
 	}
 
-	@PostMapping(value = "/api/admin/category")
+	@PostMapping(value = "/api/manager/category")
 	public ResponseEntity<?> save(@RequestBody CategoryDTO category) {
 		CategoryDTO categoryResponse = categoryService.save(category);
 		if(categoryResponse != null) {
@@ -36,7 +36,7 @@ public class CategoryAPI {
 	}
 
 
-	@PutMapping(value = "/api/admin/category")
+	@PutMapping(value = "/api/manager/category")
 	public ResponseEntity<?> update(@RequestBody CategoryDTO category) {
 		CategoryDTO categoryResponse = categoryService.save(category);
 		if(categoryResponse != null) {
@@ -46,7 +46,7 @@ public class CategoryAPI {
 		}
 	}
 
-	@DeleteMapping(value = "/api/admin/category")
+	@DeleteMapping(value = "/api/manager/category")
 	public ResponseEntity<?> delete(@RequestBody Long[] ids){
 		if(categoryService.delete(ids)) {
 			return ResponseEntity.ok().body("Xóa thành công");

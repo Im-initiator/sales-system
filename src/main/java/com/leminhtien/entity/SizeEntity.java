@@ -2,20 +2,24 @@ package com.leminhtien.entity;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="size")
 public class SizeEntity extends BaseEntity{
 	@Column
 	private String name;
-	
+
 	@ManyToMany(mappedBy = "sizes",cascade = CascadeType.ALL)
 	private List<ProductEntity> products;
+	public List<ProductEntity> getProducts() {
+		return products;
+	}
+	public void setProducts(List<ProductEntity> products) {
+		this.products = products;
+	}
+
+
 
 	public String getName() {
 		return name;

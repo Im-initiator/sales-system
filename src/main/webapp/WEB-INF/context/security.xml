@@ -13,7 +13,7 @@
        <intercept-url pattern="/home" access="permitAll"/>
        <intercept-url pattern="/admin/home" access="hasAnyRole('ADMIN','MANAGER','SHIPPER','SALER','CENSOR')"/>
 		<intercept-url pattern="/admin/**" access="hasAnyRole('ADMIN')"/>
-
+		<intercept-url pattern="/web/**" access="permitAll"/>
 	      <!--API-->
 		<intercept-url pattern="/api/admin/**" access="hasAnyRole('ADMIN')"/>
 		<intercept-url pattern="/api/shipper/**" access="hasAnyRole('MANAGER','SHIPPER')"/>

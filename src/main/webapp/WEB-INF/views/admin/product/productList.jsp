@@ -9,8 +9,8 @@
 
 </head>
 <body>
-<c:url var="urlProduct" value="/api/admin/product"/>
-<c:url var="urlList" value="/admin/product"/>
+<c:url var="urlProduct" value="${api}"/><%--/api/saler/product--%>
+<c:url var="urlList" value="${link}"/><%--/manager/product--%>
 <div class="container">
 		<div class="row">    
 			<div class="col-md-12">
@@ -18,9 +18,11 @@
 				  			 Thông báo ở đây
 		    	</div>
 		    	
-				<a href="<c:url value='/admin/edit/product'/>" class="btn btn-primary">Add new</a>
+				<sec:authorize access="hasRole('SALER')">
+					<a href="<c:url value='/saler/edit/product'/>" class="btn btn-primary">Add new</a>
+				</sec:authorize>
 			
-				<form action="<c:url value='/admin/product'/>" id="formSubmit" method="GET"> 
+				<form action="${urlList}" id="formSubmit" method="GET">
 					<div class="table-responsive">    							       
 							<table id="mytable" class="table table-bordred table-striped">
 								<thead>    								             
@@ -31,7 +33,9 @@
 							         <th>Quantity</th>							  
 							         <th>Image</th>   
 							         <th>Content</th>
-							         <th></th>
+							         <sec:authorize access="hasRole('SALER')">
+										 <th></th>
+									 </sec:authorize>
 								</thead>
 		    					<tbody>
 									<c:forEach items="${model}" var ="product"> 
@@ -69,7 +73,9 @@
 												</div>
 											</td>
 
-										    <td><a href="<c:url value='/admin/edit/product?id=${product.id}'/>" title="Chỉnh sửa"><i class="bi bi-pencil-square bs-bx p-2"></i></a></td>									    										   							
+										   <sec:authorize access="hasRole('SALER')">
+											   <td><a href="<c:url value='/saler/edit/product?id=${product.id}'/>" title="Chỉnh sửa"><i class="bi bi-pencil-square bs-bx p-2"></i></a></td>
+										   </sec:authorize>
 									    </tr>
 			    					</c:forEach> 
 		   						</tbody>     						   

@@ -22,4 +22,7 @@ public interface IUserService {
 	List<UserDTO> findAllByUserNameOrFullNameContaining(String name);
 	List<UserDTO> findAllByUserNameOrFullNameContaining(String name,Pageable pageable);
 
+	UserDTO findCurrentUser();
+
+
 }

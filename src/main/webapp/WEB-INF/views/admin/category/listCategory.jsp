@@ -8,8 +8,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<c:url var="urlCategory" value="/api/admin/category"/>
-<c:url var="urlList" value="/admin/category"/>
+<c:url var="urlCategory" value="${api}"/><%----%>
+<c:url var="urlList" value="${link}"/><%--/manager/category--%>
 
 <div class="container">
 		<div class="row">    
@@ -17,46 +17,47 @@
 				<div class="position-fixed  p-3 alert" id="errorSystem" role="alert" style="z-index:999;display:none" >		
 				  			 Thông báo ở đây
 		    	</div>
-		    	
-				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-				  Add new
-				</button>
-				<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-				  <div class="modal-dialog">
-				    <div class="modal-content">
-				      <div class="modal-header">
-				        <h5 class="modal-title" id="exampleModalLabel">Add new Category</h5>
-				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				      </div>
-				      <div class="modal-body">
-				        	<form id="formAdd">
-							  <div class="mb-3">
-							    <label for="categoryName" class="form-label">Category name</label>
-							    <input type="text" class="form-control" name="name" id="categoryName" aria-describedby="emailHelp">							    
-							  </div>
-							  <div class="mb-3">
-							    <label for="password" class="form-label">Category code</label>
-							    <input type="text" class="form-control" name="code" id="password">
-							  </div>	  	  							  							 												 				 
-							</form>				        				        				        				        				        				      
-				      </div>
-				      <div class="modal-footer">
-				        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-				        <button id="submitCategory" type="button" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
-				      </div>
-				    </div>
-				  </div>
-				</div>
-			
-			
-				<form action="<c:url value='/admin/category'/>" id="formSubmit" method="GET"> 
+				<sec:authorize access="hasRole('MANAGER')">
+					<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+						Add new
+					</button>
+					<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLabel">Add new Category</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								</div>
+								<div class="modal-body">
+									<form id="formAdd">
+										<div class="mb-3">
+											<label for="categoryName" class="form-label">Category name</label>
+											<input type="text" class="form-control" name="name" id="categoryName" aria-describedby="emailHelp">
+										</div>
+										<div class="mb-3">
+											<label for="password" class="form-label">Category code</label>
+											<input type="text" class="form-control" name="code" id="password">
+										</div>
+									</form>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+									<button id="submitCategory" type="button" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</sec:authorize>
+				<form action="<c:url value='${link}'/>" id="formSubmit" method="GET">
 					<div class="table-responsive">    							       
 							<table id="mytable" class="table table-bordred table-striped">         							
 								<thead>    								             
 							         <th><input type="checkbox" id="checkall"/><button type="button" class="btn text-danger" id="delete-product"> <i class="bi bi-trash fs-4"></i></button></th>
 							         <th>Name</th>						     
 							         <th>Code</th>
-							         <th></th>
+							        <sec:authorize access="hasRole('MANAGER')">
+										<th></th>
+									</sec:authorize>
 								</thead>
 		    					<tbody>
 									<c:forEach items="${model}" var ="category" varStatus="loop"> 
@@ -65,7 +66,9 @@
 									    	<input type="hidden" class="category${loop.index}" value="${category.id}"/> 
 										    <td class="category${loop.index}">${category.name}</td>   									   
 										    <td class="category${loop.index}">${category.code}</td>
-										    <td><i class="bi bi-pencil-square bs-bx p-2 edit-category" data-bs-toggle="modal" data-bs-target="#ModelEdit"  id="${loop.index}"></i></td>
+										    <sec:authorize access="hasRole('MANAGER')">
+												<td><i class="bi bi-pencil-square bs-bx p-2 edit-category" data-bs-toggle="modal" data-bs-target="#ModelEdit"  id="${loop.index}"></i></td>
+											</sec:authorize>
 									    </tr>
 			    					</c:forEach> 
 		   						</tbody>     						   
@@ -87,33 +90,35 @@
 		
 	</div>
 	<!-- Modal edit  -->
-		<div class="modal fade" id="ModelEdit" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
-			  <div class="modal-dialog">
-			    <div class="modal-content">
-			      <div class="modal-header">
-			        <h5 class="modal-title" id="exampleModalLabel2">Add new Category</h5>
-			        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			      </div>
-			      <div class="modal-body">
-			        	<form id="formUpdate">
-						  <div class="mb-3">
-						    <label for="categoryName" class="form-label">Category name</label>
-						    <input type="text" class="form-control" name="name" id="name" aria-describedby="emailHelp" value="">							    
-						  </div>
-						  <div class="mb-3">
-						    <label for="password" class="form-label">Category code</label>
-						    <input type="text" class="form-control" name="code" id="code" value="">
-						  </div>	 
-						  <input type="hidden" id = "id" name = "id" value=""/> 	  							  							 												 				 
-						</form>				        				        				        				        				        				      
-			      </div>
-			      <div class="modal-footer">
-			        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-			        <button id="update" type="button" class="btn btn-primary" data-bs-dismiss="modal">Update</button>
-			      </div>
-			    </div>
-			  </div>
-			</div>
+		<sec:authorize access="hasRole('MANAGER')">
+			<div class="modal fade" id="ModelEdit" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+				  <div class="modal-dialog">
+					<div class="modal-content">
+					  <div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel2">Add new Category</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					  </div>
+					  <div class="modal-body">
+							<form id="formUpdate">
+							  <div class="mb-3">
+								<label for="categoryName" class="form-label">Category name</label>
+								<input type="text" class="form-control" name="name" id="name" aria-describedby="emailHelp" value="">
+							  </div>
+							  <div class="mb-3">
+								<label for="password" class="form-label">Category code</label>
+								<input type="text" class="form-control" name="code" id="code" value="">
+							  </div>
+							  <input type="hidden" id = "id" name = "id" value=""/>
+							</form>
+					  </div>
+					  <div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+						<button id="update" type="button" class="btn btn-primary" data-bs-dismiss="modal">Update</button>
+					  </div>
+					</div>
+				  </div>
+				</div>
+		</sec:authorize>
 	<script type="text/javascript">
 
  	const element = $('#errorSystem');

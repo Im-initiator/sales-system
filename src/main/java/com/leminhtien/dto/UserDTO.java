@@ -2,8 +2,9 @@ package com.leminhtien.dto;
 
 import java.util.List;
 
-public class UserDTO {
-	private Long id;
+public class UserDTO extends BaseDTO{
+
+	private Long shopId;
 	private String userName;
 	 
 	private String password;
@@ -94,16 +95,11 @@ public class UserDTO {
 		this.roles = roles;
 	}
 
-	public Long getId() {
-		return id;
+	public Long getShopId() {
+		return shopId;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setShopId(Long shopId) {
+		this.shopId = shopId;
 	}
-
-	
-	
-	
-
 }

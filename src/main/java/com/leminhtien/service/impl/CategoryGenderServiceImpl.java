@@ -126,4 +126,18 @@ public class CategoryGenderServiceImpl implements ICategoryGenderService {
            return null;
        }
     }
+
+    @Override
+    public List<CategoryGenderDTO> findAllByNameContaining(String name) {
+        try {
+            List<CategoryGenderEntity> list = categoryGenderRepository.findAllByNameContaining(name);
+            List<CategoryGenderDTO> result = new ArrayList<>();
+            for (CategoryGenderEntity item : list){
+                result.add(mapper.map(item,CategoryGenderDTO.class));
+            }
+            return result;
+        }catch (DataAccessException | NullPointerException | TransactionalException e){
+            return null;
+        }
+    }
 }

@@ -12,10 +12,18 @@
 
 	<decorator name="admin" page="admin.jsp">
 		<pattern>/admin*</pattern>
+		<pattern>/shipper*</pattern>
+		<pattern>/manager*</pattern>
+		<pattern>/censor*</pattern>
+		<pattern>/saler*</pattern>
 	</decorator>
 
 	<decorator name="login" page="login.jsp">
 		<pattern>/login</pattern>
+	</decorator>
+
+	<decorator name="common" page="fileCommon.jsp">
+		<pattern>/web/shop/register</pattern>
 	</decorator>
 
 	<decorator name="register" page="register.jsp">

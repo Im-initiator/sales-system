@@ -37,8 +37,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 				filterChain.doFilter(request, response);
 			} else {
 				path = path.substring(5);
-				List<String> roles = SecurityUtils.getAuthorities();
 				if (path.startsWith("admin")) {
+					List<String> roles = SecurityUtils.getAuthorities();
 					if (checkRole(roles, "ADMIN")) {
 						String jwt = getJwtFromRequest(request);
 						if (jwt != null && tokenProvider.validateToken(jwt)) {
@@ -50,9 +50,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 						throw new Exception();
 					}
 				} else if(path.startsWith("saler")){
-					if (checkRole(roles, "SALER")) {
+					List<String> roles = SecurityUtils.getAuthorities();
+					if (checkRole(roles, "SALER")||checkRole(roles, "MANAGER")) {
 						String jwt = getJwtFromRequest(request);
-						if (jwt != null && tokenProvider.validateToken(jwt)) {
+						if (tokenProvider.validateToken(jwt)) {
 							filterChain.doFilter(request, response);
 						} else {
 							throw new Exception();
@@ -61,9 +62,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 						throw new Exception();
 					}
 				} else if(path.startsWith("shipper")){
-					if (checkRole(roles, "SHIPPER")) {
+					List<String> roles = SecurityUtils.getAuthorities();
+					if (checkRole(roles, "SHIPPER")||checkRole(roles, "MANAGER")) {
 						String jwt = getJwtFromRequest(request);
-						if (jwt != null && tokenProvider.validateToken(jwt)) {
+						if (tokenProvider.validateToken(jwt)) {
 							filterChain.doFilter(request, response);
 						} else {
 							throw new Exception();
@@ -72,9 +74,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 						throw new Exception();
 					}
 				}else if(path.startsWith("manager")){
+					List<String> roles = SecurityUtils.getAuthorities();
 					if (checkRole(roles, "MANAGER")) {
 						String jwt = getJwtFromRequest(request);
-						if (jwt != null && tokenProvider.validateToken(jwt)) {
+						if (tokenProvider.validateToken(jwt)) {
 							filterChain.doFilter(request, response);
 						} else {
 							throw new Exception();
@@ -83,9 +86,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 						throw new Exception();
 					}
 				}else if(path.startsWith("censor")){
-					if (checkRole(roles, "CENSOR")) {
+					List<String> roles = SecurityUtils.getAuthorities();
+					if (checkRole(roles, "CENSOR")||checkRole(roles, "MANAGER")) {
 						String jwt = getJwtFromRequest(request);
-						if (jwt != null && tokenProvider.validateToken(jwt)) {
+						if (tokenProvider.validateToken(jwt)) {
 							filterChain.doFilter(request, response);
 						} else {
 							throw new Exception();
@@ -95,7 +99,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 					}
 				} else if(path.startsWith("web")){
 					String jwt = getJwtFromRequest(request);
-					if (jwt != null && tokenProvider.validateToken(jwt)) {
+					if (tokenProvider.validateToken(jwt)) {
 						filterChain.doFilter(request, response);
 					} else {
 						throw new Exception();
@@ -124,7 +128,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		} else {
 			throw new Exception("No JWT token found in request headers");
 		}
-		if (token.equals("")) {
+		if (token.isEmpty()) {
 			throw new Exception("No JWT token found in request headers");
 		} else {
 			return token;

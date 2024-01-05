@@ -19,9 +19,30 @@
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/product?page=1'/>">Danh sách sản phẩm</a></li>
-                <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/user?page=1'/>">Danh sách tài khoản</a></li>
-                <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/category?page=1'/>">Danh sách loại sản phẩm</a></li>
+                <sec:authorize access="hasRole('ADMIN')">
+                  <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/user?page=1'/>">Quản lý tài khoản</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="<c:url value='/admin/role?page=1'/>">Quản lý phân quyền</a></li>
+                </sec:authorize>
+                <sec:authorize access="hasRole('SHIPPER')">
+                  <li class="nav-item"> <a class="nav-link" href="#">Giao Hàng</a></li>
+                </sec:authorize>
+                <sec:authorize access="hasRole('CENSOR')">
+                  <li class="nav-item"><a class="nav-link" href="#">Quản lý đơn hàng</a></li>
+                </sec:authorize>
+                <sec:authorize access="hasRole('SALER')">
+                  <li class="nav-item"> <a class="nav-link" href="<c:url value='/saler/product?page=1'/>">Quản lý sản phẩm</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#">Quản lý đơn hàng</a></li>
+                </sec:authorize>
+                <sec:authorize access="hasRole('MANAGER')">
+                  <li class="nav-item"> <a class="nav-link" href="<c:url value='/manager/product?page=1'/>">Quản lý sản phẩm</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="<c:url value='/manager/category?page=1'/>">Quản lý loại sản phẩm</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="<c:url value='/manager/gender?page=1'/>">Quản lý giới tính</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="<c:url value='/manager/size?page=1'/>">Quản lý kích thước</a></li>
+                </sec:authorize>
+
+
+
+
               </ul>
             </div>
           </li>

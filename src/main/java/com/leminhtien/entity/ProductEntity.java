@@ -32,7 +32,7 @@ public class ProductEntity extends BaseEntity{
 	@JoinColumn(name="category_id",referencedColumnName = "id")
 	private CategoryEntity category;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "category_gender",referencedColumnName = "id")
 	private CategoryGenderEntity categoryGender;
 

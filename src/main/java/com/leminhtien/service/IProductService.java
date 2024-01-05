@@ -9,11 +9,11 @@ import com.leminhtien.dto.ProductDTO;
 public interface IProductService {
 	List<ProductDTO> findAll();
 	List<ProductDTO> findAll(Pageable pageable);
+	List<ProductDTO> findAllByShopId(Pageable pageable);
 	ProductDTO findById(Long id);
 	ProductDTO save(ProductDTO productDTO);
 	boolean delete(Long[] ids);
-	long count();
-
+	long count(boolean isTotal);
 	long countByName(String name);
 	List<ProductDTO> searchByName(String name,Pageable pageable);
 }

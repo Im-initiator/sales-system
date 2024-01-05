@@ -16,11 +16,37 @@ public class ShopEntity extends BaseEntity{
     private String shortDescription;
     @Column
     private String link;
+
+    @Column
+    private String address;
+
     @OneToOne(mappedBy = "shop")
     private UserEntity user;
 
-    @OneToMany(mappedBy = "shop")
+    @OneToMany(mappedBy = "shop",cascade = CascadeType.ALL)
     private List<ProductEntity> products;
+
+  @ManyToMany(mappedBy = "shops")
+  private List<CategoryEntity> categories;
+
+    @ManyToMany(mappedBy = "shops")
+    private List<CategoryGenderEntity> categoryGenderEntities;
+
+    public List<CategoryEntity> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<CategoryEntity> categories) {
+        this.categories = categories;
+    }
+
+    public List<CategoryGenderEntity> getCategoryGenderEntities() {
+        return categoryGenderEntities;
+    }
+
+    public void setCategoryGenderEntities(List<CategoryGenderEntity> categoryGenderEntities) {
+        this.categoryGenderEntities = categoryGenderEntities;
+    }
 
     public float getReviews() {
         return reviews;
@@ -56,6 +82,14 @@ public class ShopEntity extends BaseEntity{
 
     public String getLink() {
         return link;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public void setLink(String link) {

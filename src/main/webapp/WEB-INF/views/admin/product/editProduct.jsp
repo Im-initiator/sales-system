@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp" %>
-<c:url var="urlList" value='/admin/product?page=1'/>
-<c:url var="urlProduct" value='/api/admin/product'/>
-<c:url var="urlEdit" value='/admin/edit/product'/>
+<c:url var="urlList" value='/saler/product?page=1'/>
+<c:url var="urlProduct" value='/api/saler/product'/>
+<c:url var="urlEdit" value='/saler/edit/product'/>
 <!DOCTYPE html>
 <html>
 <head>

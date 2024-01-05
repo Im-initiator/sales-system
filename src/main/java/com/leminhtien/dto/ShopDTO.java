@@ -2,6 +2,7 @@ package com.leminhtien.dto;
 
 import com.leminhtien.entity.ProductEntity;
 import com.leminhtien.entity.UserEntity;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.Column;
 import javax.persistence.OneToMany;
@@ -10,18 +11,32 @@ import java.util.List;
 
 public class ShopDTO extends BaseDTO{
     private float reviews;
-
     private String name;
-
     private String thumbnail;
-
+    private MultipartFile imgThumbnail;
     private String shortDescription;
-
     private String link;
+    private String address;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     private Long userId;
 
     private List<ProductDTO> products;
+
+    public MultipartFile getImgThumbnail() {
+        return imgThumbnail;
+    }
+
+    public void setImgThumbnail(MultipartFile imgThumbnail) {
+        this.imgThumbnail = imgThumbnail;
+    }
 
     public float getReviews() {
         return reviews;

@@ -4,16 +4,27 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "category_genter")
+@Table(name = "category_gender")
 public class CategoryGenderEntity extends BaseEntity{
     @Column
     private String name;
-
     @Column
     private String code;
 
     @OneToMany(mappedBy = "categoryGender",cascade = CascadeType.ALL)
     private List<ProductEntity> products;
+
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinTable(name = "gender_shop",joinColumns = @JoinColumn(name = "category_id"),inverseJoinColumns = @JoinColumn(name = "gender_id"))
+    private List<ShopEntity> shops;
+
+    public List<ShopEntity> getShops() {
+        return shops;
+    }
+
+    public void setShops(List<ShopEntity> shops) {
+        this.shops = shops;
+    }
 
     public String getName() {
         return name;

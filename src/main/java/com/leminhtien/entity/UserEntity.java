@@ -34,6 +34,7 @@ public class UserEntity extends BaseEntity {
 	@OneToMany(mappedBy = "user",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	private List<OrderEntity> orderEntity;
 
+
 	public ShopEntity getShop() {
 		return shop;
 	}
