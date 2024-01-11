@@ -11,6 +11,11 @@ public class OrderEntity extends BaseEntity{
     @ManyToOne
     @JoinColumn(name = "user_id",nullable = false)
     private UserEntity user;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id", nullable = false)
+    private ProductEntity product;
+
     @Column(name = "date_book")
     private Date dateBook;
     @Column
@@ -25,6 +30,14 @@ public class OrderEntity extends BaseEntity{
     private String sendAddress;
     @Column(columnDefinition = "TEXT")
     private String receAddress;
+
+    public ProductEntity getProduct() {
+        return product;
+    }
+
+    public void setProduct(ProductEntity product) {
+        this.product = product;
+    }
 
     public void setUser(UserEntity user) {
         this.user = user;

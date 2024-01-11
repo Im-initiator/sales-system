@@ -15,10 +15,10 @@
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="D:/spring famework/build/sales/src/main/webapp/template/web/css/bootstrap.min.css" type="text/css">
     <!-- Css Styles -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="<c:url value='/template/web/css/bootstrap.min.css'/>" type="text/css">
-    <link rel="stylesheet" href="<c:url value='/template/web/css/font-awesome.min.css'/>" type="text/css">
+    <link rel="stylesheet" href="<c:url value='/template/common/css/font-awesome.min.css'/>" type="text/css">
     <link rel="stylesheet" href="<c:url value='/template/web/css/elegant-icons.css'/>" type="text/css">
     <link rel="stylesheet" href="<c:url value='/template/web/css/jquery-ui.min.css'/>" type="text/css">
     <link rel="stylesheet" href="<c:url value='/template/web/css/magnific-popup.css'/>" type="text/css">
@@ -32,8 +32,6 @@
 
 	<dec:body/>
 
-	<%@include file="/common/web/footer.jsp" %>
-
 	<script src="<c:url value='/template/web/js/jquery-3.3.1.min.js'/>"></script>
 	<script src="<c:url value='/template/web/js/bootstrap.min.js'/>"></script>
 	<script src="<c:url value='/template/web/js/jquery.magnific-popup.min.js'/>"></script>
@@ -44,5 +42,7 @@
 	<script src="<c:url value='/template/web/js/owl.carousel.min.js'/>"></script>
 	<script src="<c:url value='/template/web/js/jquery.nicescroll.min.js'/>"></script>
 	<script src="<c:url value='/template/web/js/main.js'/>"></script>
+    <script src="<c:url value='/template/paging/jquery.twbsPagination.js'/>"></script>
+    <script src="<c:url value='/template/paging/jquery.twbsPagination.min.js'/>"></script>
 </body>
 </html>

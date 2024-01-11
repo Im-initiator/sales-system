@@ -22,6 +22,9 @@ public interface ISizeService {
 	long count();
 	long countByNam(String name);
 	long remove(long[] ids);
+	List<SizeDTO> findAllByProductId(Long id);
+	List<SizeDTO> findAllByShop();
+	List<SizeDTO> findAllByShopRemove();
 
 
 }

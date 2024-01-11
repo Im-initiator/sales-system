@@ -1,6 +1,8 @@
 package com.leminhtien.controller.web;
 
+import com.leminhtien.dto.ProductDTO;
 import com.leminhtien.dto.ShopDTO;
+import com.leminhtien.service.IProductService;
 import com.leminhtien.service.IShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,13 +20,23 @@ import java.util.List;
 public class HomeController {
 	@Autowired
 	private IShopService shopService;
+
+	@Autowired
+	private IProductService productService;
 	@RequestMapping(value="/home",method = RequestMethod.GET)
-	public ModelAndView homePage(@RequestParam(value = "page",defaultValue = "0") int page, @RequestParam(value = "limit",defaultValue = "10") int limit) {
+	public ModelAndView homePage(@RequestParam(value = "page",defaultValue = "1") int page, @RequestParam(value = "limit",defaultValue = "12") int limit) {
 		ModelAndView mav = new ModelAndView("web/home");
-		Pageable pageable = new PageRequest(page,limit);
-		Page<ShopDTO> p = shopService.findAll(pageable);
-		List<ShopDTO> list = p.getContent();
+		Pageable pageable = new PageRequest(page-1,limit);
+		Pageable p = new PageRequest(0,10);
+		List<ShopDTO> list = shopService.findAllForList(p);
 		mav.addObject("model",list);
+
+		Page<ProductDTO> pageProduct = productService.selectAll(pageable);
+		mav.addObject("totalItem",pageProduct.getTotalElements());
+		mav.addObject("totalPage",pageProduct.getTotalPages());
+		mav.addObject("page",page);
+		mav.addObject("limit",limit);
+		mav.addObject("products",pageProduct.getContent());
 		return mav;
 	}
 	

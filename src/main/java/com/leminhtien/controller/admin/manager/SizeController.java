@@ -16,7 +16,7 @@ public class SizeController {
     private ISizeService sizeService;
 
     @RequestMapping(value = "manager/size")
-    public ModelAndView findAll(@RequestParam(name = "page") int page, @RequestParam(name = "name", required = false) String name) {
+    public ModelAndView findAll(@RequestParam(name = "page",defaultValue = "1") int page, @RequestParam(name = "name", required = false) String name) {
         ModelAndView mav = new ModelAndView("/admin/size/size");
         int limit = 10;
         Pageable pageable = new PageRequest(page-1,limit);

@@ -45,6 +45,5 @@
 	<!--Cho phép upload file-->
 	<bean id="multipartResolver"
 		  class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
-
-	<mvc:resources location="/template/" mapping="/template/**"/>
+	<mvc:resources location="/template/" mapping="/template/**"></mvc:resources>
 </beans>

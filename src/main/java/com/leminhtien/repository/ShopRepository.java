@@ -9,5 +9,9 @@ import java.util.List;
 public interface ShopRepository extends JpaRepository<ShopEntity,Long> {
     List<ShopEntity> findAllByNameContainingOrderByName(String name, Pageable pageable);
     List<ShopEntity> findAllByNameContainingOrderByName(String name);
+
+    List<ShopEntity> findAllByOrderByName(Pageable pageable);
     long countAllByNameContaining(String name);
+
+    int deleteById(Long id);
 }

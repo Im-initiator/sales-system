@@ -14,6 +14,7 @@ import com.leminhtien.utils.SecurityUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -71,10 +72,19 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public List<ProductDTO> findAllByShopId(Pageable pageable) {
+    public Page<ProductDTO> selectAll(Pageable pageable) {
+        Page<ProductEntity> page = productRepository.findAll(pageable);
+        return page.map(entity -> mapper.map(entity,ProductDTO.class));
+    }
+
+    @Override
+    public List<ProductDTO> findAllByShopId(Long id,Pageable pageable) {
         try {
-            Long userId = SecurityUtils.getPrincipal().getId();
-            Long shopId = userRepository.findOne(userId).getShop().getId();
+            Long shopId = id;
+            if(id==null){
+                Long userId = SecurityUtils.getPrincipal().getId();
+                 shopId = userRepository.findOne(userId).getShop().getId();
+            }
             List<ProductEntity> list = productRepository.findAllByShopId(pageable,shopId);
             List<ProductDTO> result = new ArrayList<ProductDTO>();
             for (ProductEntity product : list) {

@@ -37,13 +37,13 @@
             <div class="row">
                 <div class="col-xl-3 col-lg-2">
                     <div class="header__logo">
-                        <a href="./index.html"><img src="<c:url value='/template/web/img/logo.png'/>" alt=""></a>
+                        <a href="<c:url value='/home'/>"><img src="<c:url value='/template/web/img/logo.png'/>" alt=""></a>
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-7">
                     <nav class="header__menu">
                         <ul>
-                            <li class="active"><a href="./index.html">Home</a></li>
+                            <li class="active"><a href="<c:url value='/home'/>">Home</a></li>
                             <li><a href="#">Women’s</a></li>
                             <li><a href="#">Men’s</a></li>
                             <li><a href="<c:url value='/web/shop'/>">Shop</a></li>
@@ -56,7 +56,9 @@
                                 </ul>
                             </li>
                             <li><a href="./blog.html">Blog</a></li>
-                            <li><a href="./contact.html">Contact</a></li>
+                            <li><sec:authorize access="hasRole('CENSOR') or hasRole('ADMIN') or hasRole('SALER') or hasRole('MANAGER') or hasRole('CENSOR') or hasRole('SHIPPER')">
+                                <a href="<c:url value='/admin/home'/>">Administrator</a>
+                            </sec:authorize></li>
                         </ul>
                     </nav>
                 </div>
@@ -79,7 +81,7 @@
                             <li><a href="#"><span class="icon_heart_alt"></span>
                                 <div class="tip">2</div>
                             </a></li>
-                            <li><a href="<c:url value='/cart'/>"><span class="icon_bag_alt"></span>
+                            <li><a href="<c:url value='/web/cart'/>"><span class="icon_bag_alt"></span>
                                 <div class="tip">2</div>
                             </a></li>
                         </ul>

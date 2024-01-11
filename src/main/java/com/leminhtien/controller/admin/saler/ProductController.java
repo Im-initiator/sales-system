@@ -5,6 +5,7 @@ import com.leminhtien.service.ICategoryGenderService;
 import com.leminhtien.service.ICategoryService;
 import com.leminhtien.service.IProductService;
 import com.leminhtien.service.ISizeService;
+import com.leminhtien.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -48,7 +49,7 @@ public class ProductController {
 		List<ProductDTO> model = new ArrayList<>();
 		long count =0;
 		if(name == null){
-			 model = productService.findAllByShopId(pageable);
+			 model = productService.findAllByShopId(null,pageable);
 			 count = productService.count(true);
 		}else{
 			model = productService.searchByName(name,pageable);
@@ -73,6 +74,7 @@ public class ProductController {
 		}
 	}
 
+	@PreAuthorize("hasAnyRole('SALER')")
 	@RequestMapping(value="/saler/edit/product", method = RequestMethod.GET)
 	public ModelAndView editProduct(@RequestParam(value="id",required = false) Long id) {	
 		ModelAndView mav = new ModelAndView("/admin/product/editProduct");
@@ -88,8 +90,4 @@ public class ProductController {
 		mav.addObject("genders",categoryGenderService.findAll());
 		return mav;
 	}
-	
-	
-	
-
 }

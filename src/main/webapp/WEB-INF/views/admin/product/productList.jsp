@@ -28,6 +28,7 @@
 								<thead>    								             
 							         <th><input type="checkbox" id="checkall"/><button type="button" class="btn text-danger" id="delete-product"> <i class="bi bi-trash fs-4"></i></button></th>
 							         <th>Name</th>
+									 <th>Price</th>
 							         <th>Prize</th>
 							         <th>SDescription</th>						
 							         <th>Quantity</th>							  
@@ -48,6 +49,7 @@
 													</div>
 												</div>
 											</td>
+											<td>${product.price}</td>
 											<td>${product.prize}</td>
 										   	 <td>
 												 <div class="td-container">

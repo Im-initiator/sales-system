@@ -26,11 +26,18 @@ public class ShopEntity extends BaseEntity{
     @OneToMany(mappedBy = "shop",cascade = CascadeType.ALL)
     private List<ProductEntity> products;
 
-  @ManyToMany(mappedBy = "shops")
-  private List<CategoryEntity> categories;
+      @ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+      @JoinTable(name = "category_shop",joinColumns = @JoinColumn(name = "shop_id"),inverseJoinColumns = @JoinColumn(name = "category_id"))
+      private List<CategoryEntity> categories;
 
     @ManyToMany(mappedBy = "shops")
     private List<CategoryGenderEntity> categoryGenderEntities;
+
+
+
+    @ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @JoinTable(name = "size_shop",joinColumns = @JoinColumn(name = "shop_id"),inverseJoinColumns = @JoinColumn(name = "size_id"))
+    private List<SizeEntity> sizes;
 
     public List<CategoryEntity> getCategories() {
         return categories;
@@ -110,5 +117,13 @@ public class ShopEntity extends BaseEntity{
 
     public void setProducts(List<ProductEntity> products) {
         this.products = products;
+    }
+
+    public List<SizeEntity> getSizes() {
+        return sizes;
+    }
+
+    public void setSizes(List<SizeEntity> sizes) {
+        this.sizes = sizes;
     }
 }

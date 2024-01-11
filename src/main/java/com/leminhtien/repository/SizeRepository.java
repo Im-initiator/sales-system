@@ -13,5 +13,4 @@ public interface SizeRepository extends JpaRepository<SizeEntity,Long>{
 	List<SizeEntity> findAllByNameContainingOrderByName(String name,Pageable pageable);
 	List<SizeEntity> findAllByNameContainingOrderByName(String name);
 	Long countAllByNameContaining(String name);
-
 }

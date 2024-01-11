@@ -3,6 +3,12 @@ package com.leminhtien.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.leminhtien.entity.ProductEntity;
+import com.leminhtien.entity.ShopEntity;
+import com.leminhtien.entity.UserEntity;
+import com.leminhtien.repository.ProductRepository;
+import com.leminhtien.repository.UserRepository;
+import com.leminhtien.utils.SecurityUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +27,12 @@ public class SizeServiceImpl implements ISizeService{
 	
 	@Autowired
 	private ModelMapper mapper;
+
+	@Autowired
+	private ProductRepository productRepository;
+
+	@Autowired
+	private UserRepository userRepository;
 	
 	@Override
 	public List<SizeDTO> findAll(Pageable pageable) {
@@ -172,6 +184,44 @@ public class SizeServiceImpl implements ISizeService{
 			e.printStackTrace();
 		}
 		return rs;
+	}
+
+	@Override
+	public List<SizeDTO> findAllByProductId(Long id) {
+		ProductEntity product = productRepository.findOne(id);
+		List<SizeEntity> sizes = product.getSizes();
+		List<SizeDTO> result= new ArrayList<>();
+		for(SizeEntity size : sizes){
+			if(size!= null){
+				result.add(mapper.map(size,SizeDTO.class));
+			}
+		}
+		return result;
+	}
+
+	@Override
+	public List<SizeDTO> findAllByShop() {
+		Long userId = SecurityUtils.getPrincipal().getId();
+		UserEntity user = userRepository.findOne(userId);
+		ShopEntity shop  = user.getShop();
+		List<SizeEntity> sizes = shop.getSizes();
+		List<SizeDTO> result= new ArrayList<>();
+		for(SizeEntity size : sizes){
+			if(size!= null){
+				result.add(mapper.map(size,SizeDTO.class));
+			}
+		}
+		return result;
+	}
+
+	@Override
+	public List<SizeDTO> findAllByShopRemove() {
+		List<SizeDTO> list = this.selectAll();
+		List<SizeDTO> sizeRemove = this.findAllByShop();
+		for (SizeDTO s : sizeRemove){
+			list.remove(s);
+		}
+		return list;
 	}
 
 }

@@ -9,6 +9,10 @@
 <title><dec:title default="Trang chủ" /></title>
     <link rel="stylesheet" href="<c:url value='/template/admin/css/style.css'/>">
   <link rel="stylesheet" href="<c:url value='/template/admin/vendors/feather/feather.css'/>">
+    <link rel="stylesheet" href="<c:url value='/template/common/css/font-awesome.min.css'/>" type="text/css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
   <link rel="stylesheet" href="<c:url value='/template/admin/vendors/mdi/css/materialdesignicons.min.css'/>">
   <link rel="stylesheet" href="<c:url value='/template/admin/vendors/ti-icons/css/themify-icons.css'/>">
   <link rel="stylesheet" href="<c:url value='/template/admin/vendors/typicons/typicons.css'/>">

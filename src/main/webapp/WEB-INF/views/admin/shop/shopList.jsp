@@ -9,8 +9,8 @@
 
 </head>
 <body>
-<c:url var="urlShop" value="${api}"/><%--/api/saler/product--%>
-<c:url var="urlList" value="${link}"/><%--/manager/product--%>
+<c:url var="urlShop" value="/api/manager/shop"/><%--/api/saler/product--%>
+<c:url var="urlList" value="/manager/shop"/><%--/manager/product--%>
 <div class="container">
 		<div class="row">    
 			<div class="col-md-12">
@@ -18,9 +18,9 @@
 				  			 Thông báo ở đây
 		    	</div>
 		    	
-				<sec:authorize access="hasRole('SALER')">
+			<%--	<sec:authorize access="hasRole('SALER')">
 					<a href="<c:url value='/saler/edit/shop'/>" class="btn btn-primary">Add new</a>
-				</sec:authorize>
+				</sec:authorize>--%>
 			
 				<form action="${urlList}" id="formSubmit" method="GET">
 					<div class="table-responsive">    							       
@@ -32,9 +32,7 @@
 							         <th>Description</th>
 							         <th>Thumbnail</th>
 							         <th>address</th>
-							         <sec:authorize access="hasRole('SALER')">
-										 <th></th>
-									 </sec:authorize>
+									 <th></th>
 								</thead>
 		    					<tbody>
 									<c:forEach items="${model}" var ="shop">
@@ -70,17 +68,14 @@
 													</div>
 												</div>
 											</td>
-
-										   <sec:authorize access="hasRole('SALER')">
-											   <td><a href="<c:url value='/saler/edit/product?id=${shop.id}'/>" title="Chỉnh sửa"><i class="bi bi-pencil-square bs-bx p-2"></i></a></td>
-										   </sec:authorize>
+											   <td><a href="<c:url value='/manager/shop/detail?id=${shop.id}'/>" title="Chi tiết"><i class="bi bi-exclamation-circle-fill"></i></a></td>
 									    </tr>
 			    					</c:forEach> 
 		   						</tbody>     						   
 					  		</table>        
 	         	 	  </div> 
 	         	 	  <input id="page" type="hidden" value="" name="page"/>
-					<input id="name" type="hidden" value="" name="name"/>
+					 <input id="name" type="hidden" value="" name="name"/>
 
 				</form>
 				         <div class="row mt-3" id="paging">
@@ -118,10 +113,10 @@
 	});
 	var urlParams = new URLSearchParams(window.location.search);
 	var paramValue = urlParams.get('name');
-	var currentPage = ${page};
+	var currentPage = ${page}+1;
 	var totalItem = ${totalItem};
 	var limit = ${limit}
-	var totalpage = Math.ceil(totalItem / limit);
+	var totalpage = ${totalPage}
 	$(function () {
         window.pagObj = $('#pagination').twbsPagination({
         	startPage:currentPage,
@@ -139,24 +134,7 @@
             	}
             }
         })
-    }); 
-
-	/* function getCheckboxValues() {
-		  const checkboxes = document.querySelectorAll("#RoleUser input[type='checkbox']");
-		  const values = [];
-
-		  checkboxes.forEach((checkbox) => {
-		    if (checkbox.checked) {
-		      values.push(checkbox.value);
-		    }
-		  });
-
-		  console.log(values);
-		  return values;
-	} */
-    
-
-		//delete product
+    });
 		
 		  $('#delete-product').click(function(e) {
 			  e.preventDefault();
@@ -174,7 +152,7 @@
 					data:JSON.stringify(ids),
 					success: function(result){
 						$('#errorSystem').removeClass().addClass("alert alert-success");
-						$('#errorSystem').text("Xóa thành công");
+						$('#errorSystem').text(result);
 						$('#errorSystem').show();
 						 setTimeout(function() {
 						    	element.hide(); // Ẩn thông báo sau 3 giây

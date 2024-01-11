@@ -10,13 +10,20 @@ import java.util.List;
 public interface IShopService {
     List<ShopDTO> findAll();
     Page<ShopDTO> findAll(Pageable pageable);
+    List<ShopDTO> findAllForList(Pageable pageable);
     List<ShopDTO> findAllByName(String name);
     ShopDTO save(ShopDTO shopDTO);
     int count();
     int countByName();
     ShopDTO update(ShopDTO shopDTO);
     boolean remove();
-    boolean remove(Long id);
+    int remove(Long[] ids);
     ShopDTO getShop();
+    ShopDTO getShop(int id);
+    ShopDTO saveCategory(Long[] ids);
+    int removeCategory(Long[] ids);
+    ShopDTO getShopByProductId(Long id);
+    ShopDTO saveSize(Long[] ids);
+    ShopDTO removeSize(Long[] ids);
 
 }

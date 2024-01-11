@@ -24,8 +24,13 @@
 						  <div class="mb-3">
 						    <form:label class="form-label" path="name">Name</form:label>
 						    <form:input class="form-control" path="name"/>							    
-						  </div>  	  
-						 <div class="row">
+						  </div>
+
+						<div class="mb-3">
+							<form:label class="form-label" path="price">Price</form:label>
+							<form:input class="form-control" path="price"/>
+						</div>
+					<div class="row">
 							 <div class="mb-3 row">
 								 <form:label style="border: 1px solid #7c6f79;margin: 0; border-radius: 2px;"  class="form-label col-4" path="fileImage">Chose file</form:label>
 								 <div class="col-8" style="border: 2px solid #ccc;">

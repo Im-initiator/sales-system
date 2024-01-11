@@ -1,6 +1,8 @@
 package com.leminhtien.api.admin;
 
+import com.leminhtien.dto.ShopDTO;
 import com.leminhtien.dto.SizeDTO;
+import com.leminhtien.service.IShopService;
 import com.leminhtien.service.ISizeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +16,9 @@ public class SizeAPI {
 
     @Autowired
     private ISizeService sizeService;
+
+    @Autowired
+    private IShopService shopService;
 
     @GetMapping(value = "/api/manager/size")
     @ResponseBody
@@ -53,5 +58,28 @@ public class SizeAPI {
         }
     }
 
+
+    /*--------------------------------------------------------------------------------------*/
+    /*SALER*/
+
+    @PostMapping(value = "/api/saler/size")
+    public ResponseEntity<?> saveForShop(@RequestBody Long[] ids){
+        ShopDTO shopDTO = shopService.saveSize(ids);
+        if (shopDTO!=null){
+            return ResponseEntity.ok("Thêm thành công");
+        }else {
+            return ResponseEntity.ok("Thêm không thành công");
+        }
+    }
+
+    @DeleteMapping(value = "/api/saler/size")
+    public ResponseEntity<?> removeForShop(@RequestBody Long[] ids){
+        ShopDTO shopDTO = shopService.removeSize(ids);
+        if (shopDTO!=null){
+            return ResponseEntity.ok("Xóa thành công");
+        }else {
+            return ResponseEntity.ok("Xóa không thành công");
+        }
+    }
 
 }

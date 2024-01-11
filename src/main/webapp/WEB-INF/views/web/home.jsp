@@ -10,7 +10,7 @@
                     <div class="categories__text">
                         <h1>${model[0].name}</h1>
                         <p>${model[0].shortDescription}</p>
-                        <a href="<c:url value='/shop?id=${model[0].id}'/>">Shop now</a>
+                        <a href="<c:url value='/web/shop?id=${model[0].id}'/>">Shop now</a>
                     </div>
                 </div>
             </div>
@@ -21,13 +21,12 @@
                             <div class="categories__item set-bg" data-setbg="<c:url value='${item.thumbnail}'/> ">
                                 <div class="categories__text">
                                     <h4>${item.name}</h4>
-                                    <p>count</p>
-                                    <a href="<c:url value='/shop?id=${item.id}'/>">Shop now</a>
+                                    <p>${item.items} items</p>
+                                    <a href="<c:url value='/web/shop?id=${item.id}'/>">Shop now</a>
                                 </div>
                             </div>
                         </div>
                     </c:forEach>
-
                 </div>
             </div>
         </div>
@@ -41,7 +40,7 @@
         <div class="row">
             <div class="col-lg-4 col-md-4">
                 <div class="section-title">
-                    <h4>New product</h4>
+                    <h4>Products</h4>
                 </div>
             </div>
             <div class="col-lg-8 col-md-8">
@@ -55,188 +54,74 @@
                 </ul>
             </div>
         </div>
+        <form id="formSubmit">
         <div class="row property__gallery">
-            <div class="col-lg-3 col-md-4 col-sm-6 mix women">
-                <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="<c:url value='/template/web/img/product/product-1.jpg'/>">
-                        <div class="label new">New</div>
-                        <ul class="product__hover">
-                            <li><a href="<c:url value='/template/web/img/product/product-1.jpg'/>" class="image-popup"><span class="arrow_expand"></span></a></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div class="product__item__text">
-                        <h6><a href="#">Buttons tweed blazer</a></h6>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
+                <c:forEach items="${products}" var="item">
+                    <div class="col-lg-3 col-md-4 col-sm-6 mix women">
+                        <div class="product__item">
+                            <div class="product__item__pic set-bg" data-setbg="<c:url value='${item.img}'/>">
+                                    <%--<div class="label new">New</div>--%>
+                                <ul class="product__hover">
+                                    <li><a href="<c:url value='${item.img}'/>" class="image-popup"><span class="arrow_expand"></span></a></li>
+                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                                    <li><a href="#"><span class="icon_bag_alt"></span></a></li>
+                                </ul>
+                            </div>
+                            <div class="product__item__text">
+                                <h6><a href="<c:url value='/web/product?id=${item.id}'/> ">${item.name}</a></h6>
+                                <div class="rating">
+                                    <i class="bi bi-star"></i></i>
+                                    <i class="bi bi-star"></i>
+                                    <i class="bi bi-star"></i>
+                                    <i class="bi bi-star"></i>
+                                    <i class="bi bi-star"></i>
+                                </div>
+                                <div class="product__price">${item.price}</div>
+                            </div>
                         </div>
-                        <div class="product__price">$ 59.0</div>
                     </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 mix men">
-                <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="<c:url value='/template/web/img/product/product-2.jpg'/>">
-                        <ul class="product__hover">
-                            <li><a href="<c:url value='/template/web/img/product/product-2.jpg'/>" class="image-popup"><span class="arrow_expand"></span></a></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div class="product__item__text">
-                        <h6><a href="#">Flowy striped skirt</a></h6>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <div class="product__price">$ 49.0</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 mix accessories">
-                <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="<c:url value='/template/web/img/product/product-3.jpg'/>">
-                        <div class="label stockout">out of stock</div>
-                        <ul class="product__hover">
-                            <li><a href="<c:url value='/template/web/img/product/product-3.jpg'/>" class="image-popup"><span class="arrow_expand"></span></a></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div class="product__item__text">
-                        <h6><a href="#">Cotton T-Shirt</a></h6>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <div class="product__price">$ 59.0</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 mix cosmetic">
-                <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="<c:url value='/template/web/img/product/product-4.jpg'/>">
-                        <ul class="product__hover">
-                            <li><a href="<c:url value='/template/web/img/product/product-4.jpg'/>" class="image-popup"><span class="arrow_expand"></span></a></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div class="product__item__text">
-                        <h6><a href="#">Slim striped pocket shirt</a></h6>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <div class="product__price">$ 59.0</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 mix kid">
-                <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="<c:url value='/template/web/img/product/product-5.jpg'/>">
-                        <ul class="product__hover">
-                            <li><a href="<c:url value='/template/web/img/product/product-5.jpg'/>" class="image-popup"><span class="arrow_expand"></span></a></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div class="product__item__text">
-                        <h6><a href="#">Fit micro corduroy shirt</a></h6>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <div class="product__price">$ 59.0</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 mix women men kid accessories cosmetic">
-                <div class="product__item sale">
-                    <div class="product__item__pic set-bg" data-setbg="<c:url value='/template/web/img/product/product-6.jpg'/>">
-                        <div class="label sale">Sale</div>
-                        <ul class="product__hover">
-                            <li><a href="<c:url value='/template/web/img/product/product-6.jpg'/>" class="image-popup"><span class="arrow_expand"></span></a></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div class="product__item__text">
-                        <h6><a href="#">Tropical Kimono</a></h6>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <div class="product__price">$ 49.0 <span>$ 59.0</span></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 mix women men kid accessories cosmetic">
-                <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="<c:url value='/template/web/img/product/product-7.jpg'/>">
-                        <ul class="product__hover">
-                            <li><a href="<c:url value='/template/web/img/product/product-7.jpg'/>" class="image-popup"><span class="arrow_expand"></span></a></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div class="product__item__text">
-                        <h6><a href="#">Contrasting sunglasses</a></h6>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <div class="product__price">$ 59.0</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 mix women men kid accessories cosmetic">
-                <div class="product__item sale">
-                    <div class="product__item__pic set-bg" data-setbg="<c:url value='/template/web/img/product/product-8.jpg'/>">
-                        <div class="label">Sale</div>
-                        <ul class="product__hover">
-                            <li><a href="<c:url value='/template/web/img/product/product-8.jpg'/>" class="image-popup"><span class="arrow_expand"></span></a></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div class="product__item__text">
-                        <h6><a href="#">Water resistant backpack</a></h6>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <div class="product__price">$ 49.0 <span>$ 59.0</span></div>
-                    </div>
-                </div>
+                </c:forEach>
+            <input id="page" type="hidden" value="" name="page"/>
+
+        </div>
+        </form>
+        <script type="text/javascript">
+            var urlParams = new URLSearchParams(window.location.search);
+            var paramValue = urlParams.get('name');
+            var currentPage = ${page};
+            var totalItem = ${totalItem};
+            var limit = ${limit};
+            var totalpage = Math.ceil(totalItem / limit);
+            $(function () {
+                window.pagObj = $('#pagination').twbsPagination({
+                    startPage:currentPage,
+                    totalPages: totalpage,
+                    visiblePages: 10,
+                    onPageClick: function (event, page) {
+                        if(page!=currentPage){
+                            $('#page').val(page);
+                            if(paramValue!==null){
+                                $('#name').val(paramValue);
+                            }else{
+                                $('#name').prop('disabled', true);
+                            }
+                            $('#formSubmit').submit();
+                        }
+                    }
+                })
+            });
+        </script>
+
+        <%--page--%>
+        <div class="row mt-3" id="paging">
+            <div class="col-sm-12 d-flex justify-content-center">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination" id="pagination"></ul>
+                </nav>
             </div>
         </div>
+
+
     </div>
 </section>
 <!-- Product Section End -->

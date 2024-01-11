@@ -1,6 +1,7 @@
 package com.leminhtien.entity;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.*;
 
@@ -16,8 +17,7 @@ public class CategoryEntity extends BaseEntity{
 	@OneToMany(mappedBy = "category",cascade = CascadeType.ALL)
 	private List<ProductEntity> products;
 
-	@ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-	@JoinTable(name = "category_shop",joinColumns = @JoinColumn(name = "category_id"),inverseJoinColumns = @JoinColumn(name = "shop_id"))
+	@ManyToMany(mappedBy = "categories",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private List<ShopEntity> shops;
 
 	public String getName() {
@@ -50,5 +50,26 @@ public class CategoryEntity extends BaseEntity{
 
 	public void setShops(List<ShopEntity> shops) {
 		this.shops = shops;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj==null){
+			return false;
+		}
+		if (obj==this){
+			return true;
+		}
+		if (obj.getClass()!=this.getClass()){
+			return false;
+		}
+
+		CategoryEntity category = (CategoryEntity) obj;
+		return category.getId().equals(this.getId());
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(this.getId());
 	}
 }

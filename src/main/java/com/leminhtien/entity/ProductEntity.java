@@ -13,6 +13,18 @@ public class ProductEntity extends BaseEntity{
 	private String name;
 	@Column
 	private Float prize;
+
+	public Float getPrice() {
+		return price;
+	}
+
+	public void setPrice(Float price) {
+		this.price = price;
+	}
+
+	@Column
+	private Float price;
+
 	@Column(name="short_description")
 	private String shortDescription;
 	@Column
@@ -39,6 +51,31 @@ public class ProductEntity extends BaseEntity{
 	@ManyToOne
 	@JoinColumn(name = "shop_id",referencedColumnName = "id")
 	private ShopEntity shop;
+
+	@OneToMany(mappedBy = "product",cascade = CascadeType.REMOVE)
+	private List<OrderEntity> orderPurchase;
+
+
+	@ManyToMany(mappedBy = "productFavorite")
+	private List<UserEntity> userFavorite;
+
+
+	public List<OrderEntity> getOrderPurchase() {
+		return orderPurchase;
+	}
+
+	public void setOrderPurchase(List<OrderEntity> orderPurchase) {
+		this.orderPurchase = orderPurchase;
+	}
+
+	public List<UserEntity> getUserFavorite() {
+		return userFavorite;
+	}
+
+	public void setUserFavorite(List<UserEntity> userFavorite) {
+		this.userFavorite = userFavorite;
+	}
+
 
 	public void setShop(ShopEntity shop) {
 		this.shop = shop;

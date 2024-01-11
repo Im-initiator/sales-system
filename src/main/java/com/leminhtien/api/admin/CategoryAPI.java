@@ -1,5 +1,7 @@
 package com.leminhtien.api.admin;
 
+import com.leminhtien.dto.ShopDTO;
+import com.leminhtien.service.IShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +20,8 @@ public class CategoryAPI {
 	@Autowired
 	private ICategoryService categoryService;
 
+	@Autowired
+	private IShopService shopService;
 
 	@GetMapping(value = "/api/manager/category")
 	@ResponseBody
@@ -53,6 +57,29 @@ public class CategoryAPI {
 		}else {
 			return ResponseEntity.badRequest().body("Error: Xóa không thành công");
 		}
+	}
+
+/*-----------------------------------------------------------------------------------------*/
+	/*SALER*/
+	@PostMapping(value = "/api/saler/category")
+	public ResponseEntity<?> saveForShop(@RequestBody Long[] ids){
+
+			ShopDTO shop = shopService.saveCategory(ids);
+			if (shop!=null){
+				return ResponseEntity.ok("Thêm thành công");
+			}else {
+				return ResponseEntity.badRequest().body("Error: Thêm không thành công");
+			}
+	}
+
+	@DeleteMapping(value = "/api/saler/category")
+	public ResponseEntity<?> removeForShop(@RequestBody Long[] ids){
+			int count = shopService.removeCategory(ids);
+			if (count!=0){
+				return ResponseEntity.ok("Xóa thành công"+count+" phần tử");
+			}else {
+				return ResponseEntity.badRequest().body("Error: Xóa không thành công");
+			}
 	}
 
 

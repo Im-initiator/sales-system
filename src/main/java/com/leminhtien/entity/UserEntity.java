@@ -23,7 +23,7 @@ public class UserEntity extends BaseEntity {
 	private String email;
 	@Column
 	private Integer status;
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "shop_id",referencedColumnName = "id")
 	private ShopEntity shop;
 
@@ -34,6 +34,18 @@ public class UserEntity extends BaseEntity {
 	@OneToMany(mappedBy = "user",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	private List<OrderEntity> orderEntity;
 
+	@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@JoinTable(name = "favorite", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
+	List<ProductEntity> productFavorite;
+
+
+	public List<ProductEntity> getProductFavorite() {
+		return productFavorite;
+	}
+
+	public void setProductFavorite(List<ProductEntity> productFavorite) {
+		this.productFavorite = productFavorite;
+	}
 
 	public ShopEntity getShop() {
 		return shop;

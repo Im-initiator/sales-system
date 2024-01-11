@@ -1,5 +1,7 @@
 package com.leminhtien.dto;
 
+import java.util.Objects;
+
 public class CategoryDTO extends BaseDTO{
 
 	private String name;
@@ -22,5 +24,22 @@ public class CategoryDTO extends BaseDTO{
 		this.code = code;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if(this==obj){
+			return true;
+		}
+		if(obj==null||obj.getClass()!=this.getClass()){
+			return false;
+		}
+		CategoryDTO categoryDTO = (CategoryDTO) obj;
+		return this.getId().equals(categoryDTO.getId());
+	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(this.getId());
+	}
 }
+
+

@@ -10,6 +10,8 @@ public class ProductDTO extends BaseDTO{
 	
 	private Float prize;
 
+	private Float price;
+
 	private String shortDescription;
 	
 	private Integer quantity;
@@ -41,6 +43,13 @@ public class ProductDTO extends BaseDTO{
 		this.shopId = shopId;
 	}
 
+	public Float getPrice() {
+		return price;
+	}
+
+	public void setPrice(Float price) {
+		this.price = price;
+	}
 	public ProductDTO() {
 	}
 
