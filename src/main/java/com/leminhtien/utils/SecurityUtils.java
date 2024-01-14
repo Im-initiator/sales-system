@@ -3,6 +3,7 @@ package com.leminhtien.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -11,8 +12,7 @@ import com.leminhtien.dto.MyUser;
 public class SecurityUtils {
 	
 	public static MyUser getPrincipal() {
-		MyUser user =(MyUser) (SecurityContextHolder.getContext()).getAuthentication().getPrincipal();
-		return user;
+        return (MyUser) (SecurityContextHolder.getContext()).getAuthentication().getPrincipal();
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -23,8 +23,12 @@ public class SecurityUtils {
 			result.add(authority.getAuthority());
 		}
 		return result;
-		
-		
 	}
+
+	public static boolean isAuthenticated(){
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		List<GrantedAuthority> authorities =(List<GrantedAuthority>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+		return !(authorities.get(0).toString().equals("ROLE_ANONYMOUS")&&authentication.getPrincipal().equals("anonymousUser"));
+    }
 
 }

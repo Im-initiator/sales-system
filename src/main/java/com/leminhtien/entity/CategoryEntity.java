@@ -14,7 +14,7 @@ public class CategoryEntity extends BaseEntity{
 	@Column
 	private String code;
 	
-	@OneToMany(mappedBy = "category",cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "category",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private List<ProductEntity> products;
 
 	@ManyToMany(mappedBy = "categories",cascade = CascadeType.ALL,fetch = FetchType.LAZY)

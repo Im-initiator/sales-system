@@ -4,6 +4,7 @@
 	<excludes>
 		<pattern>/api*</pattern>
 		<pattern>/access-denied</pattern>
+		<pattern>/web/cart</pattern>
 	</excludes>
 
 	<decorator name="web" page="web.jsp">

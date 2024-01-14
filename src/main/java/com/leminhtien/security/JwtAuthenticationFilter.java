@@ -41,7 +41,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 					List<String> roles = SecurityUtils.getAuthorities();
 					if (checkRole(roles, "ADMIN")) {
 						String jwt = getJwtFromRequest(request);
-						if (jwt != null && tokenProvider.validateToken(jwt)) {
+						if (tokenProvider.validateToken(jwt)) {
 							filterChain.doFilter(request, response);
 						} else {
 							throw new Exception();
@@ -111,7 +111,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		} catch (Exception e) {
 			e.printStackTrace();
 			response.sendRedirect(request.getContextPath() + "/access-denied");
-			response.sendError(500,"Lỗi hệ thống!");
+			response.sendError(404,"Lỗi hệ thống!");
 		}
 
 	}

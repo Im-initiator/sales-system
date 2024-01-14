@@ -6,6 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Cart</title>
+  <link rel="stylesheet" href="<c:url value='/template/common/css/all.min.css'/>" type="text/css">
+  <link rel="stylesheet" href="<c:url value='/template/web/css/elegant-icons.css'/>" type="text/css">
+  <link rel="stylesheet" href="<c:url value='/template/web/css/jquery-ui.min.css'/>" type="text/css">
  <link rel="stylesheet" href="<c:url value='/template/web/bootstrap/css/bootstrap.min.css'/>">
   <link rel="stylesheet" href="<c:url value='/template/web/bootstrap/bootstrap.min.js'/>">
    <link rel="stylesheet" href="<c:url value='/template/web/bootstrap/bootstrap.bundle.min.js'/>">
@@ -28,112 +31,49 @@
                   <hr class="my-4">
 
                 <form id="form-Purchase">
-                  <div class="row mb-4 d-flex justify-content-between align-items-center">
-                    <div class="col-md-2 col-lg-2 col-xl-2">
-                      <img
-                        src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img5.webp"
-                        class="img-fluid rounded-3" alt="Cotton T-shirt">
-                    </div>
-                    <div class="col-md-3 col-lg-3 col-xl-3">
-                      <h6 class="text-muted">Shirt</h6>
-                      <h6 class="text-black mb-0">Cotton T-shirt</h6>
-                    </div>
-                    <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                      <button class="btn btn-link px-2"
-                        onclick="">
-                        <i class="fa fa-minus" aria-hidden="true"></i>
-                      </button>
+                  <c:forEach items="${products}" var="cart">
+                    <div class="row mb-4 d-flex justify-content-between align-items-center">
+                      <div class="col-md-2 col-lg-2 col-xl-2">
+                        <img
+                                src="<c:url value='${cart.product.img}'/> "
+                                class="img-fluid rounded-3" alt="Cotton T-shirt">
+                      </div>
+                      <div class="col-md-3 col-lg-3 col-xl-3">
+                        <h6 class="text-muted">cart.product.category.name</h6>
+                        <h6 class="text-black mb-0">cart.product.name</h6>
+                      </div>
+                      <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                        <button class="btn btn-link px-2"
+                                onclick="">
+                          <i class="fa-solid fa-minus"></i>
+                        </button>
 
-                      <input id="form1" min="0" name="quantity" value="1" type="number"
-                        class="form-control form-control-sm" />
+                        <input id="form1" min="0" name="quantity" value="1" type="number"
+                               class="form-control form-control-sm" style="min-width: 50px" />
 
-                      <button class="btn btn-link px-2"
-                        onclick="">
-                        <i class="fa fa-plus" aria-hidden="true"></i>
-                      </button>
+                        <button class="btn btn-link px-2"
+                                onclick="">
+                          <i class="fa-solid fa-plus"></i>
+                        </button>
+                      </div>
+                      <div class="col-md-2 col-lg-2 col-xl-2 offset-lg-1">
+                        <h6 class="mb-0">€${cart.product.price}</h6>
+                      </div>
+                      <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                        <input type="checkbox" name="name" class="p-3 fs-2" style="width: 20px; height: 20px">
+                      </div>
+                      <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                        <button class="p-3 btn btn-danger" type="button">
+                          <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                      </div>
                     </div>
-                    <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                      <h6 class="mb-0">€ 44.00</h6>
-                    </div>
-                    <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                      <input type="checkbox" name="name">
-                    </div>
-                  </div>
+                  </c:forEach>
                 </form>
-
                   <hr class="my-4">
-
-                  <div class="row mb-4 d-flex justify-content-between align-items-center">
-                    <div class="col-md-2 col-lg-2 col-xl-2">
-                      <img
-                        src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img6.webp"
-                        class="img-fluid rounded-3" alt="Cotton T-shirt">
-                    </div>
-                    <div class="col-md-3 col-lg-3 col-xl-3">
-                      <h6 class="text-muted">Shirt</h6>
-                      <h6 class="text-black mb-0">Cotton T-shirt</h6>
-                    </div>
-                    <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                      <button class="btn btn-link px-2"
-                        onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                        <i class="fas fa-minus"></i>
-                      </button>
-
-                      <input id="form2" min="0" name="quantity" value="1" type="number"
-                        class="form-control form-control-sm" />
-
-                      <button class="btn btn-link px-2"
-                        onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                        <i class="fas fa-plus"></i>
-                      </button>
-                    </div>
-                    <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                      <h6 class="mb-0">€ 44.00</h6>
-                    </div>
-                    <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                      <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
-                    </div>
-                  </div>
-
-                  <hr class="my-4">
-
-                  <div class="row mb-4 d-flex justify-content-between align-items-center">
-                    <div class="col-md-2 col-lg-2 col-xl-2">
-                      <img
-                        src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img7.webp"
-                        class="img-fluid rounded-3" alt="Cotton T-shirt">
-                    </div>
-                    <div class="col-md-3 col-lg-3 col-xl-3">
-                      <h6 class="text-muted">Shirt</h6>
-                      <h6 class="text-black mb-0">Cotton T-shirt</h6>
-                    </div>
-                    <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                      <button class="btn btn-link px-2"
-                        onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                        <i class="fas fa-minus"></i>
-                      </button>
-
-                      <input id="form3" min="0" name="quantity" value="1" type="number"
-                        class="form-control form-control-sm" />
-
-                      <button class="btn btn-link px-2"
-                        onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                        <i class="fas fa-plus"></i>
-                      </button>
-                    </div>
-                    <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                      <h6 class="mb-0">€ 44.00</h6>
-                    </div>
-                    <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                      <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
-                    </div>
-                  </div>
-
-                  <hr class="my-4">
-
                   <div class="pt-5">
-                    <h6 class="mb-0"><a href="#!" class="text-body"><i
-                          class="fas fa-long-arrow-alt-left me-2"></i>Back to shop</a></h6>
+                    <h6 class="mb-0"><a href="<c:url value='/home'/> " class="text-body"><i
+                          class="fas fa-long-arrow-alt-left me-2"></i>Back to home</a></h6>
                   </div>
                 </div>
               </div>
@@ -186,5 +126,8 @@
     </div>
   </div>
 </section>
+    <script src="<c:url value='/template/web/js/jquery-3.3.1.min.js'/>"></script>
+    <script src="<c:url value='/template/web/js/bootstrap.min.js'/>"></script>
+    <script src="<c:url value='/template/common/js/all.min.js'/>"></script>
 </body>
 </html>

@@ -11,7 +11,7 @@ public class CategoryGenderEntity extends BaseEntity{
     @Column
     private String code;
 
-    @OneToMany(mappedBy = "categoryGender",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "categoryGender",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<ProductEntity> products;
 
     @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)

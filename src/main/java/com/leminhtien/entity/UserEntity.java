@@ -38,6 +38,16 @@ public class UserEntity extends BaseEntity {
 	@JoinTable(name = "favorite", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
 	List<ProductEntity> productFavorite;
 
+	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	private List<CartEntity> cart;
+
+	public List<CartEntity> getCart() {
+		return cart;
+	}
+
+	public void setCart(List<CartEntity> cart) {
+		this.cart = cart;
+	}
 
 	public List<ProductEntity> getProductFavorite() {
 		return productFavorite;

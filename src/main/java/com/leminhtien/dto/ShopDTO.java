@@ -1,9 +1,6 @@
 package com.leminhtien.dto;
 
-import com.leminhtien.entity.CategoryEntity;
-import com.leminhtien.entity.CategoryGenderEntity;
-import com.leminhtien.entity.ProductEntity;
-import com.leminhtien.entity.UserEntity;
+import com.leminhtien.entity.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.Column;
@@ -20,6 +17,16 @@ public class ShopDTO extends BaseDTO{
     private String shortDescription;
     private String link;
     private String address;
+
+    public List<SizeDTO> getSizes() {
+        return sizes;
+    }
+
+    public void setSizes(List<SizeDTO> sizes) {
+        this.sizes = sizes;
+    }
+
+    private List<SizeDTO> sizes;
 
     public List<CategoryDTO> getCategories() {
         return categories;

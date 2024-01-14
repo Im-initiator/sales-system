@@ -11,13 +11,22 @@ public class SizeEntity extends BaseEntity{
 	@Column
 	private String name;
 
-	@ManyToMany(mappedBy = "sizes")
+	@ManyToMany(mappedBy = "sizes",fetch = FetchType.LAZY)
 	private List<ProductEntity> products;
 
-	@ManyToMany(mappedBy = "sizes")
+	@ManyToMany(mappedBy = "sizes",fetch = FetchType.LAZY)
 	private List<ShopEntity> shops;
 
+	@OneToMany(mappedBy = "size",fetch = FetchType.LAZY)
+	private List<CartEntity> cart;
 
+	public List<CartEntity> getCartItem() {
+		return cart;
+	}
+
+	public void setCartItem(List<CartEntity> cartItem) {
+		this.cart = cartItem;
+	}
 
 	public List<ProductEntity> getProducts() {
 		return products;

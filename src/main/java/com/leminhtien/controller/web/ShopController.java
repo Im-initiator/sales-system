@@ -2,6 +2,7 @@ package com.leminhtien.controller.web;
 
 import com.leminhtien.dto.ProductDTO;
 import com.leminhtien.dto.ShopDTO;
+import com.leminhtien.service.ICartService;
 import com.leminhtien.service.IProductService;
 import com.leminhtien.service.IShopService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,9 @@ public class ShopController {
     @Autowired
     private IProductService productService;
 
+    @Autowired
+    private ICartService cartService;
+
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/web/shop",method = RequestMethod.GET)
     public ModelAndView viewShop(@RequestParam(value = "id", required = false) Integer id,
@@ -54,6 +58,7 @@ public class ShopController {
 
 
         }
+        modelAndView.addObject("count",cartService.countByUser());
         return modelAndView;
     }
 

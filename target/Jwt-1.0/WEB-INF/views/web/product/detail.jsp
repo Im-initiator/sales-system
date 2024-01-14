@@ -9,10 +9,15 @@
 </head>
 <body>
 
+<c:url value="/web/add/cart" var="url"/>
+
 <header>
     <!-- content -->
     <section class="py-5">
         <div class="container">
+            <div class="position-fixed  p-3 alert" id="errorSystem" role="alert" style="z-index:999;display:none;width: 33%;height: 50px;left: 60%" >
+                Thông báo ở đây
+            </div>
             <div class="row gx-5">
                 <aside class="col-lg-6">
                     <div class="d-flex justify-content-center mb-3" style="width: 400px; height: 400px">
@@ -62,7 +67,7 @@
                         <div class="row mb-4">
                             <div class="col-md-4 col-6">
                                 <label class="mb-2">Size</label>
-                                <select class="form-select border border-secondary" style="height: 35px;">
+                                <select id="size-value" class="form-select border border-secondary" style="height: 35px;">
                                     <c:forEach items="${sizes}" var="item">
                                         <option>${item.name}</option>
                                     </c:forEach>
@@ -74,12 +79,11 @@
                             <!-- col.// -->
                             <div class="col-md-4 col-6 mb-3">
                                 <label class="mb-2 d-block">Quantity: ${product.quantity}</label>
-
                             </div>
                         </div>
                         <a href="#" class="btn btn-warning shadow-0"> Buy now </a>
-                        <a href="#" class="btn btn-primary shadow-0"> <i class="me-1 fa fa-shopping-basket"></i> Add to
-                            cart </a>
+                        <button id="add-cart" class="btn btn-primary shadow-0"> <i class="me-1 fa fa-shopping-basket"></i> Add to
+                            cart </button>
                         <a href="#" class="btn btn-light border border-secondary py-2 icon-hover px-3"> <i
                                 class="me-1 fa fa-heart fa-lg"></i> Save </a>
                     </div>
@@ -105,42 +109,6 @@
                                 <p>
                                     ${product.content}
                                 </p>
-                            </div>
-                            <div class="tab-pane fade mb-2" id="ex1-pills-2" role="tabpanel"
-                                 aria-labelledby="ex1-tab-2">
-                                Tab content or sample information now <br/>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                exercitation ullamco laboris nisi ut
-                                aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                                velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                                proident, sunt in culpa qui
-                                officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur
-                                adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                                enim ad minim veniam, quis
-                                nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            </div>
-                            <div class="tab-pane fade mb-2" id="ex1-pills-3" role="tabpanel"
-                                 aria-labelledby="ex1-tab-3">
-                                Another tab content or sample information now <br/>
-                                Dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                                et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                                laboris nisi ut aliquip ex ea
-                                commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-                                dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                                culpa qui officia deserunt
-                                mollit anim id est laborum.
-                            </div>
-                            <div class="tab-pane fade mb-2" id="ex1-pills-4" role="tabpanel"
-                                 aria-labelledby="ex1-tab-4">
-                                Some other tab content or sample information now <br/>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                exercitation ullamco laboris nisi ut
-                                aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                                velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                                proident, sunt in culpa qui
-                                officia deserunt mollit anim id est laborum.
                             </div>
                         </div>
                         <!-- Pills content -->
@@ -246,6 +214,62 @@
     </div>
 </div>
 <!-- Search End -->
+<script type="text/javascript">
+    var element = $('#errorSystem');
+    $('#add-cart').click(function (e){
+
+        e.preventDefault();
+        var object = {};
+        object["sizeName"] = $('#size-value').val();
+        object["productId"] = "${product.id}";
+        <sec:authorize access="isAnonymous()">
+        window.location.href = "<c:url value='/login'/>";
+        </sec:authorize>
+        console.log(object);
+        $.ajax({
+            url:"${url}",
+            type:"POST",
+            contentType:"application/json",
+            data:JSON.stringify(object),
+            success: function(data,status, xhr){
+                $('#errorSystem').removeClass().addClass("alert alert-success");
+                var redirectUrl = xhr.getResponseHeader("Location");
+                    if (xhr.status === 302) {
+                        var redirectUrl = xhr.getResponseHeader("Location");
+                        // Thực hiện chuyển hướng tới redirectUrl
+                        window.location.href = redirectUrl;
+                    }
+                    if(xhr.status ===200||xhr.status===201){
+                        $('#errorSystem').text("Thêm thành công");
+                    }
+                // }else{
+                //     $('#errorSystem').text("Thêm không thành công");
+                // }
+                $('#errorSystem').show();
+                setTimeout(function() {
+                    element.hide(); // Ẩn thông báo sau 3 giây
+                    element.removeClass("alert alert-success");
+                }, 3000);
+            },
+            error: function(xhr,status,error){
+                var textbody = xhr.responseText; //lấy nội dung phản hồi từ body
+                $('#errorSystem').removeClass().addClass("alert alert-danger");
+                if(!textbody.trim().startsWith("Error")){
+                    $('#errorSystem').text("Lỗi hệ thống");
+                }else{
+                    $('#errorSystem').text(textbody);
+                }
+                $('#errorSystem').show();
+                setTimeout(function() {
+                    element.hide(); // Ẩn thông báo sau 3 giây
+                    element.removeClass("alert alert-danger");
+                }, 3000);
+            }
+        })
+    });
+
+
+</script>
 
 </body>
 </html>

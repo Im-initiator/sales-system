@@ -1,7 +1,5 @@
 package com.leminhtien.entity;
 
-import com.mysql.cj.protocol.ColumnDefinition;
-
 import java.util.List;
 
 import javax.persistence.*;
@@ -13,18 +11,8 @@ public class ProductEntity extends BaseEntity{
 	private String name;
 	@Column
 	private Float prize;
-
-	public Float getPrice() {
-		return price;
-	}
-
-	public void setPrice(Float price) {
-		this.price = price;
-	}
-
 	@Column
 	private Float price;
-
 	@Column(name="short_description")
 	private String shortDescription;
 	@Column
@@ -52,13 +40,30 @@ public class ProductEntity extends BaseEntity{
 	@JoinColumn(name = "shop_id",referencedColumnName = "id")
 	private ShopEntity shop;
 
-	@OneToMany(mappedBy = "product",cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "product",cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
 	private List<OrderEntity> orderPurchase;
 
 
-	@ManyToMany(mappedBy = "productFavorite")
+	@ManyToMany(mappedBy = "productFavorite",fetch = FetchType.LAZY)
 	private List<UserEntity> userFavorite;
 
+	@OneToMany(mappedBy = "product",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	private List<CartEntity> cartItem;
+
+	public Float getPrice() {
+		return price;
+	}
+
+	public void setPrice(Float price) {
+		this.price = price;
+	}
+	public List<CartEntity> getCartItem() {
+		return cartItem;
+	}
+
+	public void setCartItem(List<CartEntity> cartItem) {
+		this.cartItem = cartItem;
+	}
 
 	public List<OrderEntity> getOrderPurchase() {
 		return orderPurchase;

@@ -23,14 +23,14 @@ public class ShopEntity extends BaseEntity{
     @OneToOne(mappedBy = "shop")
     private UserEntity user;
 
-    @OneToMany(mappedBy = "shop",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "shop",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<ProductEntity> products;
 
       @ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST,CascadeType.MERGE})
       @JoinTable(name = "category_shop",joinColumns = @JoinColumn(name = "shop_id"),inverseJoinColumns = @JoinColumn(name = "category_id"))
       private List<CategoryEntity> categories;
 
-    @ManyToMany(mappedBy = "shops")
+    @ManyToMany(mappedBy = "shops",fetch = FetchType.LAZY)
     private List<CategoryGenderEntity> categoryGenderEntities;
 
 

@@ -1,7 +1,4 @@
 package com.leminhtien.dto;
-
-import com.leminhtien.entity.SizeEntity;
-
 import java.util.Objects;
 
 public class SizeDTO extends BaseDTO{

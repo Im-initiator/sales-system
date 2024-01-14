@@ -217,9 +217,8 @@
 		<dependency>
 			<groupId>org.modelmapper</groupId>
 			<artifactId>modelmapper</artifactId>
-			<version>2.4.4</version>
+			<version>3.1.1</version>
 		</dependency>
-
 		<!--Logger-->
 		<!-- Phụ thuộc SLF4J -->
 		<dependency>
@@ -228,14 +227,6 @@
 			<version>1.7.32</version>
 		</dependency>
 
-		<!--	 Phụ thuộc Lombok 
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>1.18.20</version>
-			<scope>provided</scope>
-		</dependency>
--->
 		<dependency>
 			<groupId>javax.xml.bind</groupId>
 			<artifactId>jaxb-api</artifactId>

@@ -50,7 +50,7 @@
                     <div class="table-responsive">
                         <table id="mytable2" class="table table-bordred table-striped">
                             <thead>
-                            <th><input type="checkbox" id="checkall2"/><button type="button" class="btn text-danger" id="delete-product"> <i class="bi bi-trash fs-4"></i></button></th>
+                            <th><input type="checkbox" id="checkall2"/><button type="button" class="btn text-danger" id="delete-category"> <i class="bi bi-trash fs-4"></i></button></th>
                             <th>Name</th>
                             <th>Code</th>
                             </thead>
@@ -101,11 +101,11 @@
                     <div class="table-responsive">
                         <table id="mytable4" class="table table-bordred table-striped">
                             <thead>
-                            <th><input type="checkbox" id="checkall4"/><button type="button" class="btn text-danger" id="c"> <i class="bi bi-trash fs-4"></i></button></th>
+                            <th><input type="checkbox" id="checkall4"/><button type="button" class="btn text-danger" id="delete-size"> <i class="bi bi-trash fs-4"></i></button></th>
                             <th>Name</th>
                             </thead>
                             <tbody>
-                            <c:forEach items="${sizes}" var ="size" varStatus="loop">
+                            <c:forEach items="${sizeShop}" var ="size" varStatus="loop">
                                 <tr>
                                     <td><input type="checkbox" value="${size.id}" id ="${size.id}"/></td>
                                     <input type="hidden" class="category${loop.index}" value="${size.id}"/>
@@ -174,10 +174,10 @@
 
     });
 
-    $('#register1').click(function(e){
+    $('#register2').click(function(e){
         e.preventDefault();
         var data = [];
-        $('#mytable2 tbody input[type="checkbox"]:checked').each(function() {
+        $('#mytable3 tbody input[type="checkbox"]:checked').each(function() {
             data.push($(this).val());
         });
         console.log(data);
@@ -223,46 +223,60 @@
 
     //delete category
 
-    $('#delete-product').click(function(e) {
+    $('#delete-category').click(function(e) {
         e.preventDefault();
         var data = [];
-        $('#mytable tbody input[type="checkbox"]:checked').each(function() {
+        $('#mytable2 tbody input[type="checkbox"]:checked').each(function() {
             data.push($(this).val());
         });
-
         console.log(data);
         console.log(JSON.stringify(data));
-        $.ajax({
-            url:'${urlRole}',
-            type:'DELETE',
-            contentType:'application/json',
-            data:JSON.stringify(data),
-            success: function(result){
-                $('#errorSystem').removeClass().addClass("alert alert-success");
-                $('#errorSystem').text("Xóa thành công");
-                $('#errorSystem').show();
-                setTimeout(function() {
-                    element.hide(); // Ẩn thông báo sau 3 giây
-                    element.removeClass("alert alert-success");
-                    location.reload();
-                }, 2000);
-            },
-            error: function(xhr,status,error){
-                var textbody = xhr.responseText; //lấy nội dung phản hồi từ body
-                $('#errorSystem').removeClass().addClass("alert alert-danger");
-                if(!textbody.trim().startsWith("Error")){
-                    $('#errorSystem').text("Lỗi hệ thống");
-                }else{
-                    $('#errorSystem').text(textbody);
-                }
-                $('#errorSystem').show();
-                setTimeout(function() {
-                    element.hide(); // Ẩn thông báo sau 3 giây
-                    element.removeClass("alert alert-danger");
-                }, 2000);
-            }
-        });
+        deleteOb(data,urlCategory)
     });
+
+    $('#delete-size').click(function(e) {
+        e.preventDefault();
+        var data = [];
+        $('#mytable4 tbody input[type="checkbox"]:checked').each(function() {
+            data.push($(this).val());
+        });
+        console.log(data);
+        console.log(JSON.stringify(data));
+        deleteOb(data,urlSize)
+    });
+
+        function deleteOb(data,url){
+                $.ajax({
+                    url:url,
+                    type:'DELETE',
+                    contentType:'application/json',
+                    data:JSON.stringify(data),
+                    success: function(result){
+                        $('#errorSystem').removeClass().addClass("alert alert-success");
+                        $('#errorSystem').text("Xóa thành công");
+                        $('#errorSystem').show();
+                        setTimeout(function() {
+                            element.hide(); // Ẩn thông báo sau 3 giây
+                            element.removeClass("alert alert-success");
+                            location.reload();
+                        }, 2000);
+                    },
+                    error: function(xhr,status,error){
+                        var textbody = xhr.responseText; //lấy nội dung phản hồi từ body
+                        $('#errorSystem').removeClass().addClass("alert alert-danger");
+                        if(!textbody.trim().startsWith("Error")){
+                            $('#errorSystem').text("Lỗi hệ thống");
+                        }else{
+                            $('#errorSystem').text(textbody);
+                        }
+                        $('#errorSystem').show();
+                        setTimeout(function() {
+                            element.hide(); // Ẩn thông báo sau 3 giây
+                            element.removeClass("alert alert-danger");
+                        }, 2000);
+                    }
+                });
+         }
 
 
     var categoryName = $('#categoryName');
