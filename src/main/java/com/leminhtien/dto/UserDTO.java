@@ -6,7 +6,6 @@ public class UserDTO extends BaseDTO{
 
 	private Long shopId;
 	private String userName;
-	 
 	private String password;
 	 
 	private String fullName;

@@ -2,6 +2,8 @@
          pageEncoding="UTF-8" %>
 <%@include file="/common/taglib.jsp" %>
 <c:url value="/api/web/cart" var="url"/>
+<c:url value="/web/redirect/purchase" var="rd"/>
+<c:url value="/api/web/purchase" var="purchases"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,7 +44,7 @@
                                     <hr class="my-4">
 
                                     <form id="form-Purchase">
-                                        <c:forEach items="${cart}" var="cart">
+                                        <c:forEach items="${cart}" var="cart" varStatus="i">
                                             <div class="row mb-4 d-flex justify-content-between align-items-center" id="cl-${cart.id}">
                                                 <div class="col-md-2 col-lg-2 col-xl-2">
                                                     <img
@@ -62,7 +64,7 @@
 
                                                     <input id="ip-${cart.id}" min="0" name="quantity"
                                                            value="${cart.quantity}" type="number"
-                                                           class="form-control form-control-sm qs-cls-quantity"
+                                                           class="form-control form-control-sm qs-cls-quantity" readonly
                                                            style="max-width: 60px;min-width: 40px"/>
 
                                                     <button class="btn btn-link px-2" onclick='update(event,"${cart.id}","${cart.product.id}",true)'>
@@ -73,7 +75,7 @@
                                                     <h6 class="mb-0" id="pr-${cart.id}">$<span class="pr-cls-price">${cart.product.price}</span></h6>
                                                 </div>
                                                 <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                                    <input type="checkbox" name="name" id="cb-${cart.product.id}" class="p-3 fs-2"
+                                                    <input type="checkbox" value="${cart.id}" name="id" id="${cart.product.id}" class="p-3 fs-2 sb-sl"
                                                            style="width: 20px; height: 20px">
                                                 </div>
                                                 <div class="col-md-1 col-lg-1 col-xl-1 text-end">
@@ -85,7 +87,6 @@
                                         </c:forEach>
                                     </form>
                                     <hr class="my-4">
-
                                 </div>
                             </div>
                             <div class="col-lg-4 bg-grey">
@@ -100,63 +101,57 @@
 
                                     <h5 class="text-uppercase mb-3">Shipping</h5>
 
-                                    <div class="mb-4 pb-2">
-                                        <select class="select">
-                                            <option value="1">Standard-Delivery- €5.00</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
-                                            <option value="4">Four</option>
-                                        </select>
-                                    </div>
-
-                                    <h5 class="text-uppercase mb-3">Give code</h5>
-
-                                    <div class="mb-5">
-                                        <div class="form-outline">
-                                            <input type="text" id="form3Examplea2"
-                                                   class="form-control form-control-lg"/>
-                                            <label class="form-label" for="form3Examplea2">Enter your code</label>
-                                        </div>
-                                    </div>
-
                                     <hr class="my-4">
 
                                     <div class="d-flex justify-content-between mb-5">
                                         <h5 class="text-uppercase">Total price</h5>
-                                        <h5 class="total"></h5>
+                                        <h5 class="total-ps">$ 0.0</h5>
                                     </div>
 
                                     <button type="button" class="btn btn-dark btn-block btn-lg"
-                                            data-mdb-ripple-color="dark">Register
+                                            data-mdb-ripple-color="dark" id="btn-purchases">Purchases
                                     </button>
 
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <form method="get" action="${rd}" style="display: none" id="formsm">
+
+    </form>
     <script type="text/javascript">
 
-        var number = function (){
-            var pr = document.getElementsByClassName('pr-cls-price');
-            var nb = document.getElementsByClassName('qs-cls-quantity');
+        var number = function (iscK){
+            const pr = document.getElementsByClassName('pr-cls-price');
+            const nb = document.getElementsByClassName('qs-cls-quantity');
+            const ip = document.getElementsByClassName('sb-sl');
             var  quantity ;
             var price ;
             var total=0;
             for (let i=0;i<pr.length;i++){
-                quantity = parseInt(nb[i].value);
-                console.log(quantity)
-                price = parseFloat(pr[i].textContent);
-                console.log(price)
-                total+=quantity*price;
+                if(iscK===false){
+                    quantity = parseInt(nb[i].value);
+                    price = parseFloat(pr[i].textContent);
+                    total+=quantity*price;
+                }else {
+                    if (ip[i].checked===true){
+                        quantity = parseInt(nb[i].value);
+                        console.log(quantity)
+                        price = parseFloat(pr[i].textContent);
+                        console.log(price)
+                        total+=quantity*price;
+                    }
+                }
             }
             return total.toFixed(3);
-
         }
-        $('.total').text("$ "+number());
+        $('.total').text("$ "+number(false));
         console.log(number());
         const myerr = $('#errorSystem');
         function update(event, id, productId,flag) {
@@ -173,7 +168,7 @@
                 myerr.text("Số lượng không được nhỏ hơn 1");
                 myerr.show();
                 setTimeout(function () {
-                    console.log(number());
+                    console.log(number(false));
                     myerr.hide(); // Ẩn thông báo sau 3 giây
                     myerr.removeClass("alert alert-danger");
                 }, 3000);
@@ -192,7 +187,8 @@
                     var id = result.id;
                     var ipId = '#ip-'+id;
                     $(ipId).val(result.quantity)
-                    $('.total').text("$ "+number());
+                    $('.total').text("$ "+number(false));
+                    $('.total-ps').text("$ "+number(true));
                 },
                 error: function (xhr, status, error) {
 
@@ -210,6 +206,13 @@
                 }
 
             });
+        }
+
+        var ipcheckbox = document.getElementsByClassName('sb-sl');
+        for (let  i = 0;i<ipcheckbox.length;i++){
+            ipcheckbox[i].addEventListener("change",function (){
+                $('.total-ps').text("$ "+number(true));
+            })
         }
 
         function deleteCart(e,id){
@@ -241,8 +244,27 @@
             });
         }
 
+        $('#btn-purchases').click(function (){
+            const ip = document.getElementsByClassName('sb-sl');
+            const formSm = document.getElementById('formsm');
+            var length = ip.length;
+            var flag = false;
+            for (let i = 0;i<length;i++){
+                if (ip[i].checked===true){
+                    if(flag===false){
+                        flag=true;
+                    }
+                    var clone = ip[i].cloneNode(true);
+                    formSm.appendChild(clone);
+                }
+            }
+            if(flag===true){
+                formSm.submit();
+            }
+        })
+
+
     </script>
 </section>
-
 </body>
 </html>

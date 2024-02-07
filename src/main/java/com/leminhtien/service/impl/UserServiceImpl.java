@@ -2,6 +2,7 @@ package com.leminhtien.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
@@ -11,6 +12,7 @@ import org.hibernate.QueryException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -188,12 +190,30 @@ public class UserServiceImpl implements IUserService{
 	}
 
 	@Override
+	public Page<UserDTO> findAllByRole(Pageable pageable, String role) {
+		Page<UserEntity> users = userRepository.findAllByRolesCodeAndStatus(role,1,pageable);
+		return users.map(entity->mapper.map(entity,UserDTO.class));
+	}
+
+	@Override
+	public Page<UserDTO> findAllByUserNameContainingAndRole(String name, String role,Pageable pageable) {
+		Page<UserEntity> users = userRepository.findAllByUserNameContainingAndRolesNameAndStatus(name,role,1,pageable);
+		return users.map(entity->mapper.map(entity,UserDTO.class));
+	}
+
+	@Override
 	public UserDTO findCurrentUser() {
 		Long id = SecurityUtils.getPrincipal().getId();
 		UserEntity user = userRepository.getOne(id);
 		UserDTO rs = mapper.map(user,UserDTO.class);
 		rs.setShopId(user.getShop().getId());
 		return rs;
+	}
+
+	@Override
+	public UserDTO findOneByNameAndRolesCodeAndStatus(String name, String role, int status) {
+		UserEntity user = userRepository.findOneByUserNameAndRolesCodeAndStatus(name,role,status);
+		return mapper.map(user,UserDTO.class);
 	}
 
 	@Override

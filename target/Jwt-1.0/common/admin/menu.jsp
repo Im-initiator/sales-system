@@ -52,6 +52,10 @@ Management directory</span>
                             Gender management</a></li>
                         <li class="nav-item"><a class="nav-link" href="<c:url value='/manager/size?page=1'/>">
                             Size management</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<c:url value='/manager/transport'/>">
+                            Transport management</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<c:url value='/manager/order'/>">
+                            Order management</a></li>
                     </sec:authorize>
 
 

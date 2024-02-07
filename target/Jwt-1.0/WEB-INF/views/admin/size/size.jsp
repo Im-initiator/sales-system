@@ -25,7 +25,7 @@
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalLabel">Add new Category</h5>
+									<h5 class="modal-title" id="exampleModalLabel">Add new Size</h5>
 									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 								</div>
 								<div class="modal-body">
@@ -58,8 +58,8 @@
 									<c:forEach items="${model}" var ="size" varStatus="loop">
 									    <tr>									    	
 									    	<td><input type="checkbox" value="${size.id}" id ="${size.id}"/></td>
-									    	<input type="hidden" class="category${loop.index}" value="${size.id}"/>
-										    <td class="category${loop.index}">${size.name}</td>
+									    	<input type="hidden" class="size${loop.index}" value="${size.id}"/>
+										    <td class="size${loop.index}">${size.name}</td>
 										    <sec:authorize access="hasRole('MANAGER')">
 												<td><i class="bi bi-pencil-square bs-bx p-2 edit-category" data-bs-toggle="modal" data-bs-target="#ModelEdit"  id="${loop.index}"></i></td>
 											</sec:authorize>
@@ -89,7 +89,7 @@
 				  <div class="modal-dialog">
 					<div class="modal-content">
 					  <div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel2">Add new Category</h5>
+						<h5 class="modal-title" id="exampleModalLabel2">Update Size</h5>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					  </div>
 					  <div class="modal-body">
@@ -315,13 +315,12 @@
     	  $(this).on("click", function() {  		 
     		  var id = $(this).attr("id");
      		    console.log(id);
-     		   var clas = "category"+id;
+     		   var clas = "size"+id;
      		   var element = $('.'+clas);
      		  console.log(element);
-       		 var categoryId = element[0].value;
-     		   $('#id').val(categoryId);
-     		   $('#name').val(element[1].textContent);
-      		   $('#code').val(element[2].textContent); 		
+       		 var sizeId = element[0].value;
+     		   $('#id').val(sizeId);
+     		   $('#x_name').val(element[1].textContent);
      		    console.log(this);
     	  });
      });

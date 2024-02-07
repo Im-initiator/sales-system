@@ -11,7 +11,6 @@
 <c:url var="urlRegister" value="/api/user"/>
 <c:url var="urlUser" value="/api/admin/user"/>
 <c:url var="urlList" value="/admin/user"/>
-
 <div class="container">
 		<div class="row">    
 			<div class="col-md-12">

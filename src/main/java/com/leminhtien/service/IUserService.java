@@ -2,9 +2,11 @@ package com.leminhtien.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.leminhtien.dto.UserDTO;
+import org.springframework.security.core.userdetails.User;
 
 public interface IUserService {
 	
@@ -21,8 +23,10 @@ public interface IUserService {
 	long countByUserNameORFullNameContaining(String name);
 	List<UserDTO> findAllByUserNameOrFullNameContaining(String name);
 	List<UserDTO> findAllByUserNameOrFullNameContaining(String name,Pageable pageable);
-
+	Page<UserDTO> findAllByRole(Pageable pageable,String role);
+	Page<UserDTO> findAllByUserNameContainingAndRole(String name,String role,Pageable pageable);
 	UserDTO findCurrentUser();
+	UserDTO findOneByNameAndRolesCodeAndStatus(String name,String role,int status);
 
 
 }

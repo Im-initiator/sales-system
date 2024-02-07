@@ -8,6 +8,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.nio.charset.StandardCharsets;
+import java.util.zip.DataFormatException;
 
 @RestController
 @PreAuthorize("isAuthenticated()")
@@ -36,6 +37,9 @@ public class CartAPI {
     @ResponseBody
     public ResponseEntity<?> updateCart(@RequestBody CartDTO cartDTO) {
         try {
+            if (cartDTO.getQuantity()<=0){
+                throw new DataFormatException();
+            }
             CartDTO cart = cartService.update(cartDTO);
             if (cart == null) {
                 return ResponseEntity.badRequest().body("Error: Cập nhật sản phẩm không thành công".getBytes(StandardCharsets.UTF_8));

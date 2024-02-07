@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<c:url value="/web/add/cart" var="url"/>
+<c:url value="/api/web/cart" var="url"/>
 
 <header>
     <!-- content -->
@@ -241,6 +241,7 @@
                     }
                     if(xhr.status ===200||xhr.status===201){
                         $('#errorSystem').text("Thêm thành công");
+
                     }
                 // }else{
                 //     $('#errorSystem').text("Thêm không thành công");
@@ -249,7 +250,8 @@
                 setTimeout(function() {
                     element.hide(); // Ẩn thông báo sau 3 giây
                     element.removeClass("alert alert-success");
-                }, 3000);
+                    location.reload();
+                }, 1000);
             },
             error: function(xhr,status,error){
                 var textbody = xhr.responseText; //lấy nội dung phản hồi từ body

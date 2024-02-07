@@ -4,9 +4,12 @@
     <option name="state">
       <map>
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/categoryGender/listCategoryGender.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/categoryGender" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/order/edit.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/order" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/order/orderList.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/order" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/product/editProduct.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/product" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/product/productList.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/product" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/user/userList.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/user" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/web/carts/cart.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/web/carts" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/web/home.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/web" />
       </map>
     </option>

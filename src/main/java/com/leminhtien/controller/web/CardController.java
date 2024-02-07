@@ -1,6 +1,7 @@
 package com.leminhtien.controller.web;
 
 import com.leminhtien.service.ICartService;
+import com.leminhtien.service.ITransportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,9 @@ public class CardController {
     @Autowired
     private ICartService cartService;
 
+    @Autowired
+    private ITransportService transportService;
+
     @RequestMapping(value = "/web/cart",method = RequestMethod.GET)
     public ModelAndView view(){
         ModelAndView mav = new ModelAndView("/web/carts/cart");
@@ -22,6 +26,7 @@ public class CardController {
         mav.addObject("count",cartService.countByUser());
         double d = cartService.getTotalPrice();
         mav.addObject("total",d);
+        mav.addObject("transport",transportService.findAll());
         return  mav;
     }
 }

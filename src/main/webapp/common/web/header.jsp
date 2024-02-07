@@ -83,7 +83,12 @@
                                     <div class="tip">${count}</div>
                                 </sec:authorize>
                             </a></li>
-                            <li><a href="<c:url value='/web/cart'/>"><span class="icon_bag_alt"></span>
+                            <li><a href="<c:url value='/web/cart'/>"><i class="fa-solid fa-cart-shopping"></i>
+                                <sec:authorize access="isAuthenticated()">
+                                    <div class="tip">${count}</div>
+                                </sec:authorize>
+                            </a></li>
+                            <li><a href="<c:url value='/web/detailOrder'/>"><span class="icon_bag_alt"></span>
                                 <sec:authorize access="isAuthenticated()">
                                     <div class="tip">${count}</div>
                                 </sec:authorize>

@@ -19,10 +19,12 @@
   <link rel="stylesheet" href="<c:url value='/template/admin/vendors/simple-line-icons/css/simple-line-icons.css'/>">
   <link rel="stylesheet" href="<c:url value='/template/admin/vendors/css/vendor.bundle.base.css'/>">
   <link href="<c:url value='/template/web/bootstrap/css/bootstrap.min.css'/>" rel="stylesheet">
+  <link rel="stylesheet" href="<c:url value='/template/common/css/all.min.css'/>" type="text/css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <script src="<c:url value='/template/web/bootstrap/js/bootstrap.min.js'/>"></script>
   <script src="<c:url value='/template/famework/jquery.js'/>"></script>
   <script src="<c:url value='/template/ckeditor/ckeditor.js'/>"></script>
+
   <!-- endinject -->
   <!-- Plugin css for this page -->
   <link rel="stylesheet" href="<c:url value='/template/admin/js/select.dataTables.min.css'/>">
@@ -49,6 +51,7 @@
 
 <!-- plugins:js -->
   <script src="<c:url value='/template/admin/vendors/js/vendor.bundle.base.js'/>"></script>
+ <script src="<c:url value='/template/common/js/all.min.js'/>"></script>
   <!-- endinject -->
   <!-- Plugin js for this page -->
   <script src="<c:url value='/template/admin/vendors/chart.js/Chart.min.js'/>"></script>

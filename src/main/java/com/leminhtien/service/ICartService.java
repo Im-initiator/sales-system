@@ -12,6 +12,9 @@ public interface ICartService {
     List<CartDTO> findAll();
 
     int countByUser();
+    CartDTO findByIdAndUserId(Long id);
+
+    List<CartDTO> findByIdAndUserId(Long[] ids);
 
     double getTotalPrice();
 }

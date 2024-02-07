@@ -127,6 +127,28 @@ public class CartServiceImpl implements ICartService {
     }
 
     @Override
+    public CartDTO findByIdAndUserId(Long id) {
+        Long userId = SecurityUtils.getPrincipal().getId();
+        CartEntity cart = cartRepository.findOneByIdAndUserId(id,userId);
+        if (cart!=null){
+            return mapper.map(cart, CartDTO.class);
+        }
+        return null;
+    }
+
+    @Override
+    public List<CartDTO> findByIdAndUserId(Long[] ids) {
+        List<CartDTO> carts = new ArrayList<>();
+        for (Long id : ids){
+            CartDTO cart = this.findByIdAndUserId(id);
+            if (cart!=null){
+                carts.add(cart);
+            }
+        }
+        return carts;
+    }
+
+    @Override
     public double getTotalPrice() {
         List<CartDTO> list = this.findAll();
         return list.stream().reduce(0.0,(sum,cart)->sum+(cart.getProduct().getPrice()*cart.getQuantity()),Double::sum);

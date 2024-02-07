@@ -1,46 +1,103 @@
 package com.leminhtien.dto;
 
-import com.leminhtien.entity.UserEntity;
-
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import java.util.Date;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 public class OrderDTO extends BaseDTO{
 
     private Long userId;
-
-    private Date dateBook;
-
+    private String userName;
     private int quantity;
 
-    private String transport;
-
+    private TransportDTO transport;
     private String note;
 
+    @Min(value = -1,message = "status must be at least 1")
+    @Max(value = 5,message = "status must be at most 5")
     private byte status;
 
     private String sendAddress;
 
     private String receAddress;
 
-    @Override
-    public Long getId() {
+    private Long[] ids;
+
+    private String recipientName;
+
+    private String phoneNumber;
+    private ProductDTO product;
+    private String transportCode;
+
+
+
+    private String size;
+
+    private String code;
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getTransportCode() {
+        return transportCode;
+    }
+
+    public ProductDTO getProduct() {
+        return product;
+    }
+
+    public void setProduct(ProductDTO product) {
+        this.product = product;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+
+    public void setTransportCode(String transportCode) {
+        this.transportCode = transportCode;
+    }
+
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getRecipientName() {
+        return recipientName;
+    }
+
+    public void setRecipientName(String recipientName) {
+        this.recipientName = recipientName;
+    }
+
+    public Long getUserId() {
         return userId;
     }
 
-    @Override
-    public void setId(Long id) {
-        this.userId = id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-    public Date getDateBook() {
-        return dateBook;
+    public Long[] getIds() {
+        return ids;
     }
 
-    public void setDateBook(Date dateBook) {
-        this.dateBook = dateBook;
+    public void setIds(Long[] ids) {
+        this.ids = ids;
     }
 
     public int getQuantity() {
@@ -51,11 +108,11 @@ public class OrderDTO extends BaseDTO{
         this.quantity = quantity;
     }
 
-    public String getTransport() {
+    public TransportDTO getTransport() {
         return transport;
     }
 
-    public void setTransport(String transport) {
+    public void setTransport(TransportDTO transport) {
         this.transport = transport;
     }
 
@@ -89,5 +146,13 @@ public class OrderDTO extends BaseDTO{
 
     public void setReceAddress(String receAddress) {
         this.receAddress = receAddress;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
     }
 }

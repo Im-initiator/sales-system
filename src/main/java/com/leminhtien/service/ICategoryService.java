@@ -16,14 +16,10 @@ public interface ICategoryService {
 	CategoryDTO save(CategoryDTO categoryDTO);
 	boolean delete(Long[] ids);
 	long count();
-
 	long countByNameContaining(String name);
-
 	List<CategoryDTO> findByNameContaining(String name, Pageable pageable);
 	List<CategoryDTO> findByNameContaining(String name);
-
 	CategoryDTO getCategoryByProductId(Long id);
-
 	List<CategoryDTO> findAllByShopId();
 	List<CategoryDTO> findAllByRemoveByShop();
 

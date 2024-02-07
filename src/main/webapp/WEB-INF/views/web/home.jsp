@@ -68,15 +68,15 @@
                                 </ul>
                             </div>
                             <div class="product__item__text">
-                                <h6><a href="<c:url value='/web/product?id=${item.id}'/> ">${item.name}</a></h6>
-                                <div class="rating">
-                                    <i class="bi bi-star"></i></i>
-                                    <i class="bi bi-star"></i>
-                                    <i class="bi bi-star"></i>
-                                    <i class="bi bi-star"></i>
-                                    <i class="bi bi-star"></i>
+                                <h6><a class="text-decoration-none" href="<c:url value='/web/product?id=${item.id}'/> ">${item.name}</a></h6>
+                                <div class="rating" style="color: #e3c01c;font-size: 12px">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
                                 </div>
-                                <div class="product__price">${item.price}</div>
+                                <div class="product__price">$${item.price}</div>
                             </div>
                         </div>
                     </div>

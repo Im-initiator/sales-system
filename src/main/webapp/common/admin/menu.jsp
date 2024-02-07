@@ -28,18 +28,20 @@ Management directory</span>
                             management</a></li>
                     </sec:authorize>
                     <sec:authorize access="hasRole('SHIPPER')">
-                        <li class="nav-item"><a class="nav-link" href="#">
+                        <li class="nav-item"><a class="nav-link" href="<c:url value='/shipper/order'/>">
                             Delivery</a></li>
                     </sec:authorize>
                     <sec:authorize access="hasRole('CENSOR')">
-                        <li class="nav-item"><a class="nav-link" href="#">
-                            Order management</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<c:url value='/censor/shipper'/>">
+                            Shipper Management</a></li>
                     </sec:authorize>
                     <sec:authorize access="hasRole('SALER')">
                         <li class="nav-item"><a class="nav-link" href="<c:url value='/saler/product?page=1'/>">Product
                             Management</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Order management</a></li>
-                        <li class="nav-item"><a class="nav-link" href="<c:url value='/saler/register/category'/>">register category and size</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<c:url value='/saler/order?t=get-all'/>">Review all orders</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<c:url value='/saler/order?t=wait-confirm'/>">Order confirmation</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<c:url value='/saler/order?t=delivery-confirm'/>">Order Delivery</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<c:url value='/saler/register/category'/>">Register category & size</a></li>
                     </sec:authorize>
                     <sec:authorize access="hasRole('MANAGER')">
                         <li class="nav-item"><a class="nav-link" href="<c:url value='/manager/product?page=1'/>">Product
@@ -52,6 +54,10 @@ Management directory</span>
                             Gender management</a></li>
                         <li class="nav-item"><a class="nav-link" href="<c:url value='/manager/size?page=1'/>">
                             Size management</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<c:url value='/manager/transport'/>">
+                            Transport management</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<c:url value='/manager/order'/>">
+                            Order management</a></li>
                     </sec:authorize>
 
 

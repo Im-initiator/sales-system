@@ -49,6 +49,9 @@ public class UserController {
 		mav.addObject("model",userDTO);
 		mav.addObject("limit",limit);
 		mav.addObject("Role",role);
+		mav.addObject("api","/api/user");
+		mav.addObject("list","/api/admin/user");
+		mav.addObject("listUser","/admin/user");
 		return mav;
 		
 	}

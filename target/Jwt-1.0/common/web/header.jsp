@@ -80,12 +80,12 @@
                             <li><span class="icon_search search-switch"></span></li>
                             <li><a href="#"><span class="icon_heart_alt"></span>
                                 <sec:authorize access="isAuthenticated()">
-                                    <div class="tip">${cart}</div>
+                                    <div class="tip">${count}</div>
                                 </sec:authorize>
                             </a></li>
                             <li><a href="<c:url value='/web/cart'/>"><span class="icon_bag_alt"></span>
                                 <sec:authorize access="isAuthenticated()">
-                                    <div class="tip">${cart}</div>
+                                    <div class="tip">${count}</div>
                                 </sec:authorize>
                             </a></li>
                         </ul>
