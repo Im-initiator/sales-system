@@ -68,10 +68,10 @@
           </li>
           <li class="nav-item">
             <form class="search-form" action="" id="form-search" style="position: relative;" method="GET">
-              <i class="icon-search"></i>
+              <i class="icon-search"><i class="fa-solid fa-magnifying-glass"></i></i>
               <input type="search" class="form-control" placeholder="Search Here" title="Search here" id="search-product">
              <div style="position: absolute;width: 250px; background-color: #e9e6e6 ;display:none; max-height: 200px;overflow: hidden;" class="mt-2 ms-3 Regular shadow text-dark " id="content-search">
-             	
+
              </div>
             </form>
           </li>

@@ -3,6 +3,7 @@ package com.leminhtien.controller.web;
 import com.leminhtien.dto.ProductDTO;
 import com.leminhtien.dto.ShopDTO;
 import com.leminhtien.service.ICartService;
+import com.leminhtien.service.IOrderService;
 import com.leminhtien.service.IProductService;
 import com.leminhtien.service.IShopService;
 import com.leminhtien.utils.SecurityUtils;
@@ -29,6 +30,9 @@ public class HomeController {
 	@Autowired
 	private ICartService cartService;
 
+	@Autowired
+	private IOrderService orderService;
+
 
 	@RequestMapping(value="/home",method = RequestMethod.GET)
 	public ModelAndView homePage(@RequestParam(value = "page",defaultValue = "1") int page, @RequestParam(value = "limit",defaultValue = "12") int limit) {
@@ -39,8 +43,10 @@ public class HomeController {
 
 		mav.addObject("model",list);
 		if (SecurityUtils.isAuthenticated()){
+			Long userId = SecurityUtils.getPrincipal().getId();
 			int ca = cartService.countByUser();
 			mav.addObject("count",ca);
+			mav.addObject("countOrder",orderService.countAllByUserIdAndStatusBetween(userId,(byte) 1,(byte) 4));
 		}
 		Page<ProductDTO> pageProduct = productService.selectAll(pageable);
 		mav.addObject("totalItem",pageProduct.getTotalElements());

@@ -29,4 +29,5 @@ public interface IOrderService {
     OrderDTO findOneByIdAndProductShopId( Long id);
 
     List<OrderDTO> findAllByUserIdAndStatusBetween(Long userId,byte statusMin, byte statusMax);
+    int countAllByUserIdAndStatusBetween(Long userId,byte statusMin, byte statusMax);
 }

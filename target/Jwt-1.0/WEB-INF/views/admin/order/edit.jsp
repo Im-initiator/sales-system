@@ -11,7 +11,7 @@
 
 </head>
 <body>
-<section class="vh-100 mt-3" style="width: 100%">
+<section class="vh-100 mt-3" style="width: 100%;margin-bottom: 10%">
     <div class="container h-100">
         <div class="position-fixed  p-3 alert" id="errorSystem" role="alert"
              style="z-index:999;display:none;width: 33%;height: 50px;left: 60%">
@@ -143,41 +143,71 @@
                                 </div>
                             </div>
 
-                            <div class="row mb-4">
-                                <div class="col-lg-6 row">
-                                    <div class="col-lg-3">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <label for="status">Status</label>
+                            <sec:authorize access="hasAnyRole('SALER','MANAGER')">
+                                <div class="row mb-4">
+
+                                    <div class="col-lg-6 row">
+                                        <div class="col-lg-3">
+                                            <div data-mdb-input-init class="form-outline">
+                                                <label for="status">Status</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-5">
+                                                <div data-mdb-input-init class="">
+                                                    <sec:authorize access="hasAnyRole('MANAGER')">
+                                                        <select name="status" class="form-select" id="status">
+                                                            <option value="-1">Đơn hàng hủy</option>
+                                                            <option value="0">Giao hàng thất bại</option>
+                                                            <option value="1">Chờ xác nhận</option>
+                                                            <option value="2">Dang chuẩn bị</option>
+                                                            <option value="3">Đã gửi hàng</option>
+                                                            <option value="4">Đang giao hàng</option>
+                                                            <option value="5">Giao hàng thành công</option>
+                                                        </select>
+                                                    </sec:authorize>
+                                                    <sec:authorize access="hasAnyRole('SALER')">
+                                                        <c:choose>
+                                                            <c:when test="${order.status == -1}">
+                                                                <input type="text" value="Đơn hàng hủy" />
+                                                            </c:when>
+                                                            <c:when test="${order.status == 0}">
+                                                                <input type="text" value="Giao hàng thất bại" />
+                                                            </c:when>
+                                                            <c:when test="${order.status == 1}">
+                                                                <input type="text" value="Chờ xác nhận" />
+                                                            </c:when>
+                                                            <c:when test="${order.status == 2}">
+                                                                <input type="text" value="Dang chuẩn bị" />
+                                                            </c:when>
+                                                            <c:when test="${order.status == 3}">
+                                                                <input type="text" value="Đã gửi hàng" />
+                                                            </c:when>
+                                                            <c:when test="${order.status == 4}">
+                                                                <input type="text" value="Đang giao hàng" />
+                                                            </c:when>
+                                                            <c:when test="${order.status == 5}">
+                                                                <input type="text" value="Giao hàng thành công" />
+                                                            </c:when>
+                                                        </c:choose>
+                                                        </select>
+                                                    </sec:authorize>
+                                                </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-5">
-                                        <div data-mdb-input-init class="">
-                                            <select name="status" class="form-select" id="status">
-                                                <option value="-1">Đơn hàng hủy</option>
-                                                <option value="0">Giao hàng thất bại</option>
-                                                <option value="1">Chờ xác nhận</option>
-                                                <option value="2">Dang chuẩn bị</option>
-                                                <option value="3">Đã giao hàng</option>
-                                                <option value="4">Shipper giữ hàng</option>
-                                                <option value="5">Shipper đang giao</option>
-                                                <option value="6">Giao hàng thành công</option>
-                                            </select>
+                                    <div class="col-lg-6 row">
+                                        <div class="col-lg-3">
+                                            <div data-mdb-input-init class="form-outline">
+                                                <label for="transport">Transport</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-7">
+                                            <div data-mdb-input-init class="form-outline">
+                                                <input type="text" id="transport" value="${order.transport.name}" class="form-control" disabled/>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 row">
-                                    <div class="col-lg-3">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <label for="transport">Transport</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-7">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <input type="text" id="transport" value="${order.transport.name}" class="form-control" disabled/>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            </sec:authorize>
 
                             <div data-mdb-input-init class="form-outline mb-4">
                                 <textarea class="form-control" rows="4" style="min-height: 100px" placeholder="Note">${order.note}</textarea>
@@ -190,63 +220,52 @@
                 </div>
 
                 <div class="d-flex justify-content-end" style="margin-bottom: 100px">
-                    <a type="button" class="btn btn-light btn-lg me-2" href="<c:url value='/manager/order'/> ">Come back</a>
-                    <button type="button" id="update-form" class="btn btn-lg" style="background-color: #19cb86">Update</button>
+                   <sec:authorize access="hasAnyRole('MANAGER')">
+                       <a type="button" class="btn btn-light btn-lg me-2" href="<c:url value='/manager/order'/> ">Come back</a>
+                       <button type="button" id="update-form" class="btn btn-lg" style="background-color: #19cb86">Update</button>
+                   </sec:authorize>
+
+                    <sec:authorize access="hasAnyRole('SHIPPER')">
+                        <a type="button" class="btn btn-light btn-lg me-2" href="<c:url value='/shipper/order'/> ">Come back</a>
+                        <button type="button" id="delivery-success" class="btn btn-lg" style="background-color: #19cb86">Delivery success</button>
+                        <button type="button" id="delivery-fail" class="btn btn-lg" style="background-color: #19cb86">Delivery fail</button>
+                    </sec:authorize>
+
+                    <sec:authorize access="hasAnyRole('SALER')">
+                        <a type="button" class="btn btn-light btn-lg me-2" href="<c:url value='/shipper/order'/> ">Come back</a>
+                        <button type="button" id="confirm-success" class="btn btn-lg" style="background-color: #19cb86"></button>
+                        <button type="button" id="confirm-fail" class="btn btn-lg ms-3" style="background-color: #19cb86"></button>
+                    </sec:authorize>
+
                 </div>
 
             </div>
         </div>
     </div>
-</section>
-
 <script type="text/javascript">
-    const element = $('#errorSystem');
-    $("#status option").each(function() {
-        if ($(this).val() === "${order.status}") {
-            $(this).prop("selected", true);
-        }
-    });
-    $('#update-form').click(function (e){
-        e.preventDefault();
-        var formData = $('#form-submit').serializeArray();
-        var data = {};
-        $.each(formData,function(i,v){
-            data[""+v.name+""] = v.value;
-        });
-        console.log(formData);
-        $.ajax({
-            url:'${api}',
-            type:'PUT',
-            contentType:'application/json',
-            data:JSON.stringify(data),
-            success: function(result){
-                element.removeClass().addClass("alert alert-success");
-                element.text("Cập nhật trạng thái thành công");
-                element.show();
-                setTimeout(function() {
-                    element.hide(); // Ẩn thông báo sau 3 giây
-                    element.removeClass("alert alert-success");
-                    window.location.href ="${link}";
-                }, 2000);
-            },
-            error: function(xhr,status,error){
-                var textbody = xhr.responseText; //lấy nội dung phản hồi từ body
-                element.removeClass().addClass("alert alert-danger");
-                if(!textbody.trim().startsWith("Error")){
-                    $('#errorSystem').text("Lỗi hệ thống");
-                }else{
-                    $('#errorSystem').text(textbody);
-                }
-                element.show();
-                setTimeout(function() {
-                    element.hide(); // Ẩn thông báo sau 3 giây
-                    element.removeClass("alert alert-danger");
-                }, 2000);
-            }
+    var api = "${api}";
+    var link = "${link}"
+    var status = "${order.status}";
+    var orderId = "${order.id}";
 
-        })
-    })
 </script>
 
+</section>
+
+<sec:authorize access="hasAnyRole('MANAGER')">
+    <script src="<c:url value='/template/admin/censor/clientSend.js'/>"></script>
+</sec:authorize>
+<sec:authorize access="hasAnyRole('SALER')">
+    <script type="text/javascript">
+        var apiSeller = "<c:url value='/api/saler/${order.id}/orders'/>"
+    </script>
+    <script src="<c:url value='/template/admin/saler/clientSend.js'/>"></script>
+</sec:authorize>
+<sec:authorize access="hasAnyRole('SHIPPER')">
+    <script type="text/javascript">
+        var apiShipper = "<c:url value='/api/shipper/${order.id}/orders'/>"
+    </script>
+    <script src="<c:url value='/template/admin/shipper/clientSend.js'/>"></script>
+</sec:authorize>
 </body>
 </html>

@@ -8,9 +8,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<c:url var="urlRegister" value="/api/user"/>
-<c:url var="urlUser" value="/api/admin/user"/>
-<c:url var="urlList" value="/admin/user"/>
+<c:url var="urlRegister" value="${api}"/>
+<c:url var="urlUser" value="${list}"/>
+<c:url var="urlList" value="${listUser}"/>
 <div class="container">
 		<div class="row">    
 			<div class="col-md-12">
@@ -18,72 +18,76 @@
 				  			 Thông báo ở đây
 		    	</div>
 		    	
-		    	<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-				  Add new
-				</button>
-				<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-				  <div class="modal-dialog">
-				    <div class="modal-content">
-				      <div class="modal-header">
-				        <h5 class="modal-title" id="exampleModalLabel">Add new Uer</h5>
-				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				      </div>
-				      <div class="modal-body">
-				        	<form id="formAdd">
-							  <div class="mb-3">
-							    <label for="userName" class="form-label">User Name</label>
-							    <input type="text" class="form-control" name="userName" id="userName" aria-describedby="emailHelp">							    
-							  </div>
-							  <div class="mb-3">
-							    <label for="password" class="form-label">Password</label>
-							    <input type="password" class="form-control" name="password" id="password">
-							  </div>	  	  
-							  <div class="mb-3" id="RoleUser">
-								  <c:forEach items="${Role}" var="item">
-									  <input class="form-check-input" type="checkbox" value="${item.code}" id="${item.code}">
-									  <label class="form-check-label" for="${item.code}">
-									    ${item.name}
-									  </label>							  
-								 </c:forEach>								 
-								</div>		  
-							  <div class="mb-3">
-							    <label for="fullName" class="form-label">Full Name</label>
-							    <input type="text" class="form-control" id="fullName" name="fullName">
-							  </div>	
-							  <div class="mb-3">
-							      <label for="status1" class="form-label">Status </label>
-							      <input class="form-check-input" type="radio" name="status" id="status1" value="1" checked>
-								  <label class="form-check-label" for="status1">
-								    1
-								  </label>
-								  <input class="form-check-input" type="radio" name="status" value="0" id="status0">
-								  <label class="form-check-label" for="status0">
-								    0
-								  </label>
-							  </div>	
-							  <div class="mb-3">
-							    <label for="address" class="form-label">Address</label>
-							    <input type="text" class="form-control" id="address" name="address">
-							  </div>	
-							  <div class="mb-3">
-							    <label for="phoneNumber" class="form-label">Phone Number</label>
-							    <input type="text" class="form-control" id="phoneNumber" name="phoneNumber">
-							  </div>							 
-							</form>				        				        				        				        				        				      
-				      </div>
-				      <div class="modal-footer">
-				        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-				        <button id="submitAddUser" type="button" class="btn btn-primary">Save</button>
-				      </div>
-				    </div>
-				  </div>
-				</div>
+		    	<sec:authorize access="hasRole('ADMIN')">
+					<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+						Add new
+					</button>
+					<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLabel">Add new Uer</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								</div>
+								<div class="modal-body">
+									<form id="formAdd">
+										<div class="mb-3">
+											<label for="userName" class="form-label">User Name</label>
+											<input type="text" class="form-control" name="userName" id="userName" aria-describedby="emailHelp">
+										</div>
+										<div class="mb-3">
+											<label for="password" class="form-label">Password</label>
+											<input type="password" class="form-control" name="password" id="password">
+										</div>
+										<div class="mb-3" id="RoleUser">
+											<c:forEach items="${Role}" var="item">
+												<input class="form-check-input" type="checkbox" value="${item.code}" id="${item.code}">
+												<label class="form-check-label" for="${item.code}">
+														${item.name}
+												</label>
+											</c:forEach>
+										</div>
+										<div class="mb-3">
+											<label for="fullName" class="form-label">Full Name</label>
+											<input type="text" class="form-control" id="fullName" name="fullName">
+										</div>
+										<div class="mb-3">
+											<label for="status1" class="form-label">Status </label>
+											<input class="form-check-input" type="radio" name="status" id="status1" value="1" checked>
+											<label class="form-check-label" for="status1">
+												1
+											</label>
+											<input class="form-check-input" type="radio" name="status" value="0" id="status0">
+											<label class="form-check-label" for="status0">
+												0
+											</label>
+										</div>
+										<div class="mb-3">
+											<label for="address" class="form-label">Address</label>
+											<input type="text" class="form-control" id="address" name="address">
+										</div>
+										<div class="mb-3">
+											<label for="phoneNumber" class="form-label">Phone Number</label>
+											<input type="text" class="form-control" id="phoneNumber" name="phoneNumber">
+										</div>
+									</form>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+									<button id="submitAddUser" type="button" class="btn btn-primary">Save</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</sec:authorize>
 			
 				<form action="<c:url value='/admin/user'/>" id="formSubmit" method="GET"> 
 					<div class="table-responsive">    							       
 							<table id="mytable" class="table table-bordred table-striped">         							
-								<thead>    								             
-							         <th><input type="checkbox" id="checkall"/><button type="button" class="btn text-danger" id="delete-user"> <i class="bi bi-trash fs-4"></i></button></th>
+								<thead>
+								<sec:authorize access="hasRole('ADMIN')">
+									<th><input type="checkbox" id="checkall"/><button type="button" class="btn text-danger" id="delete-user"> <i class="bi bi-trash fs-4"></i></button></th>
+								</sec:authorize>
 							         <th>User name</th>
 							         <th>Full Name</th>
 							          <th>email</th>						
@@ -95,14 +99,24 @@
 		    					<tbody>
 									<c:forEach items="${model.list}" var ="user"> 
 									    <tr>
-									    	<td><input type="checkbox" value="${user.userName}"/></td>
+											<sec:authorize access="hasRole('ADMIN')">
+												<td><input type="checkbox" value="${user.userName}"/></td>
+											</sec:authorize>
 										    <td>${user.userName}</td>   
 										    <td>${user.fullName}</td>
 										    <td>${user.email}</td>										   
 										    <td>${user.status}</td>   
 										    <td>${user.address}</td>
 										    <td>${user.phoneNumber}</td>
-										    <td><a href="<c:url value='/admin/edit/user?userName=${user.userName}'/>" title="Chỉnh sửa"><i class="bi bi-pencil-square bs-bx p-2"></i></a></td>									    										   							
+											<sec:authorize access="hasRole('ADMIN')">
+												<td><a href="<c:url value='/admin/edit/user?userName=${user.userName}'/>" title="Edit"><i class="bi bi-pencil-square bs-bx p-2"></i></a></td>
+											</sec:authorize>
+											<sec:authorize access="hasRole('CENSOR')">
+												<td>
+													<a href="<c:url value='/censor/shipper/order?n=${user.userName}'/>" title="Edit"><i class="fa-solid fa-folder"></i></a>
+													<a href="<c:url value='/censor/order?n=${user.userName}'/>" title="Add"><i class="bi bi-pencil-square bs-bx p-2"></i></a>
+												</td>
+											</sec:authorize>
 									    </tr>
 			    					</c:forEach> 
 		   						</tbody>     						   

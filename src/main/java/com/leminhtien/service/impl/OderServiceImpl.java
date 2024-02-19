@@ -244,4 +244,9 @@ public class OderServiceImpl implements IOrderService {
         return list.stream().map(entity->mapper.map(entity,OrderDTO.class)).toList();
     }
 
+    @Override
+    public int countAllByUserIdAndStatusBetween(Long userId, byte statusMin, byte statusMax) {
+        return orderRepository.countByUserIdAndStatusBetween(userId,statusMin,statusMax);
+    }
+
 }

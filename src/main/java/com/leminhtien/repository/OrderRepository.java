@@ -16,10 +16,13 @@ public interface OrderRepository extends JpaRepository<OrderEntity,Long> {
 
     int countByUserIdAndStatusBetween(Long id,byte min, byte max);
     List<OrderEntity> findAllByUserIdAndStatusBetweenOrderByStatusAsc(Long id,byte min,byte max);
+    int countAllByUserIdAndStatusBetweenOrderByStatusAsc(Long id,byte min,byte max);
     OrderEntity findOneByShipperIdAndId(Long shipperId, Long orderId);
     OrderEntity findOneByShipperIdAndIdAndStatus(Long shipperId,Long orderId,byte status);
     Page<OrderEntity> findAllByProductShopId(Long shopId,Pageable pageable);
     Page<OrderEntity> findAllByStatusAndProductShopId(byte status,Long shopId,Pageable pageable);
     OrderEntity findOneByIdAndProductShopId(Long id,Long shopId);
     OrderEntity findOneByStatusAndIdAndProductShopId(byte status,Long id,Long shopId);
+
+
 }

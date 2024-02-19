@@ -12,6 +12,8 @@ com\leminhtien\entity\BaseEntity.class
 com\leminhtien\service\ICartService.class
 com\leminhtien\service\ICategoryGenderService.class
 com\leminhtien\service\impl\OderServiceImpl.class
+com\leminhtien\controller\admin\saler\OrderController.class
+com\leminhtien\controller\admin\shipper\ShipperController.class
 com\leminhtien\api\admin\TransportAPI.class
 com\leminhtien\service\impl\SizeServiceImpl.class
 com\leminhtien\service\IUserService.class
@@ -44,6 +46,7 @@ com\leminhtien\dto\ProductDTO.class
 com\leminhtien\controller\admin\manager\SizeController.class
 com\leminhtien\entity\CartEntity.class
 com\leminhtien\api\web\PurchasesAPI.class
+com\leminhtien\controller\admin\censor\ShipperController.class
 com\leminhtien\controller\web\ShopController.class
 com\leminhtien\dto\ShopDTO.class
 com\leminhtien\service\IOrderService.class
@@ -80,6 +83,7 @@ com\leminhtien\controller\admin\manager\TransportController.class
 com\leminhtien\dto\BaseDTO.class
 com\leminhtien\entity\ShopEntity.class
 com\leminhtien\repository\OrderRepository.class
+com\leminhtien\controller\admin\censor\OrderController.class
 com\leminhtien\security\JwtTokenProvider.class
 com\leminhtien\config\ModelMapperConfig.class
 com\leminhtien\security\RestAuthenticationEntryPoint.class
