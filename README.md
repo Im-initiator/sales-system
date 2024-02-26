@@ -7,8 +7,11 @@ Technology used:
   - Backend: Spring framework (Spring Security, Spring JPA)
 
 About roles:
+
   Administration: Admin,Saler,Shipper,Censor,Manager.
+  
   User: User 
+  
   - About Admin: you can add, edit, and delete accounts. Add, edit, and delete roles.
   - About User: can register as a seller and use web services.
   - About saler: This is the sales person. You can choose from different product categories and sizes. Confirm and cancel orders. Add, edit, delete products,  
