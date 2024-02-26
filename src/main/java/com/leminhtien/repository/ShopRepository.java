@@ -12,6 +12,6 @@ public interface ShopRepository extends JpaRepository<ShopEntity,Long> {
 
     List<ShopEntity> findAllByOrderByName(Pageable pageable);
     long countAllByNameContaining(String name);
-
     int deleteById(Long id);
+    ShopEntity findOneByUserId(Long userId);
 }

@@ -3684,3 +3684,7 @@ ol {
 		font-size: 24px;
 	}
 }
+ul#sidbarHome:not(#x)::before,
+ul#sidbarHome:not(#x)::after {
+	content: none !important;
+}

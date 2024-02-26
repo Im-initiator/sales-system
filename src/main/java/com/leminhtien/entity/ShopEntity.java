@@ -20,6 +20,12 @@ public class ShopEntity extends BaseEntity{
     @Column
     private String address;
 
+    @Column
+    private String email;
+
+    @Column
+    private String phoneNumber;
+
     @OneToOne(mappedBy = "shop")
     private UserEntity user;
 
@@ -125,5 +131,21 @@ public class ShopEntity extends BaseEntity{
 
     public void setSizes(List<SizeEntity> sizes) {
         this.sizes = sizes;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

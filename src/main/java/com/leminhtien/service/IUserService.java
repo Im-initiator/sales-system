@@ -1,5 +1,6 @@
 package com.leminhtien.service;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -27,6 +28,8 @@ public interface IUserService {
 	Page<UserDTO> findAllByUserNameContainingAndRole(String name,String role,Pageable pageable);
 	UserDTO findCurrentUser();
 	UserDTO findOneByNameAndRolesCodeAndStatus(String name,String role,int status);
+
+	UserDTO updateInformation(UserDTO userDTO) throws IOException;
 
 
 }

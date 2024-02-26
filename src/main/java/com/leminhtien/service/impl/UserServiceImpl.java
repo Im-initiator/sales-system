@@ -1,13 +1,17 @@
 package com.leminhtien.service.impl;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.PersistenceException;
+import javax.servlet.ServletContext;
 import javax.transaction.Transactional;
 import javax.transaction.TransactionalException;
 
+import com.leminhtien.utils.FileUtils;
 import org.hibernate.QueryException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +42,9 @@ public class UserServiceImpl implements IUserService{
 	
 	@Autowired
 	private UserRepository userRepository;
+
+	@Autowired
+	private ServletContext servletContext;
 
 	@Override
 	public List<UserDTO> findAllByOrderByFullName(Pageable page) {
@@ -102,8 +109,9 @@ public class UserServiceImpl implements IUserService{
 				}else {
 					roles.add(roleRespository.findOneByCode("USER"));
 				}
-
 				userEntity.setRoles(roles);
+				userEntity.setAvatar("/template/web/user/images/user.jpg");
+				userEntity.setMoney(0);
 				userEntity = userRepository.save(userEntity);	
 				return  mapper.map(userEntity,UserDTO.class);
 			}
@@ -206,7 +214,9 @@ public class UserServiceImpl implements IUserService{
 		Long id = SecurityUtils.getPrincipal().getId();
 		UserEntity user = userRepository.getOne(id);
 		UserDTO rs = mapper.map(user,UserDTO.class);
-		rs.setShopId(user.getShop().getId());
+		if (SecurityUtils.getAuthorities().contains("SALER")){
+			rs.setShopId(user.getShop().getId());
+		}
 		return rs;
 	}
 
@@ -214,6 +224,37 @@ public class UserServiceImpl implements IUserService{
 	public UserDTO findOneByNameAndRolesCodeAndStatus(String name, String role, int status) {
 		UserEntity user = userRepository.findOneByUserNameAndRolesCodeAndStatus(name,role,status);
 		return mapper.map(user,UserDTO.class);
+	}
+
+	@Override
+	@Transactional
+	public UserDTO updateInformation(UserDTO userDTO) throws IOException, PersistenceException {
+		UserEntity userUpdate = userRepository.findOne(userDTO.getId());
+		String path = userUpdate.getAvatar();
+		userUpdate.setFullName(userDTO.getFullName());
+		userUpdate.setEmail(userDTO.getEmail());
+		userUpdate.setPhoneNumber(userDTO.getPhoneNumber());
+		userUpdate.setAddress(userDTO.getAddress());
+		userUpdate.setDetail(userDTO.getDetail());
+		if (userDTO.getFileAvatar().getSize()!=0){
+			try {
+				String fileName = FileUtils.saveImage(userDTO.getFileAvatar(),servletContext);
+				userUpdate.setAvatar(fileName);
+				if(!path.equals("/template/web/user/images/user.jpg")){
+					FileUtils.deleteFile(path,servletContext);
+				}
+			}catch (Exception e){
+				e.printStackTrace();
+				throw new IOException();
+			}
+
+		}
+		userUpdate = userRepository.save(userUpdate);
+		if (userUpdate!=null){
+			return mapper.map(userUpdate,UserDTO.class);
+		}else {
+			throw new PersistenceException();
+		}
 	}
 
 	@Override

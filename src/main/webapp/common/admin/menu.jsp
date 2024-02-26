@@ -5,7 +5,7 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
         <li class="nav-item">
-            <a class="nav-link" href="<c:url value="/admin-home"/>">
+            <a class="nav-link" href="<c:url value="/admin/home"/>">
                 <i class="mdi mdi-grid-large menu-icon"></i>
                 <span class="menu-title">Dashboard</span>
             </a>
@@ -42,6 +42,7 @@ Management directory</span>
                         <li class="nav-item"><a class="nav-link" href="<c:url value='/saler/order?t=wait-confirm'/>">Order confirmation</a></li>
                         <li class="nav-item"><a class="nav-link" href="<c:url value='/saler/order?t=delivery-confirm'/>">Order Delivery</a></li>
                         <li class="nav-item"><a class="nav-link" href="<c:url value='/saler/register/category'/>">Register category & size</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<c:url value='/saler/shop'/>">My shop</a></li>
                     </sec:authorize>
                     <sec:authorize access="hasRole('MANAGER')">
                         <li class="nav-item"><a class="nav-link" href="<c:url value='/manager/product?page=1'/>">Product
@@ -64,7 +65,7 @@ Management directory</span>
                 </ul>
             </div>
         </li>
-        <li class="nav-item nav-category">Forms and Datas</li>
+        <%--<li class="nav-item nav-category">Forms and Datas</li>
         <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#form-elements" aria-expanded="false"
                aria-controls="form-elements">
@@ -134,6 +135,6 @@ Management directory</span>
                 <i class="menu-icon mdi mdi-file-document"></i>
                 <span class="menu-title">Documentation</span>
             </a>
-        </li>
+        </li>--%>
     </ul>
 </nav>

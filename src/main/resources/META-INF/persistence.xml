@@ -11,5 +11,6 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
 		<class>com.leminhtien.entity.OrderEntity</class>
 		<class>com.leminhtien.entity.ShopEntity</class>
 		<class>com.leminhtien.entity.CartEntity</class>
+		<class>com.leminhtien.entity.TransportEntity</class>
 	</persistence-unit>
 </persistence>

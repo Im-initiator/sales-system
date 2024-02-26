@@ -5,6 +5,7 @@ import com.leminhtien.entity.ShopEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface IShopService {
@@ -15,7 +16,7 @@ public interface IShopService {
     ShopDTO save(ShopDTO shopDTO);
     int count();
     int countByName();
-    ShopDTO update(ShopDTO shopDTO);
+    ShopDTO update(ShopDTO shopDTO) throws Exception;
     boolean remove();
     int remove(Long[] ids);
     ShopDTO getShop();

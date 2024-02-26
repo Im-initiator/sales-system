@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title><dec:title default="Trang chủ" /></title>
+<title><dec:title default="Home" /></title>
   <link rel="stylesheet" href="<c:url value='/template/admin/css/style.css'/>">
   <link rel="stylesheet" href="<c:url value='/template/common/css/font-awesome.min.css'/>" type="text/css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"><link rel="stylesheet" href="<c:url value='/template/admin/vendors/feather/feather.css'/>">

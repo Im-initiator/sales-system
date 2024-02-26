@@ -1,6 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp" %>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+
+<body>
 <section class="categories">
         <div class="container-fluid">
             <div class="row">
@@ -85,7 +94,9 @@
 
         </div>
         </form>
+
         <script type="text/javascript">
+
             var urlParams = new URLSearchParams(window.location.search);
             var paramValue = urlParams.get('name');
             var currentPage = ${page};
@@ -468,4 +479,10 @@
         </div>
     </div>
 </div>
+</body>
+</html>
+
+<%--<script src="/template/web/user/js/popper.min.js"></script>
+<script src="/template/web/user/js/bootstrap.min.js"></script>
+<script src="/template/web/user/js/main.js"></script>--%>
 <!-- Instagram End -->

@@ -31,8 +31,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		try {
 
 			String requestUri = request.getRequestURI();
-			int lenth = request.getContextPath().length();
-			String path = requestUri.substring(lenth);
+			int length = request.getContextPath().length();
+			String path = requestUri.substring(length);
 			if (!path.startsWith("/api")) {
 				filterChain.doFilter(request, response);
 			} else {

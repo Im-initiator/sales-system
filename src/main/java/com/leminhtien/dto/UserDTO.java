@@ -1,5 +1,7 @@
 package com.leminhtien.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.List;
 
 public class UserDTO extends BaseDTO{
@@ -17,6 +19,12 @@ public class UserDTO extends BaseDTO{
 	private String email;
 	
 	private Integer status;
+
+	private String avatar;
+
+	private MultipartFile fileAvatar;
+
+	private String detail;
 	
 	private List<UserDTO> list ;
 	
@@ -100,5 +108,29 @@ public class UserDTO extends BaseDTO{
 
 	public void setShopId(Long shopId) {
 		this.shopId = shopId;
+	}
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
+	public MultipartFile getFileAvatar() {
+		return fileAvatar;
+	}
+
+	public void setFileAvatar(MultipartFile fileAvatar) {
+		this.fileAvatar = fileAvatar;
+	}
+
+	public String getDetail() {
+		return detail;
+	}
+
+	public void setDetail(String detail) {
+		this.detail = detail;
 	}
 }

@@ -30,6 +30,18 @@
                   <input type="text" id = "name"  class="form-control form-control-lg" name="name" placeholder="Shop name"/>
 
                 </div>
+
+                <div class="form-outline mb-4">
+                  <label class="form-label fs-3" for="name">Phone Number</label>
+                  <input type="number" id = "phoneNumber"  class="form-control form-control-lg" name="phoneNumber" placeholder="Phone Number"/>
+
+                </div>
+
+                <div class="form-outline mb-4">
+                  <label class="form-label fs-3" for="name">Shop Email</label>
+                  <input type="email" id = "email"  class="form-control form-control-lg" name="email" placeholder="Shop Email"/>
+
+                </div>
                 
                  <div class="form-outline mb-4">
                    <label class="form-label fs-3" for="thumbnail">Shop's Thumbnail</label>

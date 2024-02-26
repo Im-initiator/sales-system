@@ -42,6 +42,13 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/web/**"/>
+			<bean id="loggerInterceptor" class="com.leminhtien.controller.MyInterceptorHandle"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
+
 	<!--Cho phép upload file-->
 	<bean id="multipartResolver"
 		  class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>

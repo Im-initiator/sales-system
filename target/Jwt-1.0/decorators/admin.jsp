@@ -24,7 +24,7 @@
 
   <!-- endinject -->
   <!-- Plugin css for this page -->
-  <link rel="stylesheet" href="<c:url value='/template/admin/js/select.dataTables.min.css'/>">
+  <link rel="stylesheet" href="<c:url value='/template/admin/js/select.dataTables.min.js'/>">
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <link rel="stylesheet" href="<c:url value='/template/admin/css/vertical-layout-light/style.css'/>">

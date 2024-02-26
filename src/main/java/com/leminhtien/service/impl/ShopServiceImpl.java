@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.ServletContext;
 import javax.transaction.Transactional;
 import javax.transaction.TransactionalException;
+import java.io.EOFException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +35,7 @@ public class ShopServiceImpl implements IShopService {
     private UserRepository userRepository;
 
     @Autowired
-    ServletContext servletContext;
+    private ServletContext servletContext;
 
     @Autowired
     private RoleRespository roleRespository;
@@ -161,21 +162,26 @@ public class ShopServiceImpl implements IShopService {
 
     @Override
     @Transactional
-    public ShopDTO update(ShopDTO shopDTO) {
-        try {
-            ShopEntity shopOld = shopRepository.findOne(shopDTO.getId());
-            ShopEntity shopUpdate = mapper.map(shopDTO,ShopEntity.class);
-            if(shopDTO.getImgThumbnail().getSize()!=0){
-                FileUtils.deleteFile(shopOld.getThumbnail(),servletContext);
-                String path = FileUtils.saveImage(shopDTO.getImgThumbnail(),servletContext);
-                shopUpdate.setThumbnail(path);
-            }else {
-                shopUpdate.setThumbnail(shopOld.getThumbnail());
+    public ShopDTO update(ShopDTO shopDTO) throws Exception {
+            Long userId = SecurityUtils.getPrincipal().getId();
+            ShopEntity shop = shopRepository.findOneByUserId(userId);
+            shop.setEmail(shopDTO.getEmail());
+            shop.setName(shopDTO.getName());
+            shop.setPhoneNumber(shopDTO.getPhoneNumber());
+            shop.setShortDescription(shopDTO.getShortDescription());
+            shop.setAddress(shopDTO.getAddress());
+            String path = shop.getThumbnail();
+            if (shopDTO.getImgThumbnail().getSize()!=0){
+                String newPath = FileUtils.saveImage(shopDTO.getImgThumbnail(),servletContext);
+                shop.setThumbnail(newPath);
+                FileUtils.deleteFile(path,servletContext);
             }
-            return mapper.map(shopRepository.save(shopUpdate),ShopDTO.class);
-        }catch (Exception e){
-            return null;
-        }
+            shop = shopRepository.save(shop);
+            if (shop!=null){
+                return mapper.map(shop,ShopDTO.class);
+            }else {
+                throw new Exception();
+            }
     }
 
     @Override

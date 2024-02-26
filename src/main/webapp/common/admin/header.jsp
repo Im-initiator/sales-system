@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%@include file="/common/taglib.jsp" %>
+
  <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
         <div class="me-3">
@@ -8,20 +9,20 @@
             <span class="icon-menu"></span>
           </button>
         </div>
-        <div>
+        <%--<div>
           <a class="navbar-brand brand-logo" href="index.html">
             <img src="images/logo.svg" alt="logo" />
           </a>
           <a class="navbar-brand brand-logo-mini" href="index.html">
             <img src="images/logo-mini.svg" alt="logo" />
           </a>
-        </div>
+        </div>--%>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-top"> 
         <ul class="navbar-nav">
           <li class="nav-item font-weight-semibold d-none d-lg-block ms-0">
             <h1 class="welcome-text">Good Morning, <span class="text-black fw-bold">${USERMODEL.getName()}</span></h1>
-            <h3 class="welcome-sub-text">Bạn có thể thực hiện quản trị</h3>
+            <h3 class="welcome-sub-text">You can exercise admin rights</h3>
           </li>
         </ul>
         <ul class="navbar-nav ms-auto">
@@ -154,6 +155,10 @@
             </div>
           </li>
           <li class="nav-item dropdown d-none d-lg-block user-dropdown">
+            <a  href="<c:url value='/home'/> "  >
+              Web </a>
+          </li>
+          <li class="ms-3 nav-item dropdown d-none d-lg-block user-dropdown">
             <a  href="<c:url value='/logout'/> "  >
               Logout </a>
           </li>

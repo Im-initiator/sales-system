@@ -5,6 +5,8 @@
 		<pattern>/api*</pattern>
 		<pattern>/access-denied</pattern>
 		<pattern>/web/cart</pattern>
+
+
 	</excludes>
 
 	<decorator name="web" page="web.jsp">
@@ -25,6 +27,7 @@
 
 	<decorator name="common" page="fileCommon.jsp">
 		<pattern>/web/shop/register</pattern>
+		<pattern>/web/profile</pattern>
 	</decorator>
 
 	<decorator name="register" page="register.jsp">

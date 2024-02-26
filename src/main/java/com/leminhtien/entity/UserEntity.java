@@ -23,10 +23,14 @@ public class UserEntity extends BaseEntity {
 	private String email;
 	@Column
 	private Integer status;
+	@Column
+	private String avatar;
 
+	@Column(columnDefinition = "TEXT")
+	private String detail;
 	@Column
 	private Double money;
-	@OneToOne(cascade = CascadeType.REMOVE)
+	@OneToOne(cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
 	@JoinColumn(name = "shop_id",referencedColumnName = "id")
 	private ShopEntity shop;
 
@@ -44,6 +48,25 @@ public class UserEntity extends BaseEntity {
 	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private List<CartEntity> cart;
 
+	public String getDetail() {
+		return detail;
+	}
+
+	public void setDetail(String detail) {
+		this.detail = detail;
+	}
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
+	public void setMoney(Double money) {
+		this.money = money;
+	}
 	public double getMoney() {
 		return money;
 	}
