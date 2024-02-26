@@ -1,6 +1,7 @@
 
 This project is a sales system. 
 It includes the following ingredients:
+
 Technology used:
   - FrontEnd: HTML/CSS/JS, JSP/JSTL, Jquery
   - Backend: Spring framework (Spring Security, Spring JPA)
