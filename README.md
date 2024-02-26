@@ -5,6 +5,7 @@ It includes the following ingredients:
 Technology used:
   - FrontEnd: HTML/CSS/JS, JSP/JSTL, Jquery
   - Backend: Spring framework (Spring Security, Spring JPA)
+
 About roles:
   Administration: Admin,Saler,Shipper,Censor,Manager.
   User: User 
